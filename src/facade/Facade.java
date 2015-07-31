@@ -18,6 +18,11 @@ public class Facade {
 		this.logged = null;
 	}
 	
+	public User getLogged(){
+		return this.logged;
+		
+	}
+	
 	public boolean cadastro (String email, String name, String password, String birthdate, String image, String phone) throws Exception{
 		
 		User user = userFactory.makeUser(email, name, password, birthdate, image, phone);
@@ -27,7 +32,7 @@ public class Facade {
 	
 	public ArrayList<User> getAllUsers(){
 		
-		return allUsers;
+		return this.allUsers;
 	}
 	
 	public boolean login(User user){
@@ -59,13 +64,37 @@ public class Facade {
 		return false;
 	}
 	
-	//este user é o usuario que vai receber o post.
-	
-	public void postInMural(User user, String message){
+	public boolean addFriend(User user){
 		
 		if(logged != null){
-			if(logged.getFriends().contains(user)){
-				logged.postInMural(logged, message);
+			logged.addFriend(user);
+			
+			return true;
+		}else{
+			System.out.println("You need to login.");
+			
+			return false;
+		}
+	}
+	
+	public boolean removeFriend(User user){
+		
+		if(logged != null){
+			logged.removeFriend(user);
+			
+			return true;
+		}else{
+			System.out.println("You need to login.");
+			
+			return false;
+		}
+	}
+	
+	public void postInMural(User userReceive, String message){
+		
+		if(logged != null){
+			if(logged.getFriends().contains(userReceive)){
+				logged.postInMural(logged, userReceive, message);
 				
 			}else{
 				System.out.println("You need be friend to use this action.");

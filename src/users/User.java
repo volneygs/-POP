@@ -49,6 +49,10 @@ public class User {
 		this.makePost = new PostFactory();
 	}
 	
+	public ArrayList<Post> getMural(){
+		return this.mural;
+	}
+	
 	public ArrayList<User> getFriends(){
 		return this.friends;
 	}
@@ -63,16 +67,20 @@ public class User {
 	}
 	
 	public boolean removeFriend(User user){
-		return this.friends.remove(user);
+		if(this.friends.contains(user)){
+			return this.friends.remove(user);
+		}else{
+			return false;
+		}
 	}
 	
 	//este user é o usuario que irá fazer o post.
 	
-	public boolean postInMural(User user, String message){
+	public boolean postInMural(User userSend, User userReceive, String message){
 		
-		Post post = makePost.makePost(user, message);
+		Post post = makePost.makePost(userSend, message);
 		
-		return user.mural.add(post);
+		return userReceive.mural.add(post);
 		
 	}
 
