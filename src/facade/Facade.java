@@ -58,5 +58,23 @@ public class Facade {
 		
 		return false;
 	}
+	
+	//este user é o usuario que vai receber o post.
+	
+	public void postInMural(User user, String message){
+		
+		if(logged != null){
+			if(logged.getFriends().contains(user)){
+				logged.postInMural(logged, message);
+				
+			}else{
+				System.out.println("You need be friend to use this action.");
+			}
+		}else{
+			System.out.println("You need to login to use this action.");
+			
+		}
+		
+	}
 
 }

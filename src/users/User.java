@@ -49,18 +49,24 @@ public class User {
 		this.makePost = new PostFactory();
 	}
 	
+	public ArrayList<User> getFriends(){
+		return this.friends;
+	}
+	
 	public String getName(){
 		
 		return this.name;
 	}
 	
 	public boolean addFriend(User user){
-		return friends.add(user);
+		return this.friends.add(user);
 	}
 	
 	public boolean removeFriend(User user){
-		return friends.remove(user);
+		return this.friends.remove(user);
 	}
+	
+	//este user é o usuario que irá fazer o post.
 	
 	public boolean postInMural(User user, String message){
 		

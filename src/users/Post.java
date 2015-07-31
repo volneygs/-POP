@@ -24,7 +24,13 @@ public class Post {
 	}
 	
 	public String getNamePost(){
+		
 		return user.getName();
+	}
+	
+	public String visualizePost(){
+		
+		return user.getName() + ": " + this.message;
 	}
 	
 	
