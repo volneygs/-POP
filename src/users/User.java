@@ -2,6 +2,8 @@ package users;
 
 import java.util.ArrayList;
 
+import factory.PostFactory;
+
 public class User {
 	
 	private String email;
@@ -9,12 +11,14 @@ public class User {
 	private String password;
 	private String birthdate;
 	private String image;
-	private int phone;
-	private int pop;
-	private ArrayList<Mural> mural;
+	private String phone;
+	private String pop;
+	private ArrayList<Post> mural;
+	private ArrayList<User> friends;
+	private PostFactory makePost;
 	
 	
-	public User(String email, String name, String password, String birthdate, String image, int phone) throws Exception{
+	public User(String email, String name, String password, String birthdate, String image, String phone) throws Exception{
 		
 		
 		if(email.equals("")){
@@ -29,7 +33,7 @@ public class User {
 		}else if(birthdate.equals("")){
 			throw new Exception("Invalid birthdate.");
 			
-		}else if(phone <= 99999999 && phone > 1000000000){
+		}else if(phone.length() <= 8 || phone.length() > 9){
 			throw new Exception("Invalid phone.");
 		}
 
@@ -40,7 +44,30 @@ public class User {
 		this.birthdate = birthdate;
 		this.image = image;
 		this.phone = phone;
-		this.mural = new ArrayList<Mural>();
+		this.mural = new ArrayList<Post>();
+		this.friends = new ArrayList<User>();
+		this.makePost = new PostFactory();
+	}
+	
+	public String getName(){
+		
+		return this.name;
+	}
+	
+	public boolean addFriend(User user){
+		return friends.add(user);
+	}
+	
+	public boolean removeFriend(User user){
+		return friends.remove(user);
+	}
+	
+	public boolean postInMural(User user, String message){
+		
+		Post post = makePost.makePost(user, message);
+		
+		return user.mural.add(post);
+		
 	}
 
 }

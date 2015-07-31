@@ -4,11 +4,13 @@ public class Post {
 	
 	private String message;
 	private int likeCounter;
+	private User user;
 	
-	public Post(String message){
+	public Post(User user, String message){
 		
 		this.message = message;
 		this.likeCounter = 0;
+		this.user = user;
 	}
 	
 	public String getMessage(){
@@ -19,6 +21,10 @@ public class Post {
 	public int getLikeCounter(){
 		
 		return likeCounter;
+	}
+	
+	public String getNamePost(){
+		return user.getName();
 	}
 	
 	
