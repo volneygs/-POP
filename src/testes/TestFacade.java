@@ -39,7 +39,7 @@ public class TestFacade {
 	}
 	
 	@Test
-	public void testAddRemoveAndPost(){
+	public void testAddRemoveFriendAndPost(){
 		
 		facade.login(volney);
 		

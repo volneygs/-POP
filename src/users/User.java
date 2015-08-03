@@ -74,8 +74,9 @@ public class User {
 		}
 	}
 	
-	//este user é o usuario que irá fazer o post.
-	
+	/*userSend = usuario que vai enviar a mensagem, o nome dele deve ser passado para identificacao do post
+	*userReceive = usuario que vai receber a mensagem.
+	*/
 	public boolean postInMural(User userSend, User userReceive, String message){
 		
 		Post post = makePost.makePost(userSend, message);
