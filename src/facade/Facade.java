@@ -15,8 +15,7 @@ public class Facade {
 		
 		this.allUsers = new ArrayList<User>();
 		this.userFactory = new UserFactory();
-		//serve para verificar se o usuario esta logado ou nao.
-		this.logged = null;
+		this.logged = null; // checks if there's a user logged in.
 	}
 	
 	public User getLogged(){
@@ -37,7 +36,7 @@ public class Facade {
 	}
 	
 	public boolean login(User user){
-		//verifica e o usuario esta logado.
+		
 		if(this.logged == null){
 			logged = user;
 			
@@ -58,7 +57,7 @@ public class Facade {
 			
 			return true;
 		}else if(this.logged == null){
-			System.out.println("You already dislogged.");
+			System.out.println("You're already logged off.");
 			
 			return false;
 		}
@@ -73,7 +72,7 @@ public class Facade {
 			
 			return true;
 		}else{
-			System.out.println("You need to login.");
+			System.out.println("You need to login before use this feature.");
 			
 			return false;
 		}
@@ -87,29 +86,29 @@ public class Facade {
 				
 				return true;
 			}else{
-				System.out.println("You haven't a friend with this expecification.");
+				System.out.println("You and this person aren't friends.");
 				
 				return false;
 			}
 		}else{
-			System.out.println("You need to login.");
+			System.out.println("You need to login before use this feature.");
 			
 			return false;
 		}
 	}
 	
 	public void postInMural(User userReceive, String message){
-		//verifica se usuario esta logado
+		
 		if(this.logged != null){
-			//verifica se o usuario que ira receber o post e amigo.
+
 			if(this.logged.getFriends().contains(userReceive)){
 				this.logged.postInMural(this.logged, userReceive, message);
 				
 			}else{
-				System.out.println("You need be friend to use this action.");
+				System.out.println("You need to be friend of this person before use this feature.");
 			}
 		}else{
-			System.out.println("You need to login to use this action.");
+			System.out.println("You need to login before use this feature.");
 			
 		}
 		
