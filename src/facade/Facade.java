@@ -3,9 +3,16 @@ package facade;
 import java.util.ArrayList;
 
 import users.User;
+import easyaccept.EasyAccept;
 import factory.UserFactory;
 
 public class Facade {
+	
+	public static void main(String[] args) {
+	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt"};
+	    EasyAccept.main(args);
+	}
+
 	
 	private ArrayList<User> allUsers;
 	private UserFactory userFactory;
@@ -23,9 +30,9 @@ public class Facade {
 		
 	}
 	
-	public boolean cadastro (String email, String name, String password, String birthdate, String image, String phone) throws Exception{
+	public boolean register (String email, String name, String password, String birthdate, String image) throws Exception{
 		
-		User user = userFactory.makeUser(email, name, password, birthdate, image, phone);
+		User user = userFactory.makeUser(email, name, password, birthdate, image);
 		
 		return allUsers.add(user);
 	}

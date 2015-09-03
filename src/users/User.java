@@ -11,14 +11,13 @@ public class User {
 	private String password;
 	private String birthdate;
 	private String image;
-	private String phone;
 	private String pop;
 	private ArrayList<Post> mural;
 	private ArrayList<User> friends;
 	private PostFactory makePost;
 	
 	
-	public User(String email, String name, String password, String birthdate, String image, String phone) throws Exception{
+	public User(String email, String name, String password, String birthdate, String image) throws Exception{
 		
 		
 		if(email.equals("")){
@@ -33,8 +32,6 @@ public class User {
 		}else if(birthdate.equals("")){
 			throw new Exception("Invalid birthdate.");
 			
-		}else if(phone.length() <= 8 || phone.length() > 9){
-			throw new Exception("Invalid phone.");
 		}
 
 		
@@ -43,7 +40,6 @@ public class User {
 		this.password = password;
 		this.birthdate = birthdate;
 		this.image = image;
-		this.phone = phone;
 		this.mural = new ArrayList<Post>();
 		this.friends = new ArrayList<User>();
 		this.makePost = new PostFactory();
@@ -74,9 +70,6 @@ public class User {
 		}
 	}
 	
-	/*userSend = usuario que vai enviar a mensagem, o nome dele deve ser passado para identificacao do post
-	*userReceive = usuario que vai receber a mensagem.
-	*/
 	public boolean postInMural(User userSend, User userReceive, String message){
 		
 		Post post = makePost.makePost(userSend, message);

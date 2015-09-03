@@ -18,15 +18,15 @@ public class TestFacade {
 		
 		facade = new Facade();
 		
-		volney = new User("volneygsilva@gmail.com", "volney", "asdf123", "01/12/1993", "eu", "988102876");
-		william = new User("williamberg@gmail.com", "william", "123asdf", "01/12/1993", "eu", "999999999");
+		volney = new User("volneygsilva@gmail.com", "volney", "vaicorinthians", "01/12/1993", "volney.png");
+		william = new User("williamferreiragt@gmail.com", "william", "kamehameha123", "06/04/1995", "william.png");
 		
 		
 	}
 	
 	@Test
 	
-	public void testLoginLogout(){
+	public void testLogout(){
 		
 		Assert.assertEquals(null, facade.getLogged());
 		

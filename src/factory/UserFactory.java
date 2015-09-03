@@ -8,11 +8,11 @@ public class UserFactory {
 		
 	}
 	
-	public User makeUser(String email, String name, String password, String birthdate, String image, String phone) throws Exception{
+	public User makeUser(String email, String name, String password, String birthdate, String image) throws Exception{
 		
 		User user;
 		
-		user = new User(email, name, password, birthdate, image, phone);
+		user = new User(email, name, password, birthdate, image);
 		
 		return user;	
 	}
