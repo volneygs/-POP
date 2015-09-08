@@ -12,8 +12,8 @@ id1=register name="Fatima Bernardes" email="fatima@email.com.br" password="will_
 id2=register name="Madonna" email="madonna@email.com" password="iamawesome" birthdate="16/08/1958" image="resources/madonna.jpg"
 id3=register name="Jo Soares" email="jo@uol.com.br" password="!soares!" birthdate="16/01/1938" 
 
-#expectError "Error: Username field can't be empty." register name="" email="alguem@email.com.br" password="senha_besta" birthdate="10/10/2010"
-#expectError "Error: Username field can't be empty."  register name="  " email="alguem@email.com.br" password="senha_besta" birthdate="10/10/2010"
+expectError "Error: Username field can't be empty." register name="" email="alguem@email.com.br" password="senha_besta" birthdate="10/10/2010"
+expectError "Error: Username field can't be empty."  register name="  " email="alguem@email.com.br" password="senha_besta" birthdate="10/10/2010"
 #expectError "Error: Invalid email."  register name="Fulaninho" email="alguem@email" password="password_besta" birthdate="10/10/2010"
 #expectError "Error: Invalid date format."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="1510/10/2010"
 #expectError "Error: Date doesn't exist."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="32/10/2010"

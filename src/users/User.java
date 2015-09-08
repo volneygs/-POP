@@ -15,16 +15,43 @@ public class User {
 	private ArrayList<Post> mural;
 	private ArrayList<User> friends;
 	private PostFactory makePost;
-	
-	
-	public User(String email, String name, String password, String birthdate, String image) throws Exception{
+
+	public User(String name, String email, String password, String birthdate) throws Exception{
 		
 		
-		if(email.equals("")){
+		if(name.equals("")){
+			throw new Exception("Error: Username field can't be empty.");
+			
+		}else if(email.equals("")){				
 			throw new Exception("Invalid email.");
 			
-		}else if(name.equals("")){				
-			throw new Exception("Invalid name.");
+		}else if(password.equals("")){
+			throw new Exception("Invalid password.");
+			
+		}else if(birthdate.equals("")){
+			throw new Exception("Invalid birthdate.");
+			
+		}
+
+		
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.birthdate = birthdate;
+		this.image = "default_image.png";
+		this.mural = new ArrayList<Post>();
+		this.friends = new ArrayList<User>();
+		this.makePost = new PostFactory();
+	}
+	
+	public User(String name, String email, String password, String birthdate, String image) throws Exception{
+		
+		
+		if(name.equals("")){
+			throw new Exception("Error: Username field can't be empty.");
+			
+		}else if(email.equals("")){				
+			throw new Exception("Invalid email.");
 			
 		}else if(password.equals("")){
 			throw new Exception("Invalid password.");
