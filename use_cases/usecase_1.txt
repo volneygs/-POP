@@ -15,25 +15,25 @@ id3=register name="Jo Soares" email="jo@uol.com.br" password="!soares!" birthdat
 expectError "Error: Username field can't be empty." register name="" email="alguem@email.com.br" password="senha_besta" birthdate="10/10/2010"
 expectError "Error: Username field can't be empty."  register name="  " email="alguem@email.com.br" password="senha_besta" birthdate="10/10/2010"
 expectError "Error: Invalid email."  register name="Fulaninho" email="alguem@email" password="password_besta" birthdate="10/10/2010"
-#expectError "Error: Invalid date format."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="1510/10/2010"
-#expectError "Error: Date doesn't exist."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="32/10/2010"
+expectError "Error: Invalid date format."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="1510/10/2010"
+expectError "Error: Date doesn't exist."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="32/10/2010"
 
 #expect "Fatima Bernardes" getUserInfo field="name" user=${id1}
-#expect "1962-09-17" Error: Invalid email. field="Birthdate" user=${id1}
-#expectError "The user's password is protected." Error: Invalid email. field="password" user=${id1}
-#expect "resources/fatima.jpg" Error: Invalid email. field="Picture" user=${id1}
+#expect "1962-09-17" getUserInfo field="Birthdate" user=${id1}
+#expectError "The user's password is protected." getUserInfo. field="password" user=${id1}
+#expect "resources/fatima.jpg" GetUserInfo field="Picture" user=${id1}
 
-#expect "Madonna" Error: Invalid email. field="name"  user=${id2}
-#expect "1958-08-16" Error: Invalid email. field="Birthdate" user=${id2}
-#expectError "The user's password is protected." Error: Invalid email. field="password" user=${id2}
-#expect "resources/madonna.jpg" Error: Invalid email. field="Picture" user=${id2}
+#expect "Madonna" getUserInfo field="name"  user=${id2}
+#expect "1958-08-16" getUserInfo field="Birthdate" user=${id2}
+#expectError "The user's password is protected." getUserInfo field="password" user=${id2}
+#expect "resources/madonna.jpg" getUserInfo field="Picture" user=${id2}
 
-#expect "Jo Soares" Error: Invalid email. field="name"  user=${id3}
-#expect "1938-01-16" Error: Invalid email. field="Birthdate" user=${id3}
-#expectError "The user's password is protected." Error: Invalid email. field="password" user=${id3}
-#expect "resources/default.jpg" Error: Invalid email. field="Picture" user=${id3}
+#expect "Jo Soares" getUserInfo field="name"  user=${id3}
+#expect "1938-01-16" getUserInfo field="Birthdate" user=${id3}
+#expectError "The user's password is protected." getUserInfo field="password" user=${id3}
+#expect "resources/default.jpg" getUserInfo field="Picture" user=${id3}
 
-#expectError "There's no registered user with this email adress (alguem@email.com)." Error: Invalid email. field="name"  user="alguem@email.com"
+#expectError "There's no registered user with this email adress (alguem@email.com)." getUserInfo field="name"  user="alguem@email.com"
 
 ############################################################################
 #                              USER'S LOGIN                                #
@@ -43,16 +43,16 @@ expectError "Error: Invalid email."  register name="Fulaninho" email="alguem@ema
 ############################################################################
 
 #login email="fatima@email.com.br" password="will_S2"
-#expect "Fatima Bernardes" Error: Invalid email. field="name"
-#expect "resources/fatima.jpg" Error: Invalid email. field="Picture"
-#expectError "The user's password is protected." Error: Invalid email. field="password"
+#expect "Fatima Bernardes" getUserInfo field="name"
+#expect "resources/fatima.jpg" getUserInfo field="Picture"
+#expectError "The user's password is protected." getUserInfo field="password"
 
 #expectError "Failed to login. Another user is already logged: Fatima Bernardes." login email="madonna@email.com" password="iamawesome"
 #logout
 #expectError "Failed to logout. There's no user logged on +Pop at this moment." logout
 
 #login email="madonna@email.com" password="iamawesome"
-#expect "Madonna" Error: Invalid email. field="name"
+#expect "Madonna" getUserInfo field="name"
 #logout
 
 #expectError "Failed to login. There's no registered user with this email adress (gal_costa@email.com.br)." login email="gal_costa@email.com.br" password="vaca_profana"
