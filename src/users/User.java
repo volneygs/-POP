@@ -3,6 +3,7 @@ package users;
 import java.util.ArrayList;
 
 import factory.PostFactory;
+import java.time.*;
 
 public class User {
 	
@@ -19,11 +20,11 @@ public class User {
 	public User(String name, String email, String password, String birthdate) throws Exception{
 		
 		
-		if(name.equals("")){
+		if(name.equals("") || name.trim().equals("")){
 			throw new Exception("Error: Username field can't be empty.");
 			
-		}else if(email.equals("")){				
-			throw new Exception("Invalid email.");
+		}else if(email.equals("") || email.contains("@") == false || email.contains(".com") == false){				
+			throw new Exception("Error: Invalid email.");
 			
 		}else if(password.equals("")){
 			throw new Exception("Invalid password.");
