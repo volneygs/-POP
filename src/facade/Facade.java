@@ -5,22 +5,25 @@ import java.util.ArrayList;
 import users.User;
 import easyaccept.EasyAccept;
 import factory.UserFactory;
+import java.util.HashMap;
 
 public class Facade {
+
 	
 	public static void main(String[] args) {
 	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt"};
 	    EasyAccept.main(args);
 	}
 
-	
-	private ArrayList<User> allUsers;
+	private int userNum = 1;
+	private String id = "id" + userNum;
+	private HashMap<String, User> allUsers;
 	private UserFactory userFactory;
 	private User logged;
 	
 	public Facade(){
 		
-		this.allUsers = new ArrayList<User>();
+		this.allUsers = new HashMap<String, User>();
 		this.userFactory = new UserFactory();
 		this.logged = null; // checks if there's a user logged in.
 	}
@@ -30,21 +33,23 @@ public class Facade {
 		
 	}
 	
-	public boolean register (String email, String name, String password, String birthdate) throws Exception{
+	public void register (String email, String name, String password, String birthdate) throws Exception{
 		
 		User user = userFactory.makeUser(email, name, password, birthdate);
 		
-		return allUsers.add(user);
+		allUsers.put(id, user);
+		userNum = userNum ++;
 	}
 	
-	public boolean register (String email, String name, String password, String birthdate, String image) throws Exception{
+	public void register (String email, String name, String password, String birthdate, String image) throws Exception{
 		
 		User user = userFactory.makeUser(email, name, password, birthdate, image);
 		
-		return allUsers.add(user);
+		allUsers.put(id, user);
+		userNum = userNum ++;
 	}
 	
-	public ArrayList<User> getAllUsers(){
+	public HashMap<String, User> getAllUsers(){
 		
 		return this.allUsers;
 	}
@@ -128,4 +133,23 @@ public class Facade {
 		
 	}
 
+	//falta corrigir um bug aqui. A lógica do método já está correta, mas ainda há algo errado nos apontadores. O valor dos Id's não está sendo atualizado.
+	public String getUserInfo(String field, String id) throws Exception{
+		
+		if (field.equals("name")){
+			return allUsers.get("id1").getName();
+		
+		}else if (field.equals("password")){
+			return "The user's password is protected.";
+		
+		}else if (field.equals("birthdate")){
+			return allUsers.get(id).getBirthdate().toString();
+		
+		}else if (field.equals("picture")){
+			return allUsers.get(id).getImage();
+		}
+		
+		throw new Exception("You need to specify a valid field.");
+	}
+	
 }

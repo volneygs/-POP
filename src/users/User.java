@@ -98,20 +98,7 @@ public class User {
 		this.friends = new ArrayList<User>();
 		this.makePost = new PostFactory();
 	}
-	
-	public ArrayList<Post> getMural(){
-		return this.mural;
-	}
-	
-	public ArrayList<User> getFriends(){
-		return this.friends;
-	}
-	
-	public String getName(){
-		
-		return this.name;
-	}
-	
+
 	public boolean addFriend(User user){
 		return this.friends.add(user);
 	}
@@ -130,6 +117,30 @@ public class User {
 		
 		return userReceive.mural.add(post);
 		
+	}
+	
+	public ArrayList<Post> getMural(){
+		return this.mural;
+	}
+	
+	public ArrayList<User> getFriends(){
+		return this.friends;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+
+	public String getPassword() {
+		return "User's password is protected.";
+	}
+
+	public LocalDate getBirthdate() {
+		return this.birthdate;
+	}
+
+	public String getImage() {
+		return this.image;
 	}
 
 }

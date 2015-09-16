@@ -18,20 +18,20 @@ expectError "Error: Invalid email."  register name="Fulaninho" email="alguem@ema
 expectError "Error: Invalid date format."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="1510/10/2010"
 expectError "Error: Date doesn't exist."  register name="Fulaninho" email="alguem@email.com" password="password_besta" birthdate="32/10/2010"
 
-#expect "Fatima Bernardes" getUserInfo field="name" user=${id1}
-#expect "1962-09-17" getUserInfo field="Birthdate" user=${id1}
+expect "Fatima Bernardes" getUserInfo field="name" user=${id1}
+#expect "1962-09-17" getUserInfo field="birthdate" user=${id1}
 #expectError "The user's password is protected." getUserInfo. field="password" user=${id1}
-#expect "resources/fatima.jpg" GetUserInfo field="Picture" user=${id1}
+#expect "resources/fatima.jpg" GetUserInfo field="picture" user=${id1}
 
 #expect "Madonna" getUserInfo field="name"  user=${id2}
-#expect "1958-08-16" getUserInfo field="Birthdate" user=${id2}
+#expect "1958-08-16" getUserInfo field="birthdate" user=${id2}
 #expectError "The user's password is protected." getUserInfo field="password" user=${id2}
-#expect "resources/madonna.jpg" getUserInfo field="Picture" user=${id2}
+#expect "resources/madonna.jpg" getUserInfo field="picture" user=${id2}
 
 #expect "Jo Soares" getUserInfo field="name"  user=${id3}
-#expect "1938-01-16" getUserInfo field="Birthdate" user=${id3}
+#expect "1938-01-16" getUserInfo field="birthdate" user=${id3}
 #expectError "The user's password is protected." getUserInfo field="password" user=${id3}
-#expect "resources/default.jpg" getUserInfo field="Picture" user=${id3}
+#expect "resources/default.jpg" getUserInfo field="picture" user=${id3}
 
 #expectError "There's no registered user with this email adress (alguem@email.com)." getUserInfo field="name"  user="alguem@email.com"
 
