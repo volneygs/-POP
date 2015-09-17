@@ -138,20 +138,48 @@ public class Facade {
 
 	public String getUserInfo(String field, String id) throws Exception{
 		
-		if (field.equals("name")){
-			return allUsers.get(id).getName();
+		if (id.contains("id") && id.contains("@") == false){
 
-		}else if (field.equals("password")){
-			throw new Exception("The user's password is protected.");
+			if (field.equals("name")){
+				return allUsers.get(id).getName();
+
+			}else if (field.equals("password")){
+				throw new Exception("The user's password is protected.");
 		
-		}else if (field.equals("birthdate")){
-			return allUsers.get(id).getBirthdate().toString();
+			}else if (field.equals("birthdate")){
+				return allUsers.get(id).getBirthdate().toString();
 		
-		}else if (field.equals("picture")){
-			return allUsers.get(id).getImage();
+			}else if (field.equals("picture")){
+				return allUsers.get(id).getImage();
+			}
+		
+		}else if (id.contains("@")){
+			if (field.equals("name") && allUsers.containsValue(id)){
+				return allUsers.get(id).getName();
+				
+			}else{
+				throw new Exception("There's no registered user with this email adress (" + id + ").");
+			}
 		}
 		
 		throw new Exception("You need to specify a valid field.");
 	}
 	
+public String getUserInfo(String field) throws Exception{
+
+		if (field.equals("name")){
+			return this.logged.getName();
+
+		}else if (field.equals("password")){
+			throw new Exception("The user's password is protected.");
+		
+		}else if (field.equals("birthdate")){
+			return this.logged.getBirthdate().toString();
+		
+		}else if (field.equals("picture")){
+			return this.logged.getImage();
+		}
+	throw new Exception("You need to specify a valid field.");
+	}
+
 }

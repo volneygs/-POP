@@ -33,7 +33,7 @@ expect "1938-01-16" getUserInfo field="birthdate" user=${id3}
 expectError "The user's password is protected." getUserInfo field="password" user=${id3}
 expect "resources/default.jpg" getUserInfo field="picture" user=${id3}
 
-#expectError "There's no registered user with this email adress (alguem@email.com)." getUserInfo field="name"  user="alguem@email.com"
+expectError "There's no registered user with this email adress (alguem@email.com)." getUserInfo field="name"  user="alguem@email.com"
 
 ############################################################################
 #                              USER'S LOGIN                                #
@@ -42,8 +42,8 @@ expect "resources/default.jpg" getUserInfo field="picture" user=${id3}
 # In this case, he returns the informations of the logged user.            #
 ############################################################################
 
-#login email="fatima@email.com.br" password="will_S2"
-#expect "Fatima Bernardes" getUserInfo field="name"
+login email="fatima@email.com.br" password="will_S2"
+expect "Fatima Bernardes" getUserInfo field="name"
 #expect "resources/fatima.jpg" getUserInfo field="Picture"
 #expectError "The user's password is protected." getUserInfo field="password"
 
