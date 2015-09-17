@@ -53,7 +53,7 @@ public class User {
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.image = "default_image.png";
+		this.image = "resources/default.jpg";
 		this.mural = new ArrayList<Post>();
 		this.friends = new ArrayList<User>();
 		this.makePost = new PostFactory();

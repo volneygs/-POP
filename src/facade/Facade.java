@@ -16,7 +16,6 @@ public class Facade {
 	}
 
 	private int userNum = 1;
-	private String id = "id" + userNum;
 	private HashMap<String, User> allUsers;
 	private UserFactory userFactory;
 	private User logged;
@@ -33,20 +32,24 @@ public class Facade {
 		
 	}
 	
-	public void register (String email, String name, String password, String birthdate) throws Exception{
+	public String register (String email, String name, String password, String birthdate) throws Exception{
 		
+		String id = "id" + userNum;
 		User user = userFactory.makeUser(email, name, password, birthdate);
-		
 		allUsers.put(id, user);
-		userNum = userNum ++;
+		userNum = userNum + 1;
+
+		return id;
 	}
 	
-	public void register (String email, String name, String password, String birthdate, String image) throws Exception{
+	public String register (String email, String name, String password, String birthdate, String image) throws Exception{
 		
+		String id = "id" + userNum;
 		User user = userFactory.makeUser(email, name, password, birthdate, image);
-		
 		allUsers.put(id, user);
-		userNum = userNum ++;
+		userNum = userNum + 1;
+
+		return id;
 	}
 	
 	public HashMap<String, User> getAllUsers(){
@@ -133,14 +136,13 @@ public class Facade {
 		
 	}
 
-	//falta corrigir um bug aqui. A lógica do método já está correta, mas ainda há algo errado nos apontadores. O valor dos Id's não está sendo atualizado.
 	public String getUserInfo(String field, String id) throws Exception{
 		
 		if (field.equals("name")){
-			return allUsers.get("id1").getName();
-		
+			return allUsers.get(id).getName();
+
 		}else if (field.equals("password")){
-			return "The user's password is protected.";
+			throw new Exception("The user's password is protected.");
 		
 		}else if (field.equals("birthdate")){
 			return allUsers.get(id).getBirthdate().toString();
