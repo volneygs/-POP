@@ -130,9 +130,13 @@ public class User {
 	public String getName() {
 		return this.name;
 	}
+	
+	public String getEmail() {
+		return this.email;
+	}
 
 	public String getPassword() {
-		return "User's password is protected.";
+		return this.password;
 	}
 
 	public LocalDate getBirthdate() {

@@ -16,6 +16,7 @@ public class Facade {
 	}
 
 	private int userNum = 1;
+	private int loginScanner = 1;
 	private HashMap<String, User> allUsers;
 	private UserFactory userFactory;
 	private User logged;
@@ -56,8 +57,29 @@ public class Facade {
 		
 		return this.allUsers;
 	}
+	//ainda eh um esboço do que irá ser o método de login. soh estou testando os casos de uso. ainda analisando a melhor forma de fazer.
+	public void login(String email, String password) throws Exception{
+		
+		String id = "id" + loginScanner;
+		
+		if(this.logged == null){
+
+			if(allUsers.get(id).getEmail().equals(email)){
+				//System.out.println("pinga ni mim");
+				
+				if(password.equals(allUsers.get(id).getPassword())){
+					
+					this.logged = allUsers.get(email);
+					
+				} else { throw new Exception("Failed to login. Invalid password."); }
+			
+			} else { throw new Exception("Failed to login. There's no registered user with this email adress (" + email + ")."); }
+			
+		}
 	
-	public boolean login(User user){
+	}
+	
+	/*public boolean login(User user){
 		
 		if(this.logged == null){
 			logged = user;
@@ -71,7 +93,7 @@ public class Facade {
 		}
 		
 		return false;
-	}
+	}*/
 	
 	public boolean logout(){
 		if(this.logged != null){
@@ -164,9 +186,9 @@ public class Facade {
 		
 		throw new Exception("You need to specify a valid field.");
 	}
-	
+//metodo errado. vou corrigir isso na segunda-feira!	
 public String getUserInfo(String field) throws Exception{
-
+	
 		if (field.equals("name")){
 			return this.logged.getName();
 
