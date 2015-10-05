@@ -1,0 +1,89 @@
+[33mcommit e9c758890b7a85708f76f1a25dbfe9b359d44dd8[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Fri Sep 18 17:25:21 2015 -0300
+
+    lazy day. Inicio de implementacao e testes no metodo de login. bugs comentados, corrijo segunda.
+
+[33mcommit ebaa22a65c6817753bb7075b385538bff9622b89[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Thu Sep 17 17:05:38 2015 -0300
+
+    getUserInfo com busca por email implementado. Sobrecarga do getUserInfo para utilização de usuário logado.
+
+[33mcommit 7e01e9243c5004c590b7e03f2ee49d1f435d9ad4[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Thu Sep 17 02:07:10 2015 -0300
+
+    getUserInfo concluído. NullPointerException corrigido.
+
+[33mcommit 14c5a0e5adc871a11bba50622df93e6a343c1a5f[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Wed Sep 16 19:53:26 2015 -0300
+
+    Criacao do metodo getUserInfo. Ainda incompleto, falta corrigir problema com o apontador. Alteracao do ArrayList de users para um HashMap.
+
+[33mcommit 83f326974065b45b7e2435701e7f6bd658964713[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Tue Sep 15 16:27:56 2015 -0300
+
+    Implementado conversor de datas, exceptions de datas no cadastro e correções na tradução do script usecase 1.
+
+[33mcommit a1da05edf888db3ca730251c8282a507d7d1d886[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Mon Sep 14 23:13:35 2015 -0300
+
+    Corrigidos Bugs de Cadastro nos campos de name e email.
+
+[33mcommit 1ca54835b15e471c6d524e0588edd13820bf53ad[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Tue Sep 8 17:06:23 2015 -0300
+
+    Overload de User, makeUser e register. Bugs no cadastro sendo corrigidos.
+
+[33mcommit 09fd50568d5a8b5fab0f7432e7ff451580feec5e[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Thu Sep 3 16:42:01 2015 -0300
+
+    Projeto remodelado para o EasyAccept. Scrip usecase_1.txt traduzido para o inglês. Numeros de telefone removidos. Alterações em alguns nomes de métodos para o inglês.
+
+[33mcommit e80ba5558aa06afb3eb16dd540875ac97f1c2c03[m
+Author: WillZork <williamberg.ferreira@ccc.ufcg.edu.br>
+Date:   Tue Sep 1 15:42:10 2015 -0300
+
+    Função de postar mensagens no mural removida para ser refeita.Alguns comentários removidos. Erros ortográficos corrigidos. EasyAccept e os Scripts de casos de uso importados para o projeto.
+
+[33mcommit 5e6bd86de8578ef788d2020aa2b0618284cb99a0[m
+Author: volneygs <volney.silva@ccc.ufcg.edu.br>
+Date:   Mon Aug 3 08:50:45 2015 -0300
+
+    comentarios adicionados
+
+[33mcommit 247b0e948a75480e8c1aa123222d6bdb6e0e23e8[m
+Author: volneygs <volney.silva@ccc.ufcg.edu.br>
+Date:   Fri Jul 31 17:08:56 2015 -0300
+
+    corrigido bug do post, criado testes da facade
+
+[33mcommit 27f48b877b377a632ad65734995f5eb649dbfc5f[m
+Author: volneygs <volney.silva@ccc.ufcg.edu.br>
+Date:   Fri Jul 31 16:23:20 2015 -0300
+
+    correção de bug com o post no mural
+
+[33mcommit 4902d3076cea413cf5fe7687ef14feb832a924fa[m
+Author: volneygs <volney.silva@ccc.ufcg.edu.br>
+Date:   Fri Jul 31 14:46:24 2015 -0300
+
+    add e remove amigos e postar no mural implementado
+
+[33mcommit 4cbedc28701a27ae70a1fa33dc6ca3c766644c52[m
+Author: volneygs <volney.silva@ccc.ufcg.edu.br>
+Date:   Fri Jul 31 13:57:57 2015 -0300
+
+    correção do tratamento de exception e criação do controller
+
+[33mcommit 7599a7bf2511bcce54e1282d06fc4b5e593883ee[m
+Author: volneygs <volney.silva@ccc.ufcg.edu.br>
+Date:   Thu Jul 30 18:31:48 2015 -0300
+
+    Initial commit sign up and athentication implementation
