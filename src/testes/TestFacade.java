@@ -30,7 +30,7 @@ public class TestFacade {
 		
 		Assert.assertEquals(null, facade.getLogged());
 		
-		facade.login(volney);
+		//facade.login(volney);
 		Assert.assertEquals(volney, facade.getLogged());
 		
 		facade.logout();
@@ -41,7 +41,7 @@ public class TestFacade {
 	@Test
 	public void testAddRemoveFriendAndPost(){
 		
-		facade.login(volney);
+		//facade.login(volney);
 		
 		facade.addFriend(william);
 		Assert.assertTrue(facade.getLogged().getFriends().contains(william));

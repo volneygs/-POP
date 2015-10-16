@@ -14,16 +14,14 @@ public class Facade {
 	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt"};
 	    EasyAccept.main(args);
 	}
-
-	private int userNum = 1;
-	private int loginScanner = 1;
-	private HashMap<String, User> allUsers;
+	
+	private ArrayList<User> allUsers;
 	private UserFactory userFactory;
 	private User logged;
 	
 	public Facade(){
 		
-		this.allUsers = new HashMap<String, User>();
+		this.allUsers = new ArrayList< User>();
 		this.userFactory = new UserFactory();
 		this.logged = null; // checks if there's a user logged in.
 	}
@@ -33,38 +31,43 @@ public class Facade {
 		
 	}
 	
-	public String register (String email, String name, String password, String birthdate) throws Exception{
+	public String register (String name, String email, String password, String birthdate) throws Exception{
 		
-		String id = "id" + userNum;
-		User user = userFactory.makeUser(email, name, password, birthdate);
-		allUsers.put(id, user);
-		userNum = userNum + 1;
+		User user = userFactory.makeUser(name, email, password, birthdate);
+		this.allUsers.add(user);
 
-		return id;
+		return email;
 	}
 	
-	public String register (String email, String name, String password, String birthdate, String image) throws Exception{
+	public String register (String name, String email, String password, String birthdate, String image) throws Exception{
 		
-		String id = "id" + userNum;
-		User user = userFactory.makeUser(email, name, password, birthdate, image);
-		allUsers.put(id, user);
-		userNum = userNum + 1;
+		User user = userFactory.makeUser(name, email, password, birthdate, image);
+		this.allUsers.add(user);
 
-		return id;
+		return email;
 	}
 	
-	public HashMap<String, User> getAllUsers(){
+	public ArrayList<User> getAllUsers(){
 		
 		return this.allUsers;
 	}
 	//ainda eh um esboço do que irá ser o método de login. soh estou testando os casos de uso. ainda analisando a melhor forma de fazer.
 	public void login(String email, String password) throws Exception{
-		
-		String id = "id" + loginScanner;
-		
+				
 		if(this.logged == null){
+			
+			for (int i = 0; i < allUsers.size(); i++) {
+				
+				if(allUsers.get(i).getEmail().equals(email)){
+					
+					if(allUsers.get(i).getPassword().equals(password)){
+						
+						this.logged = allUsers.get(i);
+					}
+				}
+			}
 
-			if(allUsers.get(id).getEmail().equals(email)){
+		/*	if(allUsers.get(id).getEmail().equals(email)){
 				//System.out.println("pinga ni mim");
 				
 				if(password.equals(allUsers.get(id).getPassword())){
@@ -74,7 +77,7 @@ public class Facade {
 				} else { throw new Exception("Failed to login. Invalid password."); }
 			
 			} else { throw new Exception("Failed to login. There's no registered user with this email adress (" + email + ")."); }
-			
+		*/	
 		}
 	
 	}
@@ -158,7 +161,7 @@ public class Facade {
 		
 	}
 
-	public String getUserInfo(String field, String id) throws Exception{
+/*	public String getUserInfo(String field, String id) throws Exception{
 		
 		if (id.contains("id") && id.contains("@") == false){
 
@@ -185,23 +188,37 @@ public class Facade {
 		}
 		
 		throw new Exception("You need to specify a valid field.");
-	}
-//metodo errado. vou corrigir isso na segunda-feira!	
-public String getUserInfo(String field) throws Exception{
+	} */
+//metodo errado. vou corrigir isso na segunda-feira!
 	
-		if (field.equals("name")){
-			return this.logged.getName();
+	public String getUserInfo(String field, String id) throws Exception{
+		
+		int sentry = 0;
+		
+		for(User user : allUsers) {
+			
+			sentry = sentry + 1;
+			
+			if(user.getEmail().equals(id)){
+				
+				if(field.equals("name")){
+					return user.getName();
 
-		}else if (field.equals("password")){
-			throw new Exception("The user's password is protected.");
-		
-		}else if (field.equals("birthdate")){
-			return this.logged.getBirthdate().toString();
-		
-		}else if (field.equals("picture")){
-			return this.logged.getImage();
+				}else if (field.equals("password")){
+					throw new Exception("The user's password is protected.");
+					
+				}else if (field.equals("birthdate")){
+					return user.getBirthdate().toString();
+					
+				}else if (field.equals("picture")){
+					return user.getImage();
+				}
+			}else if(sentry == allUsers.size()){
+				throw new Exception("There's no registered user with this email adress ("+ id + ").");
+			}
 		}
-	throw new Exception("You need to specify a valid field.");
+		
+		throw new Exception("You need to specify a valid field.");
 	}
 //teste commit aqui!
 
