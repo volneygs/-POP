@@ -26,23 +26,27 @@ public class Facade {
 		this.logged = null; // checks if there's a user logged in.
 	}
 	
+	public String iniciaSistema(){
+		return "Sistema iniciado";
+	}
+	
 	public User getLogged(){
 		return this.logged;
 		
 	}
 	
-	public String register (String name, String email, String password, String birthdate) throws Exception{
+	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
-		User user = userFactory.makeUser(name, email, password, birthdate);
-		this.allUsers.add(user);
+		User usuario = userFactory.makeUser(nome, email, senha, dataDeNascimento);
+		this.allUsers.add(usuario);
 
 		return email;
 	}
 	
-	public String register (String name, String email, String password, String birthdate, String image) throws Exception{
+	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 		
-		User user = userFactory.makeUser(name, email, password, birthdate, image);
-		this.allUsers.add(user);
+		User usuario = userFactory.makeUser(nome, email, senha, dataDeNascimento, foto);
+		this.allUsers.add(usuario);
 
 		return email;
 	}
@@ -70,14 +74,14 @@ public class Facade {
 						
 						return "Login successeful";
 					}else{
-						throw new Exception("Failed to login. Invalid password.");
+						throw new Exception("Nao foi possivel realizar login. Senha invalida.");
 					}
 				}else if(sentry == allUsers.size()){
-					throw new Exception("Failed to login. There's no registered user with this email adress ("+ email + ").");
+					throw new Exception("Nao foi possivel realizar login. Um usuarix com email "+email+" nao esta cadastradx.");
 				}
 			}
 		}else{
-			throw new Exception("Failed to login. Another user is already logged: " + logged.getName() + ".");
+			throw new Exception("Nao foi possivel realizar login. Um usuarix ja esta logadx: "+logged.getName()+".");
 		}
 		return "login not made";
 	}
@@ -91,7 +95,7 @@ public class Facade {
 			
 		}else{
 			
-			throw new Exception("Failed to logout. There's no user logged on +Pop at this moment.");
+			throw new Exception("Nao eh possivel realizar logout. Nenhum usuarix esta logadx no +pop.");
 		}
 	}
 	
@@ -144,25 +148,25 @@ public class Facade {
 		
 	}
 
-	public String getUserInfo(String field) throws Exception{
+	public String getInfoUsuario(String field) throws Exception{
 		
-		if(field.equals("name")){
+		if(field.equals("Nome")){
 			return logged.getName();
 
-		}else if (field.equals("password")){
-			throw new Exception("The user's password is protected.");
+		}else if (field.equals("Senha")){
+			throw new Exception("A senha dx usuarix eh protegida.");
 			
-		}else if (field.equals("birthdate")){
+		}else if (field.equals("Data de nascimento")){
 			return logged.getBirthdate().toString();
 			
-		}else if (field.equals("picture")){
+		}else if (field.equals("Foto")){
 			return logged.getImage();
 			
 		}else{
 			throw new Exception("You need to specify a valid field.");
 		}
 	}
-	public String getUserInfo(String field, String id) throws Exception{
+	public String getInfoUsuario(String field, String id) throws Exception{
 		
 		int sentry = 0;
 		
@@ -172,27 +176,27 @@ public class Facade {
 			
 			if(user.getEmail().equals(id)){
 				
-				if(field.equals("name")){
+				if(field.equals("Nome")){
 					return user.getName();
 
-				}else if (field.equals("password")){
-					throw new Exception("The user's password is protected.");
+				}else if (field.equals("Senha")){
+					throw new Exception("A senha dx usuarix eh protegida.");
 					
-				}else if (field.equals("birthdate")){
+				}else if (field.equals("Data de Nascimento")){
 					return user.getBirthdate().toString();
 					
-				}else if (field.equals("picture")){
+				}else if (field.equals("Foto")){
 					return user.getImage();
 				}
 			}else if(sentry == allUsers.size()){
-				throw new Exception("There's no registered user with this email adress ("+ id + ").");
+				throw new Exception("Um usuarix com email "+ id +" nao esta cadastradx.");
 			}
 		}
 		
 		throw new Exception("You need to specify a valid field.");
 	}
 	
-	public String removeuser(String id) throws Exception{
+	public String removeUsuario(String id) throws Exception{
 		
 		int sentry = 0;
 		
@@ -213,12 +217,12 @@ public class Facade {
 		throw new Exception("You need to specify a valid field.");
 	}
 	
-	public String closeSystem() throws Exception{
+	public String fechaSistema() throws Exception{
 		
 		if(logged == null){
 			return "system closed successeful.";
 		}else{
-			throw new Exception("Failed to closeSystem. A user is still logged in.");
+			throw new Exception("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
 		}
 	}
 }

@@ -23,16 +23,16 @@ public class User {
 		
 		
 		if(name.equals("") || name.trim().equals("")){
-			throw new Exception("Error: Username field can't be empty.");
+			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
 			
 		}else if(email.equals("") || email.contains("@") == false || email.contains(".com") == false){				
-			throw new Exception("Error: Invalid email.");
+			throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
 			
 		}else if(password.equals("")){
 			throw new Exception("Invalid password.");
 			
 		}else if(birthdate.equals("")){
-			throw new Exception("Invalid birthdate.");
+			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
 			
 		}
 
@@ -43,10 +43,10 @@ public class User {
 		} catch (DateTimeException e) {
 						
 			if (e.toString().contains("could not be parsed at index")){
-				throw new Exception("Error: Invalid date format.");
+				throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
 			
 			}else if (e.toString().contains("Invalid value for")){
-				throw new Exception("Error: Date doesn't exist.");
+				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
 			}
 		}
 		
@@ -63,16 +63,16 @@ public class User {
 		
 		
 		if(name.equals("")){
-			throw new Exception("Error: Username field can't be empty.");
+			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
 			
 		}else if(email.equals("")){				
-			throw new Exception("Invalid email.");
+			throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
 			
 		}else if(password.equals("")){
 			throw new Exception("Invalid password.");
 			
 		}else if(birthdate.equals("")){
-			throw new Exception("Invalid birthdate.");
+			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
 			
 		}
 
@@ -86,7 +86,7 @@ public class User {
 				throw new Exception("Error: Invalid date format.");
 			
 			}else if (e.toString().contains("Invalid value for")){
-				throw new Exception("Error: Date doesn't exist.");
+				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
 			}
 		}
 		
