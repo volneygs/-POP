@@ -161,9 +161,23 @@ public class Facade {
 		
 	}
 
-/*	public String getUserInfo(String field, String id) throws Exception{
+	public String getUserInfo(String field) throws Exception{
 		
-		if (id.contains("id") && id.contains("@") == false){
+		if(field.equals("name")){
+			return logged.getName();
+
+		}else if (field.equals("password")){
+			throw new Exception("The user's password is protected.");
+			
+		}else if (field.equals("birthdate")){
+			return logged.getBirthdate().toString();
+			
+		}else if (field.equals("picture")){
+			return logged.getImage();
+		}else{
+			throw new Exception("You need to specify a valid field.");
+		}
+		/*if (id.contains("id") && id.contains("@") == false){
 
 			if (field.equals("name")){
 				return allUsers.get(id).getName();
@@ -187,8 +201,8 @@ public class Facade {
 			}
 		}
 		
-		throw new Exception("You need to specify a valid field.");
-	} */
+		throw new Exception("You need to specify a valid field."); */
+	}
 //metodo errado. vou corrigir isso na segunda-feira!
 	
 	public String getUserInfo(String field, String id) throws Exception{
