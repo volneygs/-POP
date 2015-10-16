@@ -52,64 +52,47 @@ public class Facade {
 		return this.allUsers;
 	}
 	//ainda eh um esboço do que irá ser o método de login. soh estou testando os casos de uso. ainda analisando a melhor forma de fazer.
-	public void login(String email, String password) throws Exception{
-				
+	public String login(String email, String password) throws Exception{
+		
+		int sentry = 0;
+		
 		if(this.logged == null){
 			
-			for (int i = 0; i < allUsers.size(); i++) {
+			for (User user : allUsers) {
 				
-				if(allUsers.get(i).getEmail().equals(email)){
+				sentry = sentry + 1;
+				
+				if(user.getEmail().equals(email)){
 					
-					if(allUsers.get(i).getPassword().equals(password)){
+					if(user.getPassword().equals(password)){
 						
-						this.logged = allUsers.get(i);
+						this.logged = user;
+						
+						return "Login successeful";
+					}else{
+						throw new Exception("Failed to login. Invalid password.");
 					}
+				}else if(sentry == allUsers.size()){
+					throw new Exception("Failed to login. There's no registered user with this email adress ("+ email + ").");
 				}
 			}
-
-		/*	if(allUsers.get(id).getEmail().equals(email)){
-				//System.out.println("pinga ni mim");
-				
-				if(password.equals(allUsers.get(id).getPassword())){
-					
-					this.logged = allUsers.get(email);
-					
-				} else { throw new Exception("Failed to login. Invalid password."); }
-			
-			} else { throw new Exception("Failed to login. There's no registered user with this email adress (" + email + ")."); }
-		*/	
+		}else{
+			throw new Exception("Failed to login. Another user is already logged: " + logged.getName() + ".");
 		}
-	
+		return "login not made";
 	}
 	
-	/*public boolean login(User user){
+	public String logout() throws Exception{
 		
-		if(this.logged == null){
-			logged = user;
-			
-			return true;
-			
-		}else if(this.logged != null){
-			System.out.println("you already logged");
-			
-			return false;
-		}
-		
-		return false;
-	}*/
-	
-	public boolean logout(){
 		if(this.logged != null){
 			this.logged = null;
 			
-			return true;
-		}else if(this.logged == null){
-			System.out.println("You're already logged off.");
+			return "logout successefull";
 			
-			return false;
+		}else{
+			
+			throw new Exception("Failed to logout. There's no user logged on +Pop at this moment.");
 		}
-		
-		return false;
 	}
 	
 	public boolean addFriend(User user){
@@ -174,37 +157,11 @@ public class Facade {
 			
 		}else if (field.equals("picture")){
 			return logged.getImage();
+			
 		}else{
 			throw new Exception("You need to specify a valid field.");
 		}
-		/*if (id.contains("id") && id.contains("@") == false){
-
-			if (field.equals("name")){
-				return allUsers.get(id).getName();
-
-			}else if (field.equals("password")){
-				throw new Exception("The user's password is protected.");
-		
-			}else if (field.equals("birthdate")){
-				return allUsers.get(id).getBirthdate().toString();
-		
-			}else if (field.equals("picture")){
-				return allUsers.get(id).getImage();
-			}
-		
-		}else if (id.contains("@")){
-			if (field.equals("name") && allUsers.containsValue(id)){
-				return allUsers.get(id).getName();
-				
-			}else{
-				throw new Exception("There's no registered user with this email adress (" + id + ").");
-			}
-		}
-		
-		throw new Exception("You need to specify a valid field."); */
 	}
-//metodo errado. vou corrigir isso na segunda-feira!
-	
 	public String getUserInfo(String field, String id) throws Exception{
 		
 		int sentry = 0;
@@ -234,7 +191,34 @@ public class Facade {
 		
 		throw new Exception("You need to specify a valid field.");
 	}
-//teste commit aqui!
-
-//teste commit aqui também!
+	
+	public String removeuser(String id) throws Exception{
+		
+		int sentry = 0;
+		
+		for(User user : allUsers){
+			
+			sentry = sentry + 1;
+			
+			if(user.getEmail().equals(id)){
+				allUsers.remove(user);
+				
+				return "user successfully removed.";
+			}else if(sentry == allUsers.size()){
+				
+				throw new Exception("Invalid field.");
+			}
+		}
+		
+		throw new Exception("You need to specify a valid field.");
+	}
+	
+	public String closeSystem() throws Exception{
+		
+		if(logged == null){
+			return "system closed successeful.";
+		}else{
+			throw new Exception("Failed to closeSystem. A user is still logged in.");
+		}
+	}
 }

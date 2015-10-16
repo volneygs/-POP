@@ -26,7 +26,7 @@ public class TestFacade {
 	
 	@Test
 	
-	public void testLogout(){
+	public void testLogout() throws Exception{
 		
 		Assert.assertEquals(null, facade.getLogged());
 		

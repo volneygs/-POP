@@ -44,25 +44,25 @@ expectError "There's no registered user with this email adress (alguem@email.com
 
 login email="fatima@email.com.br" password="will_S2"
 expect "Fatima Bernardes" getUserInfo field="name"
-#expect "resources/fatima.jpg" getUserInfo field="Picture"
-#expectError "The user's password is protected." getUserInfo field="password"
+expect "resources/fatima.jpg" getUserInfo field="picture"
+expectError "The user's password is protected." getUserInfo field="password"
 
-#expectError "Failed to login. Another user is already logged: Fatima Bernardes." login email="madonna@email.com" password="iamawesome"
-#logout
-#expectError "Failed to logout. There's no user logged on +Pop at this moment." logout
+expectError "Failed to login. Another user is already logged: Fatima Bernardes." login email="madonna@email.com" password="iamawesome"
+logout
+expectError "Failed to logout. There's no user logged on +Pop at this moment." logout
 
-#login email="madonna@email.com" password="iamawesome"
-#expect "Madonna" getUserInfo field="name"
-#logout
+login email="madonna@email.com" password="iamawesome"
+expect "Madonna" getUserInfo field="name"
+logout
 
-#expectError "Failed to login. There's no registered user with this email adress (gal_costa@email.com.br)." login email="gal_costa@email.com.br" password="vaca_profana"
-#expectError "Failed to login. Invalid password." login email="fatima@email.com.br" password="nada a ver"
+expectError "Failed to login. There's no registered user with this email adress (gal_costa@email.com.br)." login email="gal_costa@email.com.br" password="vaca_profana"
+expectError "Failed to login. Invalid password." login email="fatima@email.com.br" password="nada a ver"
 
-#login email="fatima@email.com.br" password="will_S2"
-#expectError "Failed to closeSystem. A user is still logged in." closeSystem
-#logout
+login email="fatima@email.com.br" password="will_S2"
+expectError "Failed to closeSystem. A user is still logged in." closeSystem
+logout
 
-#removeuser user=${id3}
-#expectError "Failed to login. There's no registered user with this email adress (jo@uol.com.br)." login email="jo@uol.com.br" password="!soares!"
+removeuser user=${id3}
+expectError "Failed to login. There's no registered user with this email adress (jo@uol.com.br)." login email="jo@uol.com.br" password="!soares!"
 
-#closeSystem
+closeSystem
