@@ -11,7 +11,7 @@ public class Facade {
 
 	
 	public static void main(String[] args) {
-	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt"};
+	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt"};
 	    EasyAccept.main(args);
 	}
 	
