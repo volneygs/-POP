@@ -9,9 +9,9 @@ public class PostFactory {
 		
 	}
 	
-	public Post makePost(User user, String message){
+	public Post makePost(String message, String date){
 		
-		Post post = new Post(user, message);
+		Post post = new Post(message, date);
 		
 		return post;
 		

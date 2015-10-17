@@ -1,16 +1,21 @@
 package users;
+import java.time.*;
+import java.time.format.*;
 
 public class Post {
 	
 	private String message;
-	private int likeCounter;
+	private int popularity;
 	private User user;
+	private LocalDate dateTime;
+	private DateTimeFormatter dateFormatPost = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	
-	public Post(User user, String message){
+	public Post(String message, String date){
 		
 		this.message = message;
-		this.likeCounter = 0;
-		this.user = user;
+		this.popularity = 0;
+		this.dateTime = LocalDate.parse(date, dateFormatPost);
+		
 	}
 	
 	public String getMessage(){
@@ -18,9 +23,9 @@ public class Post {
 		return message;
 	}
 	
-	public int getLikeCounter(){
+	public int getPopularityr(){
 		
-		return likeCounter;
+		return popularity;
 	}
 	
 	public String getNamePost(){

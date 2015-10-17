@@ -3,16 +3,20 @@ package controller;
 import java.util.ArrayList;
 
 import factory.UserFactory;
+import factory.PostFactory;
 import users.User;
+import users.Post;
 
 public class Controller {
 	
 	private ArrayList<User> allUsers;
 	private UserFactory userFactory;
+	private PostFactory postFactory;
 	private User logged;
 	
 	public Controller(){
 		this.userFactory = new UserFactory();
+		this.postFactory = new PostFactory();
 		this.allUsers = new ArrayList<User>();
 		this.logged = null;
 	}
@@ -123,13 +127,19 @@ public class Controller {
 			return false;
 		}
 	}
-
-	public void postInMural(User userReceive, String message){
+	
+	public void post(String message, String date){
+		
+		Post post = postFactory.makePost(message, date);
+		
+	}
+	
+	public void postInMural(User userReceive, String message, String date){
 		
 		if(this.logged != null){
 
 			if(this.logged.getFriends().contains(userReceive)){
-				this.logged.postInMural(this.logged, userReceive, message);
+				this.logged.postInMural(this.logged, userReceive, message, date);
 				
 			}else{
 				System.out.println("You need to be friend of this person before use this feature.");
@@ -222,43 +232,7 @@ public class Controller {
 
 	public void atualizaPerfil(String field, String newField) {
 		
-	/*	if(nome.equals("") || nome.trim().equals("")){
-			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
-			
-		}else if(email.equals("") || email.contains("@") == false || email.contains(".com") == false){				
-			throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
-			
-		}else if(senha.equals("")){
-			throw new Exception("Invalid password.");
-			
-		}else if(dataDeNascimento.equals("")){
-			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
-			
-		} */
-		
-		if(this.logged != null){
-			if(field.equals("Nome")){
-				logged.setNome(newField);
-				
-			}else if(field.equals("Foto")){
-				logged.setFoto(newField);
-				
-			}else if(field.equals("E-mail")){
-				logged.setEmail(newField);
-				
-			}else if(field.equals("Data de Nascimento")){
-				//set dataDeNascimento
-			}
-		}
-	}
-	
-	public void atualizaPerfil(String field, String novaSenha, String senhaAntiga) throws Exception{
-		
-		if(this.logged != null){
-			
-			logged.mudaSenha(novaSenha, senhaAntiga);
-				
-		}
+
 	}
 	
 }

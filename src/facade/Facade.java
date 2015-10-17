@@ -9,7 +9,7 @@ public class Facade {
 
 	
 	public static void main(String[] args) {
-	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt"};
+	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt"};
 	    EasyAccept.main(args);
 	}
 	
@@ -76,9 +76,9 @@ public class Facade {
 		
 	}
 	
-	public void postInMural(User userReceive, String message){
+	public void postInMural(User userReceive, String message, String date){
 		
-		controller.postInMural(userReceive, message);
+		controller.postInMural(userReceive, message, date);
 		
 	}
 
@@ -97,6 +97,12 @@ public class Facade {
 	public String removeUsuario(String id) throws Exception{
 		
 		return controller.removeUsuario(id);
+		
+	}
+	
+	public void criaPost(String message, String date){
+		
+		controller.post(message, date);
 		
 	}
 	

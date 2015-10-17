@@ -139,9 +139,9 @@ public class User {
 		}
 	}
 	
-	public boolean postInMural(User userSend, User userReceive, String message){
+	public boolean postInMural(User userSend, User userReceive, String message, String date){
 		
-		Post post = makePost.makePost(userSend, message);
+		Post post = makePost.makePost(message, date);
 		
 		return userReceive.mural.add(post);
 		
