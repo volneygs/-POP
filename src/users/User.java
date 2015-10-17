@@ -98,6 +98,34 @@ public class User {
 		this.amigos = new ArrayList<User>();
 		this.makePost = new PostFactory();
 	}
+	
+	public void setNome(String novoNome){
+		this.nome = novoNome;
+	}
+	
+	public void setEmail(String novoEmail){
+		this.email = novoEmail;
+	}
+	
+	public void setFoto(String novaFoto){
+		this.foto = novaFoto;
+	}
+	
+	public void mudaSenha(String novaSenha, String senhaAntiga) throws Exception{
+		if(autenticacao(senhaAntiga)){
+			senha = novaSenha;
+		}else{
+			throw new Exception("senha incorreta.");
+		}
+	}
+	
+	public boolean autenticacao(String tentaSenha){
+		if(tentaSenha.equals(senha)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 
 	public boolean addFriend(User user){
 		return this.amigos.add(user);

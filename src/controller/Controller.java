@@ -220,9 +220,34 @@ public class Controller {
 		}
 	}
 
-	public String atualizaPerfil(String field, String newField) {
+	public void atualizaPerfil(String field, String newField) {
 		
-		return null;
+		if(this.logged != null){
+			if(field.equals("Nome")){
+				logged.setNome(newField);
+				
+			}else if(field.equals("Foto")){
+				logged.setFoto(newField);
+				
+			}else if(field.equals("E-mail")){
+				logged.setEmail(newField);
+				
+			}else if(field.equals("Data de Nascimento")){
+				//set dataDeNascimento
+			}else if(field.equals("Senha")){
+				//set senha
+			}
+		}
+	}
+	
+	public void atualizaPerfil(String field, String novaSenha, String senhaAntiga) throws Exception{
+		
+		if(this.logged != null){
+			
+			logged.mudaSenha(novaSenha, senhaAntiga);
+				
+		}
 	}
 	
 }
+

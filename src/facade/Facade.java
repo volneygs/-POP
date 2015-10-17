@@ -54,9 +54,14 @@ public class Facade {
 		
 	}
 	
-	public String atualizaPerfil(String field, String newField){
+	public void atualizaPerfil(String field, String newField){
 		
-		return controller.atualizaPerfil(field, newField);
+		controller.atualizaPerfil(field, newField);
+	}
+	
+	public void atualizaPerfil(String field, String novaSenha, String senhaAntiga) throws Exception{
+		
+		controller.atualizaPerfil(field, novaSenha, senhaAntiga);
 	}
 	
 	public boolean addFriend(User user){
