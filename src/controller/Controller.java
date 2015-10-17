@@ -230,10 +230,46 @@ public class Controller {
 		}
 	}
 
+		
 	public void atualizaPerfil(String field, String newField) {
 		
-
+		/*	if(nome.equals("") || nome.trim().equals("")){
+				throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
+				
+			}else if(email.equals("") || email.contains("@") == false || email.contains(".com") == false){				
+				throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
+				
+			}else if(senha.equals("")){
+				throw new Exception("Invalid password.");
+				
+			}else if(dataDeNascimento.equals("")){
+				throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
+				
+			} */
+			
+			if(this.logged != null){
+				if(field.equals("Nome")){
+					logged.setNome(newField);
+					
+				}else if(field.equals("Foto")){
+					logged.setFoto(newField);
+					
+				}else if(field.equals("E-mail")){
+					logged.setEmail(newField);
+					
+				}else if(field.equals("Data de Nascimento")){
+					//set dataDeNascimento
+				}
+			}
+		}
+		
+	public void atualizaPerfil(String field, String novaSenha, String senhaAntiga) throws Exception{
+			
+		if(this.logged != null){
+				
+			logged.mudaSenha(novaSenha, senhaAntiga);
+					
+		}
 	}
-	
 }
 
