@@ -9,6 +9,7 @@ import java.time.format.*;
 public class User {
 	
 	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private DateTimeFormatter dateFormatOut = DateTimeFormatter.ofPattern("yyyy-dd-MM");
 	private String email;
 	private String nome;
 	private String senha;

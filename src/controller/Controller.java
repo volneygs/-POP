@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import factory.UserFactory;
@@ -233,19 +235,33 @@ public class Controller {
 		
 	public void atualizaPerfil(String field, String newField) {
 		
-		/*	if(nome.equals("") || nome.trim().equals("")){
-				throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
+			/*if(field.equals("nome") && field.equals("") || field.trim().equals("")){
+				throw new Exception("Erro na atualizacao de perfil. Nome dx usuarix nao pode ser vazio.");
 				
-			}else if(email.equals("") || email.contains("@") == false || email.contains(".com") == false){				
-				throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
+			}else if(field.equals("email") && field.equals("") || field.contains("@") == false || field.contains(".com") == false){				
+				throw new Exception("Erro na atualizacao de perfil. Formato de e-mail esta invalido.");
 				
-			}else if(senha.equals("")){
+			}else if(field.equals("senha") && field.equals("")){
 				throw new Exception("Invalid password.");
 				
-			}else if(dataDeNascimento.equals("")){
-				throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
+			}else if(field.equals("Data de Nascimento") && field.equals("")){
+				throw new Exception("Erro na atualizacao de perfil. Formato de data esta invalida.");
 				
-			} */
+			}
+
+			
+			try { 
+				this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
+			
+			} catch (DateTimeException e) {
+							
+				if (e.toString().contains("could not be parsed at index")){
+					throw new Exception("Error: Invalid date format.");
+				
+				}else if (e.toString().contains("Invalid value for")){
+					throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
+				}
+			}*/ // TODO ESSSE BLOCO COMENTADO EH DE RESPONSABILIDADE DO USUARIO VERIFICAR
 			
 			if(this.logged != null){
 				if(field.equals("Nome")){
