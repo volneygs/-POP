@@ -159,7 +159,7 @@ public class Controller {
 		}else if (field.equals("Senha")){
 			throw new Exception("A senha dx usuarix eh protegida.");
 			
-		}else if (field.equals("Data de nascimento")){
+		}else if (field.equals("Data de Nascimento")){
 			return logged.getBirthdate().toString();
 			
 		}else if (field.equals("Foto")){
