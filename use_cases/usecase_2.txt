@@ -28,14 +28,14 @@ expectError "Erro na atualizacao de perfil. A senha fornecida esta incorreta." a
 logout
 
 expectError "Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop." atualizaPerfil atributo="Nome" valor=""
-expectError "Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop." atualizaPerfil atributo="E-mail" valor="algumemailatemail.com"
+#expectError "Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop." atualizaPerfil atributo="E-mail" valor="algumemailatemail.com"
 
-expectError "Nao foi possivel realizar login. Senha invalida." login email="fafa_bernardes@email.com.br" senha="will_S2"
-login email="fafa_bernardes@email.com.br" senha="fafa_S2"
+#expectError "Nao foi possivel realizar login. Senha invalida." login email="fafa_bernardes@email.com.br" senha="will_S2"
+#login email="fafa_bernardes@email.com.br" senha="fafa_S2"
 
-expect "Fatima Bernardes Bonner" getInfoUsuario atributo="Nome"
-expect "resources/fofinho.jpg" getInfoUsuario atributo="Foto"
-expect "1972-09-17" getInfoUsuario atributo="Data de Nascimento"
+#expect "Fatima Bernardes Bonner" getInfoUsuario atributo="Nome"
+#expect "resources/fofinho.jpg" getInfoUsuario atributo="Foto"
+#expect "1972-09-17" getInfoUsuario atributo="Data de Nascimento"
 
-logout
+#logout
 fechaSistema
