@@ -99,6 +99,15 @@ public class Facade {
 		}
 	}
 	
+	public String atualizaPerfil(String field, String newField){
+		
+		if(logged != null){
+			
+		}
+		
+		return "uahduasd";
+	}
+	
 	public boolean addFriend(User user){
 		
 		if(this.logged != null){
