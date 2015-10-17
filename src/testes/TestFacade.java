@@ -46,7 +46,7 @@ public class TestFacade {
 		facade.addFriend(william);
 		Assert.assertTrue(facade.getLogged().getFriends().contains(william));
 		
-		facade.postInMural(william, "teste");
+		facade.postInMural(william, "teste", "11/10/15");
 		Assert.assertEquals("volney: teste", william.getMural().get(0).visualizePost());
 		
 		facade.removeFriend(william);
