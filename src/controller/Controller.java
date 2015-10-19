@@ -232,7 +232,6 @@ public class Controller {
 		}
 	}
 
-		
 	public void atualizaPerfil(String field, String newField) throws Exception{
 		
 		/*
@@ -282,4 +281,6 @@ public class Controller {
 		}
 	}
 }
+
+//TESTE
 
