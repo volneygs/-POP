@@ -22,7 +22,6 @@ public class User {
 
 	public User(String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
-		
 		if(nome.equals("") || nome.trim().equals("")){
 			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
 			
@@ -100,15 +99,25 @@ public class User {
 		this.makePost = new PostFactory();
 	}
 	
-	public void setNome(String novoNome){
-		this.nome = novoNome;
+	public void mudaNome(String novoNome) throws Exception{
+		
+		if(novoNome.equals("") || novoNome.trim().equals("")){
+			throw new Exception("Erro na atualizacao de perfil. Nome dx usuarix nao pode ser vazio.");
+		}else{
+			this.nome = novoNome;
+		}
 	}
 	
-	public void setEmail(String novoEmail){
-		this.email = novoEmail;
+	public void mudaEmail(String novoEmail) throws Exception{
+		
+		if(novoEmail.equals("") || !(novoEmail.contains("@")) || !(novoEmail.contains(".com"))){				
+			throw new Exception("Erro na atualizacao de perfil. Formato de e-mail esta invalido.");
+		}else{
+			this.email = novoEmail;
+		}
 	}
 	
-	public void setFoto(String novaFoto){
+	public void mudaFoto(String novaFoto){
 		this.foto = novaFoto;
 	}
 	
@@ -116,7 +125,7 @@ public class User {
 		if(autenticacao(senhaAntiga)){
 			senha = novaSenha;
 		}else{
-			throw new Exception("senha incorreta.");
+			throw new Exception("Erro na atualizacao de perfil. A senha fornecida esta incorreta.");
 		}
 	}
 	

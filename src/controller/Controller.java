@@ -233,17 +233,9 @@ public class Controller {
 	}
 
 		
-	public void atualizaPerfil(String field, String newField) {
+	public void atualizaPerfil(String field, String newField) throws Exception{
 		
-			/*if(field.equals("nome") && field.equals("") || field.trim().equals("")){
-				throw new Exception("Erro na atualizacao de perfil. Nome dx usuarix nao pode ser vazio.");
-				
-			}else if(field.equals("email") && field.equals("") || field.contains("@") == false || field.contains(".com") == false){				
-				throw new Exception("Erro na atualizacao de perfil. Formato de e-mail esta invalido.");
-				
-			}else if(field.equals("senha") && field.equals("")){
-				throw new Exception("Invalid password.");
-				
+		/*
 			}else if(field.equals("Data de Nascimento") && field.equals("")){
 				throw new Exception("Erro na atualizacao de perfil. Formato de data esta invalida.");
 				
@@ -265,17 +257,19 @@ public class Controller {
 			
 			if(this.logged != null){
 				if(field.equals("Nome")){
-					logged.setNome(newField);
+					logged.mudaNome(newField);
 					
 				}else if(field.equals("Foto")){
-					logged.setFoto(newField);
+					logged.mudaFoto(newField);
 					
 				}else if(field.equals("E-mail")){
-					logged.setEmail(newField);
+					logged.mudaEmail(newField);
 					
 				}else if(field.equals("Data de Nascimento")){
 					//set dataDeNascimento
 				}
+			}else{
+				throw new Exception("Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop.");
 			}
 		}
 		

@@ -54,7 +54,7 @@ public class Facade {
 		
 	}
 	
-	public void atualizaPerfil(String field, String newField){
+	public void atualizaPerfil(String field, String newField) throws Exception{
 		
 		controller.atualizaPerfil(field, newField);
 	}
