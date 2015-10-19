@@ -76,20 +76,27 @@ public class User {
 			
 		}
 
+		if (dataDeNascimento.startsWith("29", 0) && LocalDate.parse(dataDeNascimento, dateFormat).isLeapYear() == false && LocalDate.parse(dataDeNascimento, dateFormat).getMonthValue() == 2){
+			
+			throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
 		
-		try { 
+		} else {
+		
+			try { 
 			this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
 		
-		} catch (DateTimeException e) {
-						
-			if (e.toString().contains("could not be parsed at index")){
-				throw new Exception("Error: Invalid date format.");
+			} catch (DateTimeException e) {
+				
+				if (e.toString().contains("could not be parsed at index")){
+					throw new Exception("Error: Invalid date format.");
 			
-			}else if (e.toString().contains("Invalid value for")){
-				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
+				}else if (e.toString().contains("Invalid value for")){
+					throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
+				}
 			}
-		}
 		
+		}
+			
 		this.email = email;
 		this.nome = nome;
 		this.senha = senha;
@@ -127,6 +134,33 @@ public class User {
 		}else{
 			throw new Exception("Erro na atualizacao de perfil. A senha fornecida esta incorreta.");
 		}
+	}
+	
+	public void mudaDataNascimento(String novaDataNascimento) throws Exception{
+		
+		if (novaDataNascimento.startsWith("29", 0) && LocalDate.parse(novaDataNascimento, dateFormat).isLeapYear() == false && LocalDate.parse(novaDataNascimento, dateFormat).getMonthValue() == 2){
+		
+			System.out.println("pinga");
+			throw new Exception("Erro na atualizacao de perfil. Data nao existe.");
+		
+		} else {
+		
+		try { 
+			this.dataDeNascimento = LocalDate.parse(novaDataNascimento, dateFormat);
+
+		} catch (DateTimeException e) {
+
+			if (e.toString().contains("could not be parsed at index")){
+				throw new Exception("Erro na atualizacao de perfil. Formato de data esta invalida.");
+			
+			}else if (e.toString().contains("Invalid value for")){
+
+				throw new Exception("Erro na atualizacao de perfil. Data nao existe.");
+			}
+		} 
+		
+		}
+		
 	}
 	
 	public boolean autenticacao(String tentaSenha){

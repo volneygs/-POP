@@ -265,7 +265,7 @@ public class Controller {
 					logged.mudaEmail(newField);
 					
 				}else if(field.equals("Data de Nascimento")){
-					//set dataDeNascimento
+					logged.mudaDataNascimento(newField);
 				}
 			}else{
 				throw new Exception("Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop.");
