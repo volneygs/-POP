@@ -2,14 +2,13 @@ package facade;
 
 import users.User;
 import easyaccept.EasyAccept;
-
 import controller.Controller;
 
 public class Facade {
 
 	
 	public static void main(String[] args) {
-	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt"};
+	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt", "use_cases/usecase_4.txt"};
 	    EasyAccept.main(args);
 	}
 	
@@ -64,15 +63,15 @@ public class Facade {
 		controller.atualizaPerfil(field, novaSenha, senhaAntiga);
 	}
 	
-	public boolean addFriend(User user){
+	public String adicionaAmigo(String email) throws Exception{
 		
-		return controller.addFriend(user);
+		return controller.adicionaAmigo(email);
 		
 	}
 	
-	public boolean removeFriend(User user){
+	public boolean removeAmigo(User user){
 		
-		return controller.removeFriend(user);
+		return controller.removeAmigo(user);
 		
 	}
 	

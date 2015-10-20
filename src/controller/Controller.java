@@ -98,24 +98,39 @@ public class Controller {
 		}
 	}
 	
-	public boolean addFriend(User user){
+	public String adicionaAmigo(String email) throws Exception{
 		
 		if(this.logged != null){
-			this.logged.addFriend(user);
 			
-			return true;
+			int sentry = 0;
+			
+			for(User user : allUsers){
+				if(user.getEmail().equals(email)){
+					this.logged.adicionaAmigo(user);
+					return "amigo adicionado";
+					
+				}else{
+					if(allUsers.size() == sentry){
+						throw new Exception("Um usuarix com email "+email+" nao esta cadastradx.");
+					}else{
+						sentry = sentry + 1;
+					}
+					
+				}
+			}
 		}else{
-			System.out.println("You need to login before use this feature.");
 			
-			return false;
+			throw new Exception("You need to login before use this feature.");
 		}
+		
+		return "email invalido";
 	}
 	
-	public boolean removeFriend(User user){
+	public boolean removeAmigo(User user){
 		
 		if(this.logged != null){
 			if(logged.getFriends().contains(user)){
-				this.logged.removeFriend(user);
+				this.logged.removeAmigo(user);
 				
 				return true;
 			}else{

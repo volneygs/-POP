@@ -3,6 +3,7 @@ package users;
 import java.util.ArrayList;
 
 import factory.PostFactory;
+
 import java.time.*;
 import java.time.format.*;
 
@@ -18,6 +19,7 @@ public class User {
 	private String pop;
 	private ArrayList<Post> mural;
 	private ArrayList<User> amigos;
+	private ArrayList notificacoes;
 	private PostFactory makePost;
 
 	public User(String nome, String email, String senha, String dataDeNascimento) throws Exception{
@@ -171,11 +173,11 @@ public class User {
 		}
 	}
 
-	public boolean addFriend(User user){
+	public boolean adicionaAmigo(User user){
 		return this.amigos.add(user);
 	}
 	
-	public boolean removeFriend(User user){
+	public boolean removeAmigo(User user){
 		if(this.amigos.contains(user)){
 			return this.amigos.remove(user);
 		}else{
