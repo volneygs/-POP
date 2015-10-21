@@ -214,9 +214,38 @@ public class Controller {
 		
 	}
 	
-	public Post getPost(int index) {
+	public String getPost(int index) {
 		
-		return logged.getMural().get(index);
+			return logged.getMural().get(index).getMessage();
+	
+	}	
+	
+	public String getPost(String field, int index) {
+		
+		if (field.equals("Hashtags")) {
+		
+			return logged.getMural().get(index).getHashtags();
+			
+		} else if (field.equals("Data")) {
+			
+			return logged.getMural().get(index).getDateTime();
+			
+		} else { return logged.getMural().get(index).getText(); }
+		
+	}
+	
+	public String getConteudoPost(int index, int postIndex) throws Exception{
+		
+		if (index < 0){
+			
+			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
+		
+		} else if (index > logged.getMural().size()){
+		
+			System.out.println(logged.getMural().size());
+			throw new Exception("Item #" + index + " nao existe nesse post, ele possui apenas 3 itens distintos.");
+			
+		} else {	return logged.getMural().get(postIndex).getChest(index);	}
 		
 	}
 

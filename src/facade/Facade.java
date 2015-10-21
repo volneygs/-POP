@@ -125,9 +125,21 @@ public class Facade {
 		
 	}
 	
-	public void getPost(int index) {
+	public String getPost(int index) {
 		
-		controller.getPost(index);
+		return controller.getPost(index);
+		
+	}
+	
+	public String getPost(String field, int index) {
+		
+		return controller.getPost(field, index);
+		
+	}
+	
+	public String getConteudoPost(int index, int postIndex) throws Exception{
+		
+		return controller.getConteudoPost(index, postIndex);
 		
 	}
 	

@@ -152,7 +152,6 @@ public class User {
 		
 		if (novaDataNascimento.startsWith("29", 0) && LocalDate.parse(novaDataNascimento, dateFormat).isLeapYear() == false && LocalDate.parse(novaDataNascimento, dateFormat).getMonthValue() == 2){
 		
-			System.out.println("pinga");
 			throw new Exception("Erro na atualizacao de perfil. Data nao existe.");
 		
 		} else {
