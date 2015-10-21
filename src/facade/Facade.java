@@ -124,7 +124,7 @@ public class Facade {
 		
 	}
 	
-	public void criaPost(String message, String date){
+	public void criaPost(String message, String date) throws Exception{
 		
 		controller.post(message, date);
 		

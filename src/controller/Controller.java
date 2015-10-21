@@ -201,7 +201,7 @@ public class Controller {
 		}
 	}
 	
-	public void post(String message, String date){
+	public void post(String message, String date) throws Exception{
 		
 		Post post = postFactory.createPost(message, date);
 		
