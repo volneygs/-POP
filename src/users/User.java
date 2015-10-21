@@ -21,7 +21,7 @@ public class User {
 	private List<Post> mural;
 	private List<User> amigos;
 	private List<String> solicitacoesDeAmizade;
-	private List<Notification> notificacoes;
+	private List<String> notificacoes;
 	private PostFactory createPost;
 	private int indiceNot;
 
@@ -61,7 +61,7 @@ public class User {
 		this.foto = "resources/default.jpg";
 		this.mural = new ArrayList<Post>();
 		this.amigos = new ArrayList<User>();
-		this.notificacoes = new ArrayList<Notification>();
+		this.notificacoes = new ArrayList<String>();
 		this.createPost = new PostFactory();
 		this.solicitacoesDeAmizade = new ArrayList();
 		this.indiceNot = 0;
@@ -111,7 +111,7 @@ public class User {
 		this.foto = foto;
 		this.mural = new ArrayList<Post>();
 		this.amigos = new ArrayList<User>();
-		this.notificacoes = new ArrayList<Notification>();
+		this.notificacoes = new ArrayList<String>();
 		this.createPost = new PostFactory();
 		this.solicitacoesDeAmizade = new ArrayList();
 		this.indiceNot = 0;
@@ -188,14 +188,14 @@ public class User {
 		if(notificacoes.size() == indiceNot){
 			throw new Exception("Nao ha mais notificacoes.");
 		}else{
-			String notificacao = notificacoes.get(indiceNot).getNextNotificacao();
+			String notificacao = notificacoes.get(indiceNot);
 			indiceNot = indiceNot + 1;
 			return notificacao;
 		}
 		
 	}
 	
-	public void adicionaSoliticacaoAmizade(Notification notificacao) {
+	public void adicionaSoliticacaoAmizade(String notificacao) {
 		
 		notificacoes.add(notificacao);
 	}
@@ -225,7 +225,7 @@ public class User {
 		
 	}
 	
-	public List<Notification> getNotification(){
+	public List<String> getNotification(){
 		return notificacoes;
 	}
 	

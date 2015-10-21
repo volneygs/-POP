@@ -4,10 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import factory.NotificationFactory;
 import factory.UserFactory;
 import factory.PostFactory;
-import users.Notification;
 import users.User;
 import users.Post;
 
@@ -16,13 +14,11 @@ public class Controller {
 	private ArrayList<User> allUsers;
 	private UserFactory userFactory;
 	private PostFactory postFactory;
-	private NotificationFactory notificationFactory;
 	private User logged;
 	
 	public Controller(){
 		this.userFactory = new UserFactory();
 		this.postFactory = new PostFactory();
-		this.notificationFactory = new NotificationFactory();
 		this.allUsers = new ArrayList<User>();
 		this.logged = null;
 	}
@@ -136,7 +132,7 @@ public class Controller {
 			
 			User usuario = buscaUsuario(email);
 			
-			Notification notificacao = notificationFactory.createNotification(logged.getName());
+			String notificacao = logged.getName() + " quer sua amizade.";
 			
 			usuario.adicionaSoliticacaoAmizade(notificacao);
 			
