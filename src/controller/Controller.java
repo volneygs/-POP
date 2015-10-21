@@ -321,6 +321,3 @@ public class Controller {
 		throw new Exception("Usuarix nao cadastradx.");
 	}
 }
-
-//TESTE
-
