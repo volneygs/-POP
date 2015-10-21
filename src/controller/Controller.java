@@ -262,7 +262,7 @@ public class Controller {
 	}
 
 	public void atualizaPerfil(String field, String newField) throws Exception{
-		
+		//teste
 		/*
 			}else if(field.equals("Data de Nascimento") && field.equals("")){
 				throw new Exception("Erro na atualizacao de perfil. Formato de data esta invalida.");
