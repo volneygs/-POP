@@ -56,9 +56,14 @@ public class Controller {
 		}
 	}
 	
-	public String getNextNotificacao() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getNextNotificacao() throws Exception{
+		
+		if(logged != null){
+			return logged.getNextNotificacao();
+		}else{
+			throw new Exception ("Usuarix deve estar logado.");
+		}
+		
 	}
 
 	public String registerUser (String nome, String email, String senha, String dataDeNascimento) throws Exception{
@@ -135,16 +140,56 @@ public class Controller {
 			Notification notificacao = notificationFactory.createNotification(logged.getName());
 			
 			usuario.adicionaSoliticacaoAmizade(notificacao);
+			
+			usuario.getSolicitacoesDeAmizades().add(logged.getEmail());
 		}
 		
 		return "você precisa estar logado.";
-	} 
+	}
+	
+	public void aceitaAmizade(String email) throws Exception{
+		
+		if(logged != null){
+			
+			if(logged.getSolicitacoesDeAmizades().contains(email)){
+				
+				User usuario = buscaUsuario(email);
+				
+				logged.adicionaAmigo(usuario);
+			}
+		}
+		
+	}
+	
+	public String rejeitaAmizade(String email) throws Exception{
+		
+		if(logged != null){
+			
+			if(logged.getSolicitacoesDeAmizades().contains(email)){
+				
+				logged.getSolicitacoesDeAmizades().remove(email);
+				
+				return "solicitacao rejeitada.";
+				
+			}else{
+				User usuario = buscaUsuario(email);
+				throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
+			}
+			
+		}
+		
+		return "voce deve logar antes";
 
-	public boolean removeAmigo(User user){
+	}
+
+	public boolean removeAmigo(String email) throws Exception{
 		
 		if(this.logged != null){
-			if(logged.getFriends().contains(user)){
-				this.logged.removeAmigo(user);
+			
+			User usuario = buscaUsuario(email);
+			
+			if(logged.getFriends().contains(usuario)){
+				this.logged.removeAmigo(usuario);
 				
 				return true;
 			}else{
@@ -318,6 +363,8 @@ public class Controller {
 			}
 		}
 		
-		throw new Exception("Usuarix nao cadastradx.");
+		throw new Exception("Um usuarix com email " + email + " nao esta cadastradx.");
 	}
+
+
 }

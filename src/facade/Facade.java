@@ -69,9 +69,19 @@ public class Facade {
 		
 	}
 	
-	public boolean removeAmigo(User user){
+	public void aceitaAmizade(String email) throws Exception{
 		
-		return controller.removeAmigo(user);
+		controller.aceitaAmizade(email);
+	}
+	
+	public String rejeitaAmizade(String email) throws Exception{
+		
+		return controller.rejeitaAmizade(email);
+	}
+	
+	public boolean removeAmigo(String email) throws Exception{
+		
+		return controller.removeAmigo(email);
 		
 	}
 	
@@ -103,7 +113,7 @@ public class Facade {
 		
 	}
 	
-	public String getNextNotificacao(){
+	public String getNextNotificacao() throws Exception{
 		return controller.getNextNotificacao();
 		
 	}

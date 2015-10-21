@@ -20,8 +20,10 @@ public class User {
 	private String pop;
 	private List<Post> mural;
 	private List<User> amigos;
+	private List<String> solicitacoesDeAmizade;
 	private List<Notification> notificacoes;
 	private PostFactory createPost;
+	private int indiceNot;
 
 	public User(String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
@@ -61,6 +63,8 @@ public class User {
 		this.amigos = new ArrayList<User>();
 		this.notificacoes = new ArrayList<Notification>();
 		this.createPost = new PostFactory();
+		this.solicitacoesDeAmizade = new ArrayList();
+		this.indiceNot = 0;
 	}
 	
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
@@ -109,6 +113,8 @@ public class User {
 		this.amigos = new ArrayList<User>();
 		this.notificacoes = new ArrayList<Notification>();
 		this.createPost = new PostFactory();
+		this.solicitacoesDeAmizade = new ArrayList();
+		this.indiceNot = 0;
 	}
 	
 	public void mudaNome(String novoNome) throws Exception{
@@ -119,6 +125,7 @@ public class User {
 			this.nome = novoNome;
 		}
 	}
+	
 	
 	public void mudaEmail(String novoEmail) throws Exception{
 		
@@ -176,6 +183,18 @@ public class User {
 		}
 	}
 	
+	public String getNextNotificacao() throws Exception{
+		
+		if(notificacoes.size() == indiceNot){
+			throw new Exception("Nao ha mais notificacoes.");
+		}else{
+			String notificacao = notificacoes.get(indiceNot).getNextNotificacao();
+			indiceNot = indiceNot + 1;
+			return notificacao;
+		}
+		
+	}
+	
 	public void adicionaSoliticacaoAmizade(Notification notificacao) {
 		
 		notificacoes.add(notificacao);
@@ -198,6 +217,11 @@ public class User {
 		Post post = createPost.createPost(message, date);
 		
 		return userReceive.mural.add(post);
+		
+	}
+	
+	public List<String> getSolicitacoesDeAmizades(){
+		return solicitacoesDeAmizade;
 		
 	}
 	

@@ -1,20 +1,22 @@
 package users;
 
-import java.time.format.DateTimeFormatter;
-
 public class Notification {
 	
-	private String nome;
+	private String email;
+	private String message;
 	
-	public Notification(String nome){
-	
-		this.nome = nome;
+	public Notification(String email){
+		
+		this.email = email;
+		this.message = email + " quer sua amizade.";
+		
 	}
 	
-	@Override
-	public String toString(){
-		
-		return nome + " quer sua amizade.";
+	public String getNextNotificacao(){
+		return message;
 	}
 
+	public String getEmail(){
+		return email;
+	}
 }
