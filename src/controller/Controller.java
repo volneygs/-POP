@@ -130,7 +130,6 @@ public class Controller {
 		}
 	}
 	
-	
 	public String adicionaAmigo(String email) throws Exception{
 		
 		if(this.logged != null){
@@ -156,6 +155,8 @@ public class Controller {
 				User usuario = buscaUsuario(email);
 				
 				logged.adicionaAmigo(usuario);
+				
+				
 			}
 		}
 		
