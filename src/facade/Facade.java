@@ -93,6 +93,16 @@ public class Facade {
 		
 	}
 	
+	public int getQtdAmigos() throws Exception{
+		
+		return controller.getQtdAmigos();
+	}
+	
+	public int getNotificacoes() throws Exception{
+		return controller.getNotificacoes();
+		
+	}
+	
 	public String removeUsuario(String id) throws Exception{
 		
 		return controller.removeUsuario(id);

@@ -1,6 +1,7 @@
 package users;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import factory.PostFactory;
 
@@ -17,10 +18,10 @@ public class User {
 	private LocalDate dataDeNascimento;
 	private String foto;
 	private String pop;
-	private ArrayList<Post> mural;
-	private ArrayList<User> amigos;
-	private ArrayList notificacoes;
-	private PostFactory makePost;
+	private List<Post> mural;
+	private List<User> amigos;
+	private List<Notification> notificacoes;
+	private PostFactory createPost;
 
 	public User(String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
@@ -58,7 +59,8 @@ public class User {
 		this.foto = "resources/default.jpg";
 		this.mural = new ArrayList<Post>();
 		this.amigos = new ArrayList<User>();
-		this.makePost = new PostFactory();
+		this.notificacoes = new ArrayList<Notification>();
+		this.createPost = new PostFactory();
 	}
 	
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
@@ -105,7 +107,7 @@ public class User {
 		this.foto = foto;
 		this.mural = new ArrayList<Post>();
 		this.amigos = new ArrayList<User>();
-		this.makePost = new PostFactory();
+		this.createPost = new PostFactory();
 	}
 	
 	public void mudaNome(String novoNome) throws Exception{
@@ -172,6 +174,11 @@ public class User {
 			return false;
 		}
 	}
+	
+	public void adicionaSoliticacaoAmizade(Notification notificacao) {
+		
+		notificacoes.add(notificacao);
+	}
 
 	public boolean adicionaAmigo(User user){
 		return this.amigos.add(user);
@@ -187,17 +194,21 @@ public class User {
 	
 	public boolean postInMural(User userSend, User userReceive, String message, String date){
 		
-		Post post = makePost.makePost(message, date);
+		Post post = createPost.createPost(message, date);
 		
 		return userReceive.mural.add(post);
 		
 	}
 	
-	public ArrayList<Post> getMural(){
+	public List<Notification> getNotification(){
+		return notificacoes;
+	}
+	
+	public List<Post> getMural(){
 		return this.mural;
 	}
 	
-	public ArrayList<User> getFriends(){
+	public List<User> getFriends(){
 		return this.amigos;
 	}
 	
@@ -219,6 +230,11 @@ public class User {
 
 	public String getImage() {
 		return this.foto;
+	}
+	
+	public List<User> getAmigos(){
+		
+		return amigos;
 	}
 
 }

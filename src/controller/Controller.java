@@ -4,8 +4,10 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import factory.NotificationFactory;
 import factory.UserFactory;
 import factory.PostFactory;
+import users.Notification;
 import users.User;
 import users.Post;
 
@@ -14,11 +16,13 @@ public class Controller {
 	private ArrayList<User> allUsers;
 	private UserFactory userFactory;
 	private PostFactory postFactory;
+	private NotificationFactory notificationFactory;
 	private User logged;
 	
 	public Controller(){
 		this.userFactory = new UserFactory();
 		this.postFactory = new PostFactory();
+		this.notificationFactory = new NotificationFactory();
 		this.allUsers = new ArrayList<User>();
 		this.logged = null;
 	}
@@ -33,10 +37,28 @@ public class Controller {
 		
 		return new ArrayList<User>();
 	}
+	
+	public int getQtdAmigos() throws Exception{
+		
+		if(logged != null){
+			return logged.getAmigos().size();
+		}else{
+			throw new Exception("Usuarix deve estar logado.");
+		}
+	}
+	
+	public int getNotificacoes() throws Exception{
+		
+		if(logged != null){
+			return logged.getNotification().size();
+		}else{
+			throw new Exception("Usuarix deve estar logado.");
+		}
+	}
 
 	public String registerUser (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
-		User usuario = userFactory.makeUser(nome, email, senha, dataDeNascimento);
+		User usuario = userFactory.createUser(nome, email, senha, dataDeNascimento);
 		this.allUsers.add(usuario);
 
 		return email;
@@ -44,7 +66,7 @@ public class Controller {
 	
 	public String registerUser (String name, String email, String password, String birthdate, String picture) throws Exception{
 		
-		User usuario = userFactory.makeUser(name, email, password, birthdate, picture);
+		User usuario = userFactory.createUser(name, email, password, birthdate, picture);
 		this.allUsers.add(usuario);
 
 		return email;
@@ -102,30 +124,16 @@ public class Controller {
 		
 		if(this.logged != null){
 			
-			int sentry = 0;
+			User usuario = buscaUsuario(email);
 			
-			for(User user : allUsers){
-				if(user.getEmail().equals(email)){
-					this.logged.adicionaAmigo(user);
-					return "amigo adicionado";
-					
-				}else{
-					if(allUsers.size() == sentry){
-						throw new Exception("Um usuarix com email "+email+" nao esta cadastradx.");
-					}else{
-						sentry = sentry + 1;
-					}
-					
-				}
-			}
-		}else{
+			Notification notificacao = notificationFactory.createNotification(logged.getName());
 			
-			throw new Exception("You need to login before use this feature.");
+			usuario.adicionaSoliticacaoAmizade(notificacao);
 		}
 		
-		return "email invalido";
+		return "você precisa estar logado.";
 	}
-	
+
 	public boolean removeAmigo(User user){
 		
 		if(this.logged != null){
@@ -147,7 +155,7 @@ public class Controller {
 	
 	public void post(String message, String date){
 		
-		Post post = postFactory.makePost(message, date);
+		Post post = postFactory.createPost(message, date);
 		
 	}
 	
@@ -294,6 +302,17 @@ public class Controller {
 			logged.mudaSenha(novaSenha, senhaAntiga);
 					
 		}
+	}
+	
+	private User buscaUsuario(String email) throws Exception{
+		
+		for(User user : allUsers){
+			if(user.getEmail().equals(email)){
+				return user;
+			}
+		}
+		
+		throw new Exception("Usuarix nao cadastradx.");
 	}
 }
 
