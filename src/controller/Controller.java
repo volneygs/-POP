@@ -204,23 +204,13 @@ public class Controller {
 	public void post(String message, String date) throws Exception{
 		
 		Post post = postFactory.createPost(message, date);
+		logged.mural.add(post);
 		
 	}
 	
-	public void postInMural(User userReceive, String message, String date){
+	public Post getPost(int index) {
 		
-		if(this.logged != null){
-
-			if(this.logged.getFriends().contains(userReceive)){
-				this.logged.postInMural(this.logged, userReceive, message, date);
-				
-			}else{
-				System.out.println("You need to be friend of this person before use this feature.");
-			}
-		}else{
-			System.out.println("You need to login before use this feature.");
-			
-		}
+		return logged.getMural(index);
 		
 	}
 

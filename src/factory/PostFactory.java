@@ -12,7 +12,7 @@ public class PostFactory {
 	public Post createPost(String message, String date) throws Exception{
 		
 		Post post = new Post(message, date);
-		
+
 		return post;
 		
 	}

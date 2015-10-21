@@ -18,7 +18,7 @@ public class User {
 	private LocalDate dataDeNascimento;
 	private String foto;
 	private String pop;
-	private List<Post> mural;
+	public List<Post> mural;
 	private List<User> amigos;
 	private List<String> solicitacoesDeAmizade;
 	private List<String> notificacoes;
@@ -212,13 +212,13 @@ public class User {
 		}
 	}
 	
-	public boolean postInMural(User userSend, User userReceive, String message, String date){
+	/*public boolean postInMural(User userSend, User userReceive, String message, String date){
 		
 		Post post = createPost.createPost(message, date);
 		
 		return userReceive.mural.add(post);
 		
-	}
+	}*/
 	
 	public List<String> getSolicitacoesDeAmizades(){
 		return solicitacoesDeAmizade;
@@ -229,8 +229,8 @@ public class User {
 		return notificacoes;
 	}
 	
-	public List<Post> getMural(){
-		return this.mural;
+	public Post getMural(int index){
+		return this.mural.get(index);
 	}
 	
 	public List<User> getFriends(){

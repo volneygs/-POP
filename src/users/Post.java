@@ -28,21 +28,15 @@ public class Post {
 		this.audioFiles = new ArrayList<String>();
 		this.hashtagList = new ArrayList<String>();
 		this.postList = new ArrayList<String>();
-		this.timeline = new Mural(message + "(" + dateTime.toString() + ")");
-		
-		//postList.add(message + "(" + dateTime.toString() + ")");
 		
 		for (int i = 0; i < message.indexOf("<") || i < message.indexOf("#"); i ++) {
 			
 			if (i == (message.indexOf("<")-1) || i == (message.indexOf("#")-1)) {
 				
 				this.text = message.substring(0, i);
-				//System.out.println(message.substring(0, i));
 				this.files = message.substring(i+1, message.indexOf("#"));
-				//System.out.println(message.substring(i+1, message.indexOf("#")));
 				this.hashtags = message.substring(message.indexOf("#")-1, message.length());
-				//System.out.println(message.substring(message.indexOf("#"), message.length()));
-				
+					
 				if (this.text.length() < 199) {
 					
 					textFiles.add(this.text);
@@ -77,12 +71,8 @@ public class Post {
 					
 				}
 			
-				//System.out.println(imageFiles);
-				//System.out.println(audioFiles);
-				//System.out.println(hashtagList);
-				//System.out.println(textFiles);
 			}
-		
+			
 		}
 		
 	}

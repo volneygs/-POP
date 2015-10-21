@@ -85,11 +85,6 @@ public class Facade {
 		
 	}
 	
-	public void postInMural(User userReceive, String message, String date){
-		
-		controller.postInMural(userReceive, message, date);
-		
-	}
 
 	public String getInfoUsuario(String field) throws Exception{
 		
@@ -127,6 +122,12 @@ public class Facade {
 	public void criaPost(String message, String date) throws Exception{
 		
 		controller.post(message, date);
+		
+	}
+	
+	public void getPost(int index) {
+		
+		controller.getPost(index);
 		
 	}
 	
