@@ -229,8 +229,8 @@ public class User {
 		return notificacoes;
 	}
 	
-	public Post getMural(int index){
-		return this.mural.get(index);
+	public List<Post> getMural(){
+		return this.mural;
 	}
 	
 	public List<User> getFriends(){

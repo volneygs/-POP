@@ -201,16 +201,22 @@ public class Controller {
 		}
 	}
 	
-	public void post(String message, String date) throws Exception{
+	public void criaPost(String message, String date) throws Exception{
 		
-		Post post = postFactory.createPost(message, date);
-		logged.mural.add(post);
+		if(logged != null){
+			
+			Post post = postFactory.createPost(message, date);
+			
+			logged.mural.add(post);
+		}
+		
+		
 		
 	}
 	
 	public Post getPost(int index) {
 		
-		return logged.getMural(index);
+		return logged.getMural().get(index);
 		
 	}
 
