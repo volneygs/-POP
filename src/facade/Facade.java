@@ -103,6 +103,11 @@ public class Facade {
 		
 	}
 	
+	public String getNextNotificacao(){
+		return controller.getNextNotificacao();
+		
+	}
+	
 	public String removeUsuario(String id) throws Exception{
 		
 		return controller.removeUsuario(id);

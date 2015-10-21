@@ -55,6 +55,11 @@ public class Controller {
 			throw new Exception("Usuarix deve estar logado.");
 		}
 	}
+	
+	public String getNextNotificacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	public String registerUser (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
@@ -120,6 +125,7 @@ public class Controller {
 		}
 	}
 	
+	
 	public String adicionaAmigo(String email) throws Exception{
 		
 		if(this.logged != null){
@@ -132,7 +138,7 @@ public class Controller {
 		}
 		
 		return "você precisa estar logado.";
-	}
+	} 
 
 	public boolean removeAmigo(User user){
 		

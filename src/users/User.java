@@ -107,6 +107,7 @@ public class User {
 		this.foto = foto;
 		this.mural = new ArrayList<Post>();
 		this.amigos = new ArrayList<User>();
+		this.notificacoes = new ArrayList<Notification>();
 		this.createPost = new PostFactory();
 	}
 	
