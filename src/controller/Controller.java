@@ -46,7 +46,7 @@ public class Controller {
 	public int getNotificacoes() throws Exception{
 		
 		if(logged != null){
-			return logged.getNotification().size();
+			return logged.getQtdNotificacao();
 		}else{
 			throw new Exception("Usuarix deve estar logado.");
 		}
@@ -134,9 +134,9 @@ public class Controller {
 			
 			String notificacao = logged.getName() + " quer sua amizade.";
 			
-			usuario.adicionaSoliticacaoAmizade(notificacao);
+			usuario.adicionaNotificacao(notificacao);
 			
-			usuario.getSolicitacoesDeAmizades().add(logged.getEmail());
+			usuario.adicionaSoliticacaoAmizade(logged.getEmail());
 		}
 		
 		return "você precisa estar logado.";
@@ -152,6 +152,9 @@ public class Controller {
 				
 				logged.adicionaAmigo(usuario);
 				
+				String notificacao = logged.getName() + " aceitou sua amizade.";
+				
+				usuario.adicionaNotificacao(notificacao);
 				
 			}
 		}
@@ -185,7 +188,7 @@ public class Controller {
 			
 			User usuario = buscaUsuario(email);
 			
-			if(logged.getFriends().contains(usuario)){
+			if(logged.getAmigos().contains(usuario)){
 				this.logged.removeAmigo(usuario);
 				
 				return true;
@@ -210,6 +213,20 @@ public class Controller {
 			logged.mural.add(post);
 		}
 		
+		
+		
+	}
+	
+	public void curtirPost(String email, int index) throws Exception {
+		
+		User usuario = buscaUsuario(email);
+		
+		usuario.getMural().get(index).addCurtida();
+		String dataHora = usuario.getMural().get(index).getDateTime();
+		
+		String notificacao = logged.getName() +" curtiu seu post de " + dataHora + ".";
+		
+		usuario.adicionaNotificacao(notificacao);
 		
 		
 	}
@@ -387,6 +404,5 @@ public class Controller {
 		
 		throw new Exception("Um usuarix com email " + email + " nao esta cadastradx.");
 	}
-
 
 }

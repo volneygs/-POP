@@ -22,7 +22,7 @@ public class Post {
 	private String files;
 	private String hashtags;
 	private String message;
-	private Mural timeline;
+	private boolean viewd;
 
 	public Post(String message, String date) throws Exception{
 		
@@ -33,6 +33,7 @@ public class Post {
 		this.audioFiles = new ArrayList<String>();
 		this.hashtagList = new ArrayList<String>();
 		this.postList = new ArrayList<String>();
+		this.viewd = false;
 		
 		this.stringChest = new ArrayList<String>();
 		
@@ -131,6 +132,11 @@ public class Post {
 		return likeCounter;
 	}
 	
+	public void addCurtida(){
+		
+		this.likeCounter = this.likeCounter + 1;
+	}
+	
 	public String getNamePost(){
 		
 		return user.getName();
@@ -138,7 +144,12 @@ public class Post {
 	
 	public String visualizePost(){
 		
+		this.viewd = true;
 		return user.getName() + ": " + this.text;
+	}
+	
+	public boolean getViewd(){
+		return viewd;
 	}
 	
 	

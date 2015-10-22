@@ -24,6 +24,7 @@ public class User {
 	private List<String> notificacoes;
 	private PostFactory createPost;
 	private int indiceNot;
+	private int qtdNotificacao;
 
 	public User(String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
@@ -65,6 +66,7 @@ public class User {
 		this.createPost = new PostFactory();
 		this.solicitacoesDeAmizade = new ArrayList();
 		this.indiceNot = 0;
+		this.qtdNotificacao = 0;
 	}
 	
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
@@ -115,6 +117,7 @@ public class User {
 		this.createPost = new PostFactory();
 		this.solicitacoesDeAmizade = new ArrayList();
 		this.indiceNot = 0;
+		this.qtdNotificacao = 0;
 	}
 	
 	public void mudaNome(String novoNome) throws Exception{
@@ -182,25 +185,36 @@ public class User {
 		}
 	}
 	
+	public void adicionaNotificacao(String notificacao){
+		
+		qtdNotificacao += 1;
+		notificacoes.add(notificacao);
+	}
+	
+	public int getNotificacoes(){
+		return notificacoes.size();
+	}
+	
 	public String getNextNotificacao() throws Exception{
 		
-		if(notificacoes.size() == indiceNot){
+		if(this.qtdNotificacao == 0){
 			throw new Exception("Nao ha mais notificacoes.");
 		}else{
+			qtdNotificacao -= 1;
 			String notificacao = notificacoes.get(indiceNot);
-			indiceNot = indiceNot + 1;
+			indiceNot+= 1;
 			return notificacao;
 		}
 		
 	}
 	
-	public void adicionaSoliticacaoAmizade(String notificacao) {
+	public void adicionaSoliticacaoAmizade(String email) {
 		
-		notificacoes.add(notificacao);
+		solicitacoesDeAmizade.add(email);
 	}
 
-	public boolean adicionaAmigo(User user){
-		return this.amigos.add(user);
+	public void adicionaAmigo(User user){
+		this.amigos.add(user);
 	}
 	
 	public boolean removeAmigo(User user){
@@ -210,14 +224,6 @@ public class User {
 			return false;
 		}
 	}
-	
-	/*public boolean postInMural(User userSend, User userReceive, String message, String date){
-		
-		Post post = createPost.createPost(message, date);
-		
-		return userReceive.mural.add(post);
-		
-	}*/
 	
 	public List<String> getSolicitacoesDeAmizades(){
 		return solicitacoesDeAmizade;
@@ -232,8 +238,8 @@ public class User {
 		return this.mural;
 	}
 	
-	public List<User> getFriends(){
-		return this.amigos;
+	public int getQtdNotificacao(){
+		return qtdNotificacao;
 	}
 	
 	public String getName() {
