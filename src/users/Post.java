@@ -22,7 +22,6 @@ public class Post {
 	private String files;
 	private String hashtags;
 	private String message;
-	private boolean viewd;
 
 	public Post(String message, String date) throws Exception{
 		
@@ -33,8 +32,6 @@ public class Post {
 		this.audioFiles = new ArrayList<String>();
 		this.hashtagList = new ArrayList<String>();
 		this.postList = new ArrayList<String>();
-		this.viewd = false;
-		
 		this.stringChest = new ArrayList<String>();
 		
 		for (int i = 0; i < message.indexOf("<") || i < message.indexOf("#"); i ++){
@@ -143,15 +140,7 @@ public class Post {
 	}
 	
 	public String visualizePost(){
-		
-		this.viewd = true;
+	
 		return user.getName() + ": " + this.text;
-	}
-	
-	public boolean getViewd(){
-		return viewd;
-	}
-	
-	
-
+	}	
 }

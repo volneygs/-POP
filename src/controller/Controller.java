@@ -83,34 +83,18 @@ public class Controller {
 		return this.allUsers;
 	}
 
-	public String login(String email, String password) throws Exception{
+	public void login(String email, String senha) throws Exception{
 		
-		int sentry = 0;
+		User usuario = buscaUsuarioLogin(email);
 		
 		if(this.logged == null){
-			
-			for (User user : allUsers) {
-				
-				sentry = sentry + 1;
-				
-				if(user.getEmail().equals(email)){
-					
-					if(user.getPassword().equals(password)){
-						
-						this.logged = user;
-						
-						return "Login successeful";
-					}else{
-						throw new Exception("Nao foi possivel realizar login. Senha invalida.");
-					}
-				}else if(sentry == allUsers.size()){
-					throw new Exception("Nao foi possivel realizar login. Um usuarix com email "+email+" nao esta cadastradx.");
-				}
+	
+			if(autenticaLogin(usuario, email, senha)){
+				this.logged = usuario;
 			}
 		}else{
-			throw new Exception("Nao foi possivel realizar login. Um usuarix ja esta logadx: "+logged.getName()+".");
+			throw new Exception("Nao foi possivel realizar login. Um usuarix ja esta logadx: "+ logged.getName() + ".");
 		}
-		return "login not made";
 	}
 
 	public String logout() throws Exception{
@@ -280,55 +264,39 @@ public class Controller {
 		}
 	}
 	
-	public String getInfoUsuario(String field, String id) throws Exception{
+	public String getInfoUsuario(String field, String email) throws Exception{
 		
-		int sentry = 0;
-		
-		for(User user : allUsers) {
-			
-			sentry = sentry + 1;
-			
-			if(user.getEmail().equals(id)){
+		User usuario = buscaUsuario(email);
 				
-				if(field.equals("Nome")){
-					return user.getName();
+		if(field.equals("Nome")){
+			return usuario.getName();
 
-				}else if (field.equals("Senha")){
-					throw new Exception("A senha dx usuarix eh protegida.");
+		}else if (field.equals("Senha")){
+			throw new Exception("A senha dx usuarix eh protegida.");
 					
-				}else if (field.equals("Data de Nascimento")){
-					return user.getBirthdate().toString();
+		}else if (field.equals("Data de Nascimento")){
+			return usuario.getBirthdate().toString();
 					
-				}else if (field.equals("Foto")){
-					return user.getImage();
-				}
-			}else if(sentry == allUsers.size()){
-				throw new Exception("Um usuarix com email "+ id +" nao esta cadastradx.");
-			}
+		}else if (field.equals("Foto")){
+			return usuario.getImage();
+			
+		}else{
+			throw new Exception("Vc precisa especificar um campo valido.");
 		}
-		
-		throw new Exception("Vc precisa especificar um campo valido.");
 	}
 	
-	public String removeUsuario(String id) throws Exception{
+	public String removeUsuario(String email) throws Exception{
 		
-		int sentry = 0;
-		
-		for(User user : allUsers){
+		User usuario = buscaUsuario(email);	
 			
-			sentry = sentry + 1;
+		if(usuario.getEmail().equals(email)){
+			allUsers.remove(usuario);
+				
+			return "user successfully removed.";
+		}else{
+			throw new Exception("You need to specify a valid field.");
 			
-			if(user.getEmail().equals(id)){
-				allUsers.remove(user);
-				
-				return "user successfully removed.";
-			}else if(sentry == allUsers.size()){
-				
-				throw new Exception("Invalid field.");
-			}
 		}
-		
-		throw new Exception("You need to specify a valid field.");
 	}
 	
 	public String fechaSistema() throws Exception{
@@ -369,6 +337,17 @@ public class Controller {
 		}
 	}
 	
+	private User buscaUsuarioLogin(String email) throws Exception{
+		
+		for(User user : allUsers){
+			if(user.getEmail().equals(email)){
+				return user;
+			}
+		}
+		
+		throw new Exception("Nao foi possivel realizar login. Um usuarix com email " + email + " nao esta cadastradx.");
+	}
+	
 	private User buscaUsuario(String email) throws Exception{
 
 		for(User user : allUsers){
@@ -378,6 +357,22 @@ public class Controller {
 		}
 		
 		throw new Exception("Um usuarix com email " + email + " nao esta cadastradx.");
+	}
+	
+	private boolean autenticaLogin(User usuario, String email, String senha) throws Exception{
+			
+			if(usuario.getEmail().equals(email)){
+					
+				if(usuario.getPassword().equals(senha)){
+						
+					return true;
+					
+				}else{
+					throw new Exception("Nao foi possivel realizar login. Senha invalida.");
+				}
+			}else{
+					throw new Exception("Nao foi possivel realizar login. Um usuarix ja esta logadx: "+logged.getName()+".");
+		}
 	}
 
 }

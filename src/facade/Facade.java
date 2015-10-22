@@ -26,31 +26,26 @@ public class Facade {
 	public User getLogged(){
 	
 		return controller.getLogged();
-		
 	}
 
 	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 	
 		return controller.registerUser(nome, email, senha, dataDeNascimento);
-	
 	}
 	
 	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 		
 		return controller.registerUser(nome, email, senha, dataDeNascimento, foto);
-		
 	}
 	
-	public String login(String email, String password) throws Exception{
+	public void login(String email, String password) throws Exception{
 		
-		return controller.login(email, password);
-		
+		controller.login(email, password);
 	}
 	
 	public String logout() throws Exception{
 		
 		return controller.logout();
-		
 	}
 	
 	public void atualizaPerfil(String field, String newField) throws Exception{
@@ -66,7 +61,6 @@ public class Facade {
 	public String adicionaAmigo(String email) throws Exception{
 		
 		return controller.adicionaAmigo(email);
-		
 	}
 	
 	public void aceitaAmizade(String email) throws Exception{
@@ -87,13 +81,11 @@ public class Facade {
 	public String getInfoUsuario(String field) throws Exception{
 		
 		return controller.getInfoUsuario(field);
-		
 	}
 	
 	public String getInfoUsuario(String field, String id) throws Exception{
 		
 		return controller.getInfoUsuario(field, id);
-		
 	}
 	
 	public int getQtdAmigos() throws Exception{
@@ -102,25 +94,23 @@ public class Facade {
 	}
 	
 	public int getNotificacoes() throws Exception{
-		return controller.getNotificacoes();
 		
+		return controller.getNotificacoes();
 	}
 	
 	public String getNextNotificacao() throws Exception{
-		return controller.getNextNotificacao();
 		
+		return controller.getNextNotificacao();
 	}
 	
-	public String removeUsuario(String id) throws Exception{
+	public String removeUsuario(String email) throws Exception{
 		
-		return controller.removeUsuario(id);
-		
+		return controller.removeUsuario(email);
 	}
 	
 	public void criaPost(String message, String date) throws Exception{
 		
 		controller.criaPost(message, date);
-		
 	}
 	
 	public void curtirPost(String email, int index) throws Exception{
@@ -142,7 +132,6 @@ public class Facade {
 	public String getConteudoPost(int index, int postIndex) throws Exception{
 		
 		return controller.getConteudoPost(index, postIndex);
-		
 	}
 	
 	public String fechaSistema() throws Exception{
