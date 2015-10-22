@@ -144,11 +144,11 @@ public class Controller {
 	
 	public void aceitaAmizade(String email) throws Exception{
 		
+		User usuario = buscaUsuario(email);
+		
 		if(logged != null){
 			
 			if(logged.getSolicitacoesDeAmizades().contains(email)){
-				
-				User usuario = buscaUsuario(email);
 				
 				logged.adicionaAmigo(usuario);
 				
@@ -156,6 +156,8 @@ public class Controller {
 				
 				usuario.adicionaNotificacao(notificacao);
 				
+			}else{
+				throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
 			}
 		}
 		
