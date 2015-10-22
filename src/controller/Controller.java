@@ -210,9 +210,6 @@ public class Controller {
 			
 			logged.mural.add(post);
 		}
-		
-		
-		
 	}
 	
 	public void curtirPost(String email, int index) throws Exception {
@@ -344,26 +341,6 @@ public class Controller {
 	}
 
 	public void atualizaPerfil(String field, String newField) throws Exception{
-		//teste
-		/*
-			}else if(field.equals("Data de Nascimento") && field.equals("")){
-				throw new Exception("Erro na atualizacao de perfil. Formato de data esta invalida.");
-				
-			}
-
-			
-			try { 
-				this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
-			
-			} catch (DateTimeException e) {
-							
-				if (e.toString().contains("could not be parsed at index")){
-					throw new Exception("Error: Invalid date format.");
-				
-				}else if (e.toString().contains("Invalid value for")){
-					throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
-				}
-			}*/ // TODO ESSSE BLOCO COMENTADO EH DE RESPONSABILIDADE DO USUARIO VERIFICAR
 			
 			if(this.logged != null){
 				if(field.equals("Nome")){
@@ -393,7 +370,7 @@ public class Controller {
 	}
 	
 	private User buscaUsuario(String email) throws Exception{
-		//teste
+
 		for(User user : allUsers){
 			if(user.getEmail().equals(email)){
 				return user;
