@@ -74,18 +74,16 @@ public class Facade {
 		controller.aceitaAmizade(email);
 	}
 	
-	public String rejeitaAmizade(String email) throws Exception{
+	public void rejeitaAmizade(String email) throws Exception{
 		
-		return controller.rejeitaAmizade(email);
+		controller.rejeitaAmizade(email);
 	}
 	
-	public boolean removeAmigo(String email) throws Exception{
+	public void removeAmigo(String email) throws Exception{
 		
-		return controller.removeAmigo(email);
-		
+		controller.removeAmigo(email);	
 	}
 	
-
 	public String getInfoUsuario(String field) throws Exception{
 		
 		return controller.getInfoUsuario(field);

@@ -151,6 +151,7 @@ public class Controller {
 			if(logged.getSolicitacoesDeAmizades().contains(email)){
 				
 				logged.adicionaAmigo(usuario);
+				usuario.adicionaAmigo(logged);
 				
 				String notificacao = logged.getName() + " aceitou sua amizade.";
 				
@@ -163,7 +164,9 @@ public class Controller {
 		
 	}
 	
-	public String rejeitaAmizade(String email) throws Exception{
+	public void rejeitaAmizade(String email) throws Exception{
+		
+		User usuario = buscaUsuario(email);
 		
 		if(logged != null){
 			
@@ -171,38 +174,31 @@ public class Controller {
 				
 				logged.getSolicitacoesDeAmizades().remove(email);
 				
-				return "solicitacao rejeitada.";
+				String notificacao = logged.getName()+ " rejeitou sua amizade.";
+				
+				usuario.adicionaNotificacao(notificacao);
 				
 			}else{
-				User usuario = buscaUsuario(email);
 				throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
-			}
-			
+			}	
 		}
-		
-		return "voce deve logar antes";
-
 	}
 
-	public boolean removeAmigo(String email) throws Exception{
+	public void removeAmigo(String email) throws Exception{
+		
+		User usuario = buscaUsuario(email);
 		
 		if(this.logged != null){
 			
-			User usuario = buscaUsuario(email);
-			
 			if(logged.getAmigos().contains(usuario)){
+				
 				this.logged.removeAmigo(usuario);
+				usuario.removeAmigo(logged);
 				
-				return true;
-			}else{
-				System.out.println("You and this person aren't friends.");
+				String notificacao = logged.getName()+ " removeu a sua amizade.";
 				
-				return false;
+				usuario.adicionaNotificacao(notificacao);
 			}
-		}else{
-			System.out.println("You need to login before use this feature.");
-			
-			return false;
 		}
 	}
 	
@@ -397,7 +393,7 @@ public class Controller {
 	}
 	
 	private User buscaUsuario(String email) throws Exception{
-		
+		//teste
 		for(User user : allUsers){
 			if(user.getEmail().equals(email)){
 				return user;
