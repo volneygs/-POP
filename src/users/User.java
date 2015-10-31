@@ -17,12 +17,13 @@ public class User {
 	private String senha;
 	private LocalDate dataDeNascimento;
 	private String foto;
-	private String pop;
+	private UsuarioPadrao usuarioFama;
 	private List<Post> mural;
 	private List<User> amigos;
 	private List<String> solicitacoesDeAmizade;
 	private List<String> notificacoes;
 	private PostFactory createPost;
+	private int pop;
 	private int indiceNot;
 	private int qtdNotificacao;
 
@@ -41,7 +42,6 @@ public class User {
 			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
 			
 		}
-
 		
 		try { 
 			this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
@@ -64,13 +64,14 @@ public class User {
 		this.amigos = new ArrayList<User>();
 		this.notificacoes = new ArrayList<String>();
 		this.createPost = new PostFactory();
-		this.solicitacoesDeAmizade = new ArrayList();
+		this.solicitacoesDeAmizade = new ArrayList<String>();
+		this.usuarioFama = new Normal();
 		this.indiceNot = 0;
 		this.qtdNotificacao = 0;
+		this.pop = 0;
 	}
 	
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
-		
 		
 		if(nome.equals("")){
 			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
@@ -115,9 +116,11 @@ public class User {
 		this.amigos = new ArrayList<User>();
 		this.notificacoes = new ArrayList<String>();
 		this.createPost = new PostFactory();
-		this.solicitacoesDeAmizade = new ArrayList();
+		this.solicitacoesDeAmizade = new ArrayList<String>();
+		this.usuarioFama = new Normal();
 		this.indiceNot = 0;
 		this.qtdNotificacao = 0;
+		this.pop = 0;
 	}
 	
 	public void mudaNome(String novoNome) throws Exception{
@@ -180,6 +183,24 @@ public class User {
 		}
 	}
 	
+	public void adicionaPop(int valor){
+		
+		this.pop = this.pop + valor;
+		
+		if(this.pop < 500 && !(this.usuarioFama instanceof Normal)){
+			
+			this.usuarioFama = new Normal();
+			
+		}else if(this.pop >= 500 && this.pop < 1000 && !(usuarioFama instanceof CelebridadePOP)){
+			
+			this.usuarioFama = new CelebridadePOP();
+			
+		}else if(this.pop >= 1000 && usuarioFama instanceof IconePOP){
+			
+			this.usuarioFama = new IconePOP();
+		}
+	}
+	
 	public void adicionaNotificacao(String notificacao){
 		
 		qtdNotificacao += 1;
@@ -219,15 +240,53 @@ public class User {
 	
 	public void curtirPost(User usuario, int index) {
 		
-		usuario.getMural().get(index).addCurtida();
+		usuarioFama.curtirPost(usuario, nome, index);
 		
-		String dataHora = usuario.getMural().get(index).getDateTime();
 		
-		String notificacao = this.nome +" curtiu seu post de " + dataHora + ".";
+	}
+	
+	public void atualizaPerfil(String field, String newField) throws Exception{
+
+		if(field.equals("Nome")){
+			mudaNome(newField);
+			
+		}else if(field.equals("Foto")){
+			this.foto = newField;
+			
+		}else if(field.equals("E-mail")){
+			mudaEmail(newField);
+			
+		}else if(field.equals("Data de Nascimento")){
+			mudaDataNascimento(newField);
+		}
+		
+	}
+
+	public void adicionaAmigo(User usuario) {
+		
+		String notificacao = this.nome + " quer sua amizade.";
 		
 		usuario.adicionaNotificacao(notificacao);
 		
+		usuario.adicionaSoliticacaoAmizade(this.email);
+		
 	}
+
+	public void rejeitaAmizade(User usuario) throws Exception{
+		
+		if(getSolicitacoesDeAmizades().contains(usuario.getEmail())){
+			
+			getSolicitacoesDeAmizades().remove(usuario.getEmail());
+			
+			String notificacao = this.nome + " rejeitou sua amizade.";
+			
+			usuario.adicionaNotificacao(notificacao);
+			
+		}else{
+			throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
+		}
+		
+	} 
 	
 	public List<String> getSolicitacoesDeAmizades(){
 		return solicitacoesDeAmizade;
@@ -264,6 +323,15 @@ public class User {
 
 	public String getImage() {
 		return this.foto;
+	}
+	
+	public int getPop(){
+		return pop;
+	}
+	
+	public UsuarioPadrao getUsuarioFama(){
+		
+		return usuarioFama;
 	}
 	
 	public List<User> getAmigos(){
@@ -310,48 +378,5 @@ public class User {
 		}
 		
 	}
-
-	public void atualizaPerfil(String field, String newField) throws Exception{
-
-		if(field.equals("Nome")){
-			mudaNome(newField);
-			
-		}else if(field.equals("Foto")){
-			this.foto = newField;
-			
-		}else if(field.equals("E-mail")){
-			mudaEmail(newField);
-			
-		}else if(field.equals("Data de Nascimento")){
-			mudaDataNascimento(newField);
-		}
-		
-	}
-
-	public void adicionaAmigo(User usuario) {
-		
-		String notificacao = this.nome + " quer sua amizade.";
-		
-		usuario.adicionaNotificacao(notificacao);
-		
-		usuario.adicionaSoliticacaoAmizade(this.email);
-		
-	}
-
-	public void rejeitaAmizade(User usuario) throws Exception{
-		
-		if(getSolicitacoesDeAmizades().contains(usuario.getEmail())){
-			
-			getSolicitacoesDeAmizades().remove(usuario.getEmail());
-			
-			String notificacao = this.nome + " rejeitou sua amizade.";
-			
-			usuario.adicionaNotificacao(notificacao);
-			
-		}else{
-			throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
-		}
-		
-	} 
 
 }
