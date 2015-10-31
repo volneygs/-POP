@@ -13,7 +13,7 @@ public class Post {
 	private ArrayList<String> imageFiles;
 	private ArrayList<String> audioFiles;
 	private ArrayList<String> hashtagList;
-	private int likeCounter;
+	private int pop;
 	private User user;
 	private LocalDateTime date;
 	private DateTimeFormatter dateTimeFormatPost = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -25,7 +25,7 @@ public class Post {
 
 	public Post(String message, String date) throws Exception{
 		
-		this.likeCounter = 0;
+		this.pop = 0;
 		this.date = LocalDateTime.parse(date, dateTimeFormatPost);
 		this.textFiles = new ArrayList<String>();
 		this.imageFiles = new ArrayList<String>();
@@ -124,14 +124,14 @@ public class Post {
 		
 	}
 	
-	public int getlikeCounter(){
+	public int getPop(){
 		
-		return likeCounter;
+		return pop;
 	}
 	
-	public void addCurtida(){
+	public void addPop(int valor){
 		
-		this.likeCounter = this.likeCounter + 1;
+		this.pop = this.pop + valor;
 	}
 	
 	public String getNamePost(){

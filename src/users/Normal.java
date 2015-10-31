@@ -11,7 +11,7 @@ public class Normal implements UsuarioPadrao{
 	
 	public void curtirPost(User usuario, String nome, int index){
 		
-		usuario.getMural().get(index).addCurtida();
+		usuario.getMural().get(index).addPop(pop);
 		
 		usuario.adicionaPop(pop);
 		
