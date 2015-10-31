@@ -112,15 +112,11 @@ public class Controller {
 	
 	public String adicionaAmigo(String email) throws Exception{
 		
+		User usuario = buscaUsuario(email);
+		
 		if(this.logged != null){
 			
-			User usuario = buscaUsuario(email);
-			
-			String notificacao = logged.getName() + " quer sua amizade.";
-			
-			usuario.adicionaNotificacao(notificacao);
-			
-			usuario.adicionaSoliticacaoAmizade(logged.getEmail());
+			logged.adicionaAmigo(usuario);
 		}
 		
 		return "você precisa estar logado.";
@@ -134,8 +130,8 @@ public class Controller {
 			
 			if(logged.getSolicitacoesDeAmizades().contains(email)){
 				
-				logged.adicionaAmigo(usuario);
-				usuario.adicionaAmigo(logged);
+				logged.getAmigos().add((usuario));
+				usuario.getAmigos().add((logged));
 				
 				String notificacao = logged.getName() + " aceitou sua amizade.";
 				
@@ -154,17 +150,7 @@ public class Controller {
 		
 		if(logged != null){
 			
-			if(logged.getSolicitacoesDeAmizades().contains(email)){
-				
-				logged.getSolicitacoesDeAmizades().remove(email);
-				
-				String notificacao = logged.getName()+ " rejeitou sua amizade.";
-				
-				usuario.adicionaNotificacao(notificacao);
-				
-			}else{
-				throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
-			}	
+			logged.rejeitaAmizade(usuario);	
 		}
 	}
 
@@ -200,13 +186,7 @@ public class Controller {
 		
 		User usuario = buscaUsuario(email);
 		
-		usuario.getMural().get(index).addCurtida();
-		String dataHora = usuario.getMural().get(index).getDateTime();
-		
-		String notificacao = logged.getName() +" curtiu seu post de " + dataHora + ".";
-		
-		usuario.adicionaNotificacao(notificacao);
-		
+		logged.curtirPost(usuario, index);
 		
 	}
 	
@@ -246,42 +226,14 @@ public class Controller {
 
 	public String getInfoUsuario(String field) throws Exception{
 		
-		if(field.equals("Nome")){
-			return logged.getName();
-
-		}else if (field.equals("Senha")){
-			throw new Exception("A senha dx usuarix eh protegida.");
-			
-		}else if (field.equals("Data de Nascimento")){
-			return logged.getBirthdate().toString();
-			
-		}else if (field.equals("Foto")){
-			return logged.getImage();
-			
-		}else{
-			throw new Exception("Vc precisa especificar um campo valido.");
-		}
+		return logged.getInfoUsuario(field);
 	}
 	
 	public String getInfoUsuario(String field, String email) throws Exception{
 		
 		User usuario = buscaUsuario(email);
-				
-		if(field.equals("Nome")){
-			return usuario.getName();
-
-		}else if (field.equals("Senha")){
-			throw new Exception("A senha dx usuarix eh protegida.");
-					
-		}else if (field.equals("Data de Nascimento")){
-			return usuario.getBirthdate().toString();
-					
-		}else if (field.equals("Foto")){
-			return usuario.getImage();
-			
-		}else{
-			throw new Exception("Vc precisa especificar um campo valido.");
-		}
+		
+		return usuario.getInfoUsuario(field);
 	}
 	
 	public String removeUsuario(String email) throws Exception{
@@ -310,18 +262,9 @@ public class Controller {
 	public void atualizaPerfil(String field, String newField) throws Exception{
 			
 			if(this.logged != null){
-				if(field.equals("Nome")){
-					logged.mudaNome(newField);
-					
-				}else if(field.equals("Foto")){
-					logged.mudaFoto(newField);
-					
-				}else if(field.equals("E-mail")){
-					logged.mudaEmail(newField);
-					
-				}else if(field.equals("Data de Nascimento")){
-					logged.mudaDataNascimento(newField);
-				}
+				
+				logged.atualizaPerfil(field, newField);
+				
 			}else{
 				throw new Exception("Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop.");
 			}
@@ -331,8 +274,7 @@ public class Controller {
 			
 		if(this.logged != null){
 				
-			logged.mudaSenha(novaSenha, senhaAntiga);
-					
+			logged.mudaSenha(novaSenha, senhaAntiga);			
 		}
 	}
 	

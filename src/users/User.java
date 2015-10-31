@@ -129,7 +129,6 @@ public class User {
 		}
 	}
 	
-	
 	public void mudaEmail(String novoEmail) throws Exception{
 		
 		if(novoEmail.equals("") || !(novoEmail.contains("@")) || !(novoEmail.contains(".com"))){				
@@ -137,10 +136,6 @@ public class User {
 		}else{
 			this.email = novoEmail;
 		}
-	}
-	
-	public void mudaFoto(String novaFoto){
-		this.foto = novaFoto;
 	}
 	
 	public void mudaSenha(String novaSenha, String senhaAntiga) throws Exception{
@@ -212,17 +207,26 @@ public class User {
 		
 		solicitacoesDeAmizade.add(email);
 	}
-
-	public void adicionaAmigo(User user){
-		this.amigos.add(user);
-	}
 	
 	public boolean removeAmigo(User user){
 		if(this.amigos.contains(user)){
 			return this.amigos.remove(user);
+			
 		}else{
 			return false;
 		}
+	}
+	
+	public void curtirPost(User usuario, int index) {
+		
+		usuario.getMural().get(index).addCurtida();
+		
+		String dataHora = usuario.getMural().get(index).getDateTime();
+		
+		String notificacao = this.nome +" curtiu seu post de " + dataHora + ".";
+		
+		usuario.adicionaNotificacao(notificacao);
+		
 	}
 	
 	public List<String> getSolicitacoesDeAmizades(){
@@ -266,5 +270,88 @@ public class User {
 		
 		return amigos;
 	}
+	
+
+	public String getInfoUsuario(String field) throws Exception{
+
+		if(field.equals("Nome")){
+			return this.nome;
+
+		}else if (field.equals("Senha")){
+			throw new Exception("A senha dx usuarix eh protegida.");
+			
+		}else if (field.equals("Data de Nascimento")){
+			return this.dataDeNascimento.toString();
+			
+		}else if (field.equals("Foto")){
+			return this.foto;
+			
+		}else{
+			throw new Exception("Vc precisa especificar um campo valido.");
+		}
+	}
+
+	public String getInfoUsuario(String field, User usuario) throws Exception{
+	
+		if(field.equals("Nome")){
+			return usuario.getName();
+
+		}else if (field.equals("Senha")){
+			throw new Exception("A senha dx usuarix eh protegida.");
+					
+		}else if (field.equals("Data de Nascimento")){
+			return usuario.getBirthdate().toString();
+					
+		}else if (field.equals("Foto")){
+			return usuario.getImage();
+			
+		}else{
+			throw new Exception("Vc precisa especificar um campo valido.");
+		}
+		
+	}
+
+	public void atualizaPerfil(String field, String newField) throws Exception{
+
+		if(field.equals("Nome")){
+			mudaNome(newField);
+			
+		}else if(field.equals("Foto")){
+			this.foto = newField;
+			
+		}else if(field.equals("E-mail")){
+			mudaEmail(newField);
+			
+		}else if(field.equals("Data de Nascimento")){
+			mudaDataNascimento(newField);
+		}
+		
+	}
+
+	public void adicionaAmigo(User usuario) {
+		
+		String notificacao = this.nome + " quer sua amizade.";
+		
+		usuario.adicionaNotificacao(notificacao);
+		
+		usuario.adicionaSoliticacaoAmizade(this.email);
+		
+	}
+
+	public void rejeitaAmizade(User usuario) throws Exception{
+		
+		if(getSolicitacoesDeAmizades().contains(usuario.getEmail())){
+			
+			getSolicitacoesDeAmizades().remove(usuario.getEmail());
+			
+			String notificacao = this.nome + " rejeitou sua amizade.";
+			
+			usuario.adicionaNotificacao(notificacao);
+			
+		}else{
+			throw new Exception(usuario.getName() + " nao lhe enviou solicitacoes de amizade.");
+		}
+		
+	} 
 
 }
