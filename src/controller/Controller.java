@@ -192,7 +192,7 @@ public class Controller {
 			
 			Post post = postFactory.createPost(message, date);
 			
-			logged.mural.add(post);
+			logged.getMural().add(post);
 		}
 	}
 	
@@ -237,8 +237,7 @@ public class Controller {
 			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
 		
 		} else if (index > logged.getMural().size()){
-		
-			System.out.println(logged.getMural().size());
+
 			throw new Exception("Item #" + index + " nao existe nesse post, ele possui apenas 3 itens distintos.");
 			
 		} else {	return logged.getMural().get(postIndex).getChest(index);	}

@@ -18,7 +18,7 @@ public class User {
 	private LocalDate dataDeNascimento;
 	private String foto;
 	private String pop;
-	public List<Post> mural;
+	private List<Post> mural;
 	private List<User> amigos;
 	private List<String> solicitacoesDeAmizade;
 	private List<String> notificacoes;
