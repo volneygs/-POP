@@ -215,7 +215,7 @@ public class Controller {
 		
 		} else if (index > logged.getMural().size()){
 
-			throw new Exception("Item #" + index + " nao existe nesse post, ele possui apenas 3 itens distintos.");
+			throw new Exception("Item #" + index + " nao existe nesse post, ele possui apenas " + (logged.getMural().size() + 1) + " itens distintos.");
 			
 		} else {	return logged.getMural().get(postIndex).getChest(index);	}
 		
