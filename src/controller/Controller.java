@@ -61,10 +61,9 @@ public class Controller {
 
 	public String registerUser (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
-		User usuario = userFactory.createUser(nome, email, senha, dataDeNascimento);
-		this.allUsers.add(usuario);
-
-		return email;
+		String foto = "resources/default.jpg";
+		
+		return registerUser(nome, email, senha, dataDeNascimento, foto);
 	}
 	
 	public String registerUser (String name, String email, String password, String birthdate, String picture) throws Exception{
@@ -116,7 +115,7 @@ public class Controller {
 			logged.adicionaAmigo(usuario);
 		}
 		
-		return "você precisa estar logado.";
+		return "vocï¿½ precisa estar logado.";
 	}
 	
 	public void aceitaAmizade(String email) throws Exception{

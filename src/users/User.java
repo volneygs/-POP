@@ -26,93 +26,11 @@ public class User {
 	private int indiceNot;
 	private int qtdNotificacao;
 
-	public User(String nome, String email, String senha, String dataDeNascimento) throws Exception{
-		
-		if(nome.equals("") || nome.trim().equals("")){
-			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
-			
-		}else if(email.equals("") || email.contains("@") == false || email.contains(".com") == false){				
-			throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
-			
-		}else if(senha.equals("")){
-			throw new Exception("Invalid password.");
-			
-		}else if(dataDeNascimento.equals("")){
-			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
-			
-		}
-		
-		try { 
-			
-			this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
-		
-		} catch (DateTimeException e) {
-
-			if (e.toString().contains("could not be parsed at index")){
-
-				throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
-			
-			}else if (e.toString().contains("Invalid value for")){
-				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
-			
-			}else if (e.toString().contains("Invalid date")){
-				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
-			
-			}
-		}
-		
-		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
-		this.foto = "resources/default.jpg";
-		this.mural = new ArrayList<Post>();
-		this.amigos = new ArrayList<User>();
-		this.notificacoes = new ArrayList<String>();
-		this.createPost = new PostFactory();
-		this.solicitacoesDeAmizade = new ArrayList<String>();
-		this.usuarioFama = new Normal();
-		this.indiceNot = 0;
-		this.qtdNotificacao = 0;
-		this.pop = 0;
-	}
-	
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
-		
-		if(nome.equals("")){
-			throw new Exception("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
-			
-		}else if(email.equals("")){				
-			throw new Exception("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
-			
-		}else if(senha.equals("")){
-			throw new Exception("Invalid password.");
-			
-		}else if(dataDeNascimento.equals("")){
-			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
-			
-		}
-
-		try { 
-		
-			this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
-		
-		} catch (DateTimeException e) {
-				
-			if (e.toString().contains("could not be parsed at index")){
-				throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
-			
-			}else if (e.toString().contains("Invalid value for")){
-				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
-			
-			}else if (e.toString().contains("Invalid date")){
-				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
-			
-			}
-		}
-		
 			
 		this.email = email;
 		this.nome = nome;
+		this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
 		this.senha = senha;
 		this.foto = foto;
 		this.mural = new ArrayList<Post>();
