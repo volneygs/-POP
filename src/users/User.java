@@ -22,6 +22,7 @@ public class User {
 	private List<String> solicitacoesDeAmizade;
 	private List<String> notificacoes;
 	private PostFactory createPost;
+	private String popularidade;
 	private int pop;
 	private int indiceNot;
 	private int qtdNotificacao;
@@ -39,6 +40,7 @@ public class User {
 		this.createPost = new PostFactory();
 		this.solicitacoesDeAmizade = new ArrayList<String>();
 		this.usuarioFama = new Normal();
+		this.popularidade = "Normal Pop";
 		this.indiceNot = 0;
 		this.qtdNotificacao = 0;
 		this.pop = 0;
@@ -107,14 +109,17 @@ public class User {
 		if(this.pop < 500 && !(this.usuarioFama instanceof Normal)){
 			
 			this.usuarioFama = new Normal();
+			this.popularidade = "Normal Pop";
 			
 		}else if(this.pop >= 500 && this.pop < 1000 && !(usuarioFama instanceof CelebridadePOP)){
 			
 			this.usuarioFama = new CelebridadePOP();
+			this.popularidade = "Celebridade Pop";
 			
-		}else if(this.pop >= 1000 && usuarioFama instanceof IconePOP){
-			
+		}else if(this.pop >= 1000 && !(usuarioFama instanceof IconePOP)){
+			System.out.println("hay");
 			this.usuarioFama = new IconePOP();
+			this.popularidade = "Icone Pop";
 		}
 	}
 	
@@ -138,6 +143,12 @@ public class User {
 			indiceNot+= 1;
 			return notificacao;
 		}
+		
+	}
+	
+	public String getPopularidade() {
+		
+		return this.popularidade;
 		
 	}
 	

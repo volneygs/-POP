@@ -178,6 +178,10 @@ public class Controller {
 		}
 	}
 	
+	public void adicionaPop(int valor){
+		logged.adicionaPop(valor);
+	}
+	
 	public void curtirPost(String email, int index) throws Exception {
 		
 		User usuario = buscaUsuario(email);
@@ -230,6 +234,10 @@ public class Controller {
 		User usuario = buscaUsuario(email);
 		
 		return usuario.getInfoUsuario(field);
+	}
+	
+	public String getPopularidade() {
+		return logged.getPopularidade();
 	}
 	
 	public String removeUsuario(String email) throws Exception{

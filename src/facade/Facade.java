@@ -8,7 +8,8 @@ public class Facade {
 
 	
 	public static void main(String[] args) {
-	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt", "use_cases/usecase_4.txt"};
+	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt", "use_cases/usecase_4.txt",
+	    "use_cases/usecase_5.txt", "use_cases/usecase_6.txt", "use_cases/usecase_7.txt"};
 	    EasyAccept.main(args);
 	}
 	
@@ -48,6 +49,10 @@ public class Facade {
 		return controller.logout();
 	}
 	
+	public void adicionaPops(int valor){
+		controller.adicionaPop(valor);
+	}
+	
 	public void atualizaPerfil(String field, String newField) throws Exception{
 		
 		controller.atualizaPerfil(field, newField);
@@ -76,6 +81,10 @@ public class Facade {
 	public void removeAmigo(String email) throws Exception{
 		
 		controller.removeAmigo(email);	
+	}
+	
+	public String getPopularidade() {
+		return controller.getPopularidade();
 	}
 	
 	public String getInfoUsuario(String field) throws Exception{
