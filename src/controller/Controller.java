@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 import factory.UserFactory;
 import factory.PostFactory;
 import users.User;
@@ -115,7 +117,7 @@ public class Controller {
 			logged.adicionaAmigo(usuario);
 		}
 		
-		return "voc� precisa estar logado.";
+		return "voce precisa estar logado.";
 	}
 	
 	public void aceitaAmizade(String email) throws Exception{
@@ -181,6 +183,15 @@ public class Controller {
 	public void adicionaPop(int valor){
 		logged.adicionaPop(valor);
 	}
+	
+	public String atualizaRanking(){
+
+		Collections.sort(allUsers);
+		
+		return "Mais populares: () ; (); (); | Menos Populares: () ; (); ();";
+		
+	}
+	
 	
 	public void curtirPost(String email, int index) throws Exception {
 		

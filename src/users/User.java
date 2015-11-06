@@ -8,7 +8,7 @@ import factory.PostFactory;
 import java.time.*;
 import java.time.format.*;
 
-public class User {
+public class User implements Comparable<User> {
 	
 	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 	private String email;
@@ -310,6 +310,17 @@ public class User {
 			throw new Exception("Vc precisa especificar um campo valido.");
 		}
 		
+	}
+
+	@Override
+	public int compareTo(User user) {
+		if (this.pop < user.pop) {
+            return -1;
+        }
+        if (this.pop > user.pop) {
+            return 1;
+        }
+        return 0;
 	}
 
 }
