@@ -218,6 +218,10 @@ public class Controller {
 		
 	}
 	
+	public int getPopsPost(int postIndex) {
+		return logged.getMural().get(postIndex).getPop();
+	}
+	
 	public String getConteudoPost(int index, int postIndex) throws Exception{
 
 		if (index < 0){

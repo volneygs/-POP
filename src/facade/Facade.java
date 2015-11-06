@@ -147,6 +147,10 @@ public class Facade {
 		return controller.getConteudoPost(index, postIndex);
 	}
 	
+	public int getPopsPost(int postIndex) {
+		return controller.getPopsPost(postIndex);
+	}
+	
 	public String fechaSistema() throws Exception{
 		
 		return controller.fechaSistema();
