@@ -16,10 +16,14 @@ public class Post {
 	private String files;
 	private String hashtags;
 	private String message;
-
+	private int qtdCurtidas;
+	private int qtdRejeicoes;
+	
 	public Post(String message, String date) throws Exception{
 		
 		this.pop = 0;
+		this.qtdCurtidas = 0;
+		this.qtdRejeicoes = 0;
 		this.date = LocalDateTime.parse(date, dateValidator);
 		this.hashtagList = new ArrayList<String>();
 		this.stringChest = new ArrayList<String>();
@@ -146,9 +150,25 @@ public class Post {
 		return pop;
 	}
 	
+	public int getQtdCurtidas(){
+		return this.qtdCurtidas;
+	}
+	
+	public int getQtdRejeicoes(){
+		return this.qtdRejeicoes;
+	}
+	
 	public void addPop(int valor){
 		
 		this.pop = this.pop + valor;
+	}
+	
+	public void addCurtida(int valor){
+		this.qtdCurtidas += 1;
+	}
+	
+	public void addRejeicao(int valor){
+		this.qtdRejeicoes += 1;
 	}
 	
 }

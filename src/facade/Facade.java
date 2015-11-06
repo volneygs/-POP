@@ -130,6 +130,14 @@ public class Facade {
 		controller.rejeitarPost(email, index);
 	}
 	
+	public int qtdCurtidasDePost(int postIndex){
+		return controller.getCurtidasPost(postIndex);
+	}
+
+	public int qtdRejeicoesDePost(int postIndex){
+		return controller.getRejeicoesPost(postIndex);
+	}
+	
 	public String getPost(int index) {
 		
 		return controller.getPost(index);

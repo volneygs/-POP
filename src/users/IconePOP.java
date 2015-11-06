@@ -12,6 +12,7 @@ public class IconePOP implements UsuarioPadrao{
 	public void curtirPost(User usuario, String nome, int index){
 		
 		usuario.getMural().get(index).addPop(pop);
+		usuario.getMural().get(index).addCurtida(1);
 		
 		usuario.adicionaPop(pop);
 		
@@ -25,6 +26,7 @@ public class IconePOP implements UsuarioPadrao{
 	public void rejeitarPost(User usuario, String nome, int index){
 		
 		usuario.getMural().get(index).addPop(-pop);
+		usuario.getMural().get(index).addRejeicao(1);
 		
 		usuario.adicionaPop(-pop);
 		

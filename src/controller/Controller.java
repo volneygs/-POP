@@ -218,6 +218,14 @@ public class Controller {
 		
 	}
 	
+	public int getCurtidasPost(int postIndex) {
+		return logged.getMural().get(postIndex).getQtdCurtidas();
+	}
+	
+	public int getRejeicoesPost(int postIndex) {
+		return logged.getMural().get(postIndex).getQtdRejeicoes();
+	}
+	
 	public int getPopsPost(int postIndex) {
 		return logged.getMural().get(postIndex).getPop();
 	}
