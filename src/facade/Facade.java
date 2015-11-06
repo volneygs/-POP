@@ -130,11 +130,11 @@ public class Facade {
 		controller.rejeitarPost(email, index);
 	}
 	
-	public int qtdCurtidasDePost(int postIndex){
+	public int qtdCurtidasDePost(int postIndex) throws Exception{
 		return controller.getCurtidasPost(postIndex);
 	}
 
-	public int qtdRejeicoesDePost(int postIndex){
+	public int qtdRejeicoesDePost(int postIndex) throws Exception{
 		return controller.getRejeicoesPost(postIndex);
 	}
 	
@@ -155,8 +155,16 @@ public class Facade {
 		return controller.getConteudoPost(index, postIndex);
 	}
 	
-	public int getPopsPost(int postIndex) {
+	public int getPopsPost(int postIndex) throws Exception{
 		return controller.getPopsPost(postIndex);
+	}
+
+	public int getPopsUsuario(String email) throws Exception{
+		return controller.getPopsUsuario(email);
+	}
+	
+	public int getPopsUsuario(){
+		return controller.getPopsUsuario();
 	}
 	
 	public String fechaSistema() throws Exception{

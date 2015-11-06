@@ -259,7 +259,7 @@ public class User {
 		return this.foto;
 	}
 	
-	public int getPop(){
+	public int getPops(){
 		return pop;
 	}
 	

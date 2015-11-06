@@ -198,6 +198,26 @@ public class Controller {
 		
 	}
 	
+	public int getPopsUsuario(String email) throws Exception {
+		
+		User usuario = buscaUsuario(email);
+		
+		if(this.logged == null){
+		
+			return usuario.getPops();
+			
+		} else {
+			
+			throw new Exception("Erro na consulta de Pops. Um usuarix ainda esta logadx.");
+		
+		}
+		
+	}
+	
+	public int getPopsUsuario(){
+		return logged.getPops();		
+	}
+	
 	public String getPost(int index) {
 		
 			return logged.getMural().get(index).getMessage();
@@ -218,12 +238,33 @@ public class Controller {
 		
 	}
 	
-	public int getCurtidasPost(int postIndex) {
-		return logged.getMural().get(postIndex).getQtdCurtidas();
+	public int getCurtidasPost(int postIndex) throws Exception{
+		
+		if (postIndex < 0){
+			
+			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
+		
+		} else if (postIndex > logged.getMural().size()){
+
+			throw new Exception("Post #" + postIndex + " nao existe. Usuarix possui apenas " + (logged.getMural().size()) + " post(s).");
+		
+		} else { return logged.getMural().get(postIndex).getQtdCurtidas(); } 
+	
 	}
 	
-	public int getRejeicoesPost(int postIndex) {
-		return logged.getMural().get(postIndex).getQtdRejeicoes();
+	public int getRejeicoesPost(int postIndex) throws Exception{
+		
+		if (postIndex < 0){
+			
+			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
+		
+		} else if (postIndex > logged.getMural().size()){
+
+			throw new Exception("Post #" + postIndex + " nao existe. Usuarix possui apenas " + (logged.getMural().size()) + " post(s).");
+		
+		} else { return logged.getMural().get(postIndex).getQtdRejeicoes(); } 
+
+		
 	}
 	
 	public int getPopsPost(int postIndex) {

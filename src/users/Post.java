@@ -46,24 +46,39 @@ public class Post {
 			} else if (manipulator[i].contains("<audio>")) {
 				this.files += manipulator[i] + " ";
 			} else if (manipulator[i].contains("#")) {
+				//this.hashtagList.add(manipulator[i]);
 				this.hashtags += manipulator[i] + " ";
 			} else if (this.hashtags.isEmpty() == false) {
+				//this.hashtagList.add(manipulator[i]);
 				this.hashtags += manipulator[i] + " ";
 			} else { this.text.append(manipulator[i] + " "); }
 		}
 	
-		getText(this.text);
+		setText(this.text);
 		
 		if (this.files.isEmpty() == false) {
-			getFiles(this.files);
+			setFiles(this.files);
 		}
 		
 		if (this.hashtags.isEmpty() == false) {
-			getHashtags(this.hashtags);
+			setHashtags(this.hashtags);
 		}
 	}
 	
-	public void getText(StringBuilder text) throws Exception {
+	public void addEpicWin(){
+		
+		if (this.hashtagList.contains("#epicwin") == false){
+			this.hashtagList.add("#epicwin");
+		}
+	}
+	
+	public void addEpicFail(){
+		if (this.hashtagList.contains("#epicfail") == false){
+			this.hashtagList.add("#epicfail");
+		}
+	}
+	
+	public void setText(StringBuilder text) throws Exception {
 		
 		if (text.toString().trim().length() < 199) {
 			
@@ -73,7 +88,7 @@ public class Post {
 		
 	}
 	
-	public void getFiles(String files){
+	public void setFiles(String files){
 		
 		for (String i: files.split("<imagem>|</imagem>|<audio>|</audio>| ")) {
 			
@@ -89,14 +104,14 @@ public class Post {
 		}
 	}
 	
-	public void getHashtags(String hashtags) throws Exception {
+	public void setHashtags(String hashtags) throws Exception {
 		
 		for (String k: this.hashtags.split(" ")) {
 			
 			if (k.contains("#")) {
 				
 				hashtagList.add(k.trim());
-				
+
 			} else if (k.contains("#") == false) {
 				
 				throw new Exception("Nao eh possivel criar o post. As hashtags devem comecar com '#'. Erro na hashtag: '" + k + "'.");
@@ -119,12 +134,6 @@ public class Post {
 		
 	}
 	
-	public String getMessage(){
-		
-		return this.message + " (" + this.date.format(dateTimeFormatter) + ")";
-	
-	}
-	
 	public String getDateTime(){
 		
 		return this.date.format(dateTimeFormatter);
@@ -133,7 +142,7 @@ public class Post {
 	
 	public String getHashtags(){
 		
-		return hashtags.toString().trim().replace(" ", ",");
+		return hashtagList.toString().replaceAll("\\[|\\]", "").replaceAll("\\s+", "");
 
 	}
 	
@@ -142,6 +151,12 @@ public class Post {
 		if (this.files.isEmpty() == false) {
 			return this.text.toString() + this.files.trim();
 		} else { return this.text.toString().trim(); }
+	
+	}
+
+	public String getMessage(){
+		
+		return this.getText() + " " + getHashtags().replaceAll(",", " ") + " (" + this.date.format(dateTimeFormatter) + ")";
 	
 	}
 	
