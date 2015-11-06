@@ -126,6 +126,10 @@ public class Facade {
 		controller.curtirPost(email, index);
 	}
 	
+	public void rejeitarPost(String email, int index) throws Exception{
+		controller.rejeitarPost(email, index);
+	}
+	
 	public String getPost(int index) {
 		
 		return controller.getPost(index);

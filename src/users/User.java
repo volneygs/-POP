@@ -172,6 +172,13 @@ public class User {
 		
 	}
 	
+	public void rejeitarPost(User usuario, int index) {
+		
+		usuarioFama.rejeitarPost(usuario, nome, index);
+		
+		
+	}
+	
 	public void atualizaPerfil(String field, String newField) throws Exception{
 
 		if(field.equals("Nome")){

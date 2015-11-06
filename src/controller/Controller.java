@@ -190,6 +190,14 @@ public class Controller {
 		
 	}
 	
+	public void rejeitarPost(String email, int index) throws Exception {
+		
+		User usuario = buscaUsuario(email);
+		
+		logged.rejeitarPost(usuario, index);
+		
+	}
+	
 	public String getPost(int index) {
 		
 			return logged.getMural().get(index).getMessage();
