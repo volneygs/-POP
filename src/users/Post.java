@@ -140,6 +140,10 @@ public class Post {
 		
 	}
 	
+	public LocalDate getLocalDate(){
+		return this.date.toLocalDate();
+	}
+	
 	public String getHashtags(){
 		
 		return hashtagList.toString().replaceAll("\\[|\\]", "").replaceAll("\\s+", "");
