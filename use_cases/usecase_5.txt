@@ -28,9 +28,9 @@ login email="madonna@email.com" senha="iamawesome"
 adicionaPops pops=1001
 expect "Icone Pop" getPopularidade
 
-#aceitaAmizade usuario="naza_foguete@hotmail.com"
-#adicionaAmigo usuario="fafa_bernardes@email.com.br"
-#criaPost mensagem="Very happy with my new friends. #divas" data="27/08/2015 10:30:00"
+aceitaAmizade usuario="naza_foguete@hotmail.com"
+adicionaAmigo usuario="fafa_bernardes@email.com.br"
+criaPost mensagem="Very happy with my new friends. #divas" data="27/08/2015 10:30:00"
 criaPost mensagem="Download my new single I'm Cantora for free. <audio>musicas/im_cantora.mp3</audio>" data="27/08/2015 10:40:00"
 
 #naza perde 50 e fica epicfail

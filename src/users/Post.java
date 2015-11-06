@@ -12,7 +12,7 @@ public class Post {
 	private LocalDateTime date;
 	private DateTimeFormatter dateValidator = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
-	private String text;
+	private StringBuilder text;
 	private String files;
 	private String hashtags;
 	private String message;
@@ -24,38 +24,46 @@ public class Post {
 		this.hashtagList = new ArrayList<String>();
 		this.stringChest = new ArrayList<String>();
 		this.message = message;
-		
+		this.files = new String();
+		this.hashtags = new String();
+
 		stringsManipulator();
 
 	}
 	
 	public void stringsManipulator() throws Exception{
 		
-		for (int i = 0; i < message.indexOf("<") || i < message.indexOf("#"); i ++){
-			
-			this.text = message.substring(0, i);
-			this.files = message.substring(i+1, message.indexOf("#"));
-			this.hashtags = message.substring(message.indexOf("#")-1, message.length()).trim();
-			
-			if (i == (message.indexOf("<")-1) || i == (message.indexOf("#")-1)) {
-				
-				this.text = message.substring(0, i);
-				this.files = message.substring(i+1, message.indexOf("#"));
-				this.hashtags = message.substring(message.indexOf("#")-1, message.length()).trim();
-		
-				getText(this.text);
-				getFiles(this.files);
-				getHashtags(this.hashtags);
+		this.text = new StringBuilder();
+		String[] manipulator = message.split(" ");
 
-			}
+		for (int i = 0; i < manipulator.length; i++) {
+			if (manipulator[i].contains("<imagem>")) {
+				this.files += manipulator[i] + " ";
+			} else if (manipulator[i].contains("<audio>")) {
+				this.files += manipulator[i] + " ";
+			} else if (manipulator[i].contains("#")) {
+				this.hashtags += manipulator[i] + " ";
+			} else if (this.hashtags.isEmpty() == false) {
+				this.hashtags += manipulator[i] + " ";
+			} else { this.text.append(manipulator[i] + " "); }
+		}
+	
+		getText(this.text);
+		
+		if (this.files.isEmpty() == false) {
+			getFiles(this.files);
+		}
+		
+		if (this.hashtags.isEmpty() == false) {
+			getHashtags(this.hashtags);
 		}
 	}
 	
-	public void getText(String text) throws Exception {
+	public void getText(StringBuilder text) throws Exception {
 		
-		if (text.length() < 199) {
+		if (text.toString().trim().length() < 199) {
 			
-			stringChest.add(text);
+			stringChest.add(text.toString().trim());
 			
 		} else { throw new Exception("Nao eh possivel criar o post. O limite maximo da mensagem sao 200 caracteres."); }
 		
@@ -109,7 +117,7 @@ public class Post {
 	
 	public String getMessage(){
 		
-		return this.text + this.files + " " + this.hashtags + " (" + this.date.format(dateTimeFormatter) + ")";
+		return this.message + " (" + this.date.format(dateTimeFormatter) + ")";
 	
 	}
 	
@@ -121,14 +129,16 @@ public class Post {
 	
 	public String getHashtags(){
 		
-		return hashtags.toString().trim().replace("[", "").replace("]", "").replace(" ", ",");
+		return hashtags.toString().trim().replace(" ", ",");
 
 	}
 	
 	public String getText(){
 		
-		return this.text;
-		
+		if (this.files.isEmpty() == false) {
+			return this.text.toString() + this.files.trim();
+		} else { return this.text.toString().trim(); }
+	
 	}
 	
 	public int getPop(){

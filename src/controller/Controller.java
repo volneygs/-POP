@@ -211,7 +211,7 @@ public class Controller {
 	}
 	
 	public String getConteudoPost(int index, int postIndex) throws Exception{
-		
+
 		if (index < 0){
 			
 			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");

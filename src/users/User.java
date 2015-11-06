@@ -117,7 +117,6 @@ public class User {
 			this.popularidade = "Celebridade Pop";
 			
 		}else if(this.pop >= 1000 && !(usuarioFama instanceof IconePOP)){
-			System.out.println("hay");
 			this.usuarioFama = new IconePOP();
 			this.popularidade = "Icone Pop";
 		}
