@@ -14,7 +14,7 @@
 
 iniciaSistema
 
-expect "Trending Topics:  (1) #epicwin: 5; (2) #naza: 3; (3) #soulinda: 2;" atualizaTrendingTopics
+expect "Trending Topics:  (1) #epicwin: 5; (2) #naza: 3; (3) #souQuemSou: 2;" atualizaTrendingTopics
 
 id2=cadastraUsuario nome="Marilene" email="marilene@gmail.com.br" senha="vinho123" dataNasc="05/02/1980" imagem="resources/marilene.jpg"
 id3=cadastraUsuario nome="Maiza" email="maiza@gmail.com.br" senha="adoromusica" dataNasc="15/06/2000" imagem="resources/maiza.jpg"
@@ -69,8 +69,8 @@ expect 2 getPopsUsuario
 
 logout
 
-#expect "Mais Populares: (1) Silvio 2000; (2) Marilene 1499; (3) Walter White 1310; | Menos Populares: (1) Skyler White -50; (2) Cassia 2; (3) Nazare Tedesco 50;" atualizaRanking
+expect "Mais Populares: (1) Silvio 2000; (2) Marilene 1499; (3) Walter White 1310; | Menos Populares: (1) Skyler White -50; (2) Cassia 2; (3) Nazare Tedesco 50;" atualizaRanking
 
-#expect "Trending Topics:  (1) #epicwin: 5; (2) #minhaVida: 4; (3) #naza: 3;" atualizaTrendingTopics
+expect "Trending Topics:  (1) #epicwin: 5; (2) #minhaVida: 4; (3) #naza: 3;" atualizaTrendingTopics
 
 fechaSistema

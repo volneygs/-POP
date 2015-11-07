@@ -3,6 +3,8 @@ package controller;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import comparador.OrdenaPorNome;
+
 import factory.UserFactory;
 import factory.PostFactory;
 import users.User;
@@ -188,8 +190,13 @@ public class Controller {
 
 		Collections.sort(allUsers);
 		
-		return "Mais populares: () ; (); (); | Menos Populares: () ; (); ();";
+		String maisPopulares = "Mais Populares: (1) "+ allUsers.get(0).getName() + " " + allUsers.get(0).getPops()+ "; (2) "+ allUsers.get(1).getName() + " " + allUsers.get(1).getPops()+ "; (3) "+ allUsers.get(2).getName() + " " + allUsers.get(2).getPops()+ ";";
 		
+		Collections.reverse(allUsers);
+		
+		String menosPopulares = "Menos Populares: (1) "+ allUsers.get(0).getName() + " " + allUsers.get(0).getPops()+ "; (2) "+ allUsers.get(1).getName() + " " + allUsers.get(1).getPops()+ "; (3) "+ allUsers.get(2).getName() + " " + allUsers.get(2).getPops()+ ";";
+		
+		return maisPopulares + " | " + menosPopulares;
 	}
 	
 	

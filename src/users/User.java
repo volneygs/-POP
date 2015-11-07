@@ -2,9 +2,7 @@ package users;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import factory.PostFactory;
-
 import java.time.*;
 import java.time.format.*;
 
@@ -26,6 +24,7 @@ public class User implements Comparable<User> {
 	private int pop;
 	private int indiceNot;
 	private int qtdNotificacao;
+	
 
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 			
@@ -314,13 +313,19 @@ public class User implements Comparable<User> {
 
 	@Override
 	public int compareTo(User user) {
-		if (this.pop < user.pop) {
+		if (this.pop < user.getPops()) { 
+			
+           	return 1;
+           	
+        }else if (this.pop > user.getPops()) {
+        	
             return -1;
+            
+        }else {
+        	
+        	return email.compareTo(user.getEmail()) * (-1);
         }
-        if (this.pop > user.pop) {
-            return 1;
-        }
-        return 0;
+        
 	}
 
 }
