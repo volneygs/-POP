@@ -3,8 +3,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import comparador.OrdenaPorNome;
-
 import factory.UserFactory;
 import factory.PostFactory;
 import users.User;
@@ -13,6 +11,7 @@ import users.Post;
 public class Controller {
 	
 	private ArrayList<User> allUsers;
+	private ArrayList<String> trendingTopics;
 	private UserFactory userFactory;
 	private PostFactory postFactory;
 	private User logged;
@@ -21,6 +20,7 @@ public class Controller {
 		this.userFactory = new UserFactory();
 		this.postFactory = new PostFactory();
 		this.allUsers = new ArrayList<User>();
+		this.trendingTopics = new ArrayList<String>();
 		this.logged = null;
 	}
 	
@@ -144,6 +144,12 @@ public class Controller {
 		
 	}
 	
+	public static String atualizador(String currentValue){
+		 
+		return Integer.toString(Integer.parseInt(currentValue) + 1);
+	 
+	}
+	
 	public void rejeitaAmizade(String email) throws Exception{
 		
 		User usuario = buscaUsuario(email);
@@ -179,9 +185,35 @@ public class Controller {
 			Post post = postFactory.createPost(message, date);
 			
 			logged.getMural().add(post);
+			
 		}
+		
 	}
 	
+	public void todasHashtags() {
+		
+		for (User user : allUsers) {
+			
+			for (int i = 0; i < user.getMural().size(); i++) {
+			
+				for (String hashtag : user.getMural().get(i).getHashtags().split(",")) {
+					int indice = trendingTopics.indexOf(hashtag); //indice da hashtag
+					
+					if(trendingTopics.contains(hashtag)==false){  //lista trending topics NAO CONTEM hashtag
+						trendingTopics.add(hashtag);				//adiciona na lista
+						trendingTopics.add("1");					//adiciona n1 apos hashtag adicionada
+					} else {    							// caso ja exista elemento igual na lista de trending topics
+						String atualizaValor = atualizador(trendingTopics.get(indice +1)); //incremento o valor do numero em +1
+						trendingTopics.set(indice +1, atualizaValor);					 //atualizo esse valor na lista de trending topics
+					}
+				}
+				
+			}
+			
+		}
+		
+	}
+
 	public void adicionaPop(int valor){
 		logged.adicionaPop(valor);
 	}
@@ -199,6 +231,24 @@ public class Controller {
 		return maisPopulares + " | " + menosPopulares;
 	}
 	
+	public String atualizaTrendingTopics(){
+		
+		if (this.trendingTopics.isEmpty()){
+			todasHashtags();
+			hashtagsSort(trendingTopics);
+		} else {
+			this.trendingTopics.clear();
+			todasHashtags();
+			hashtagsSort(trendingTopics);
+		}
+		
+		hashtagsSort(trendingTopics);
+		
+		Collections.reverse(trendingTopics);
+		
+		return "Trending Topics:  (1) " + trendingTopics.get(1) + ": " + trendingTopics.get(0) + "; " + "(2) " + trendingTopics.get(3) + ": " + trendingTopics.get(2) + "; " + "(3) " + trendingTopics.get(5) + ": " + trendingTopics.get(4) + ";";
+	}
+	
 	
 	public void curtirPost(String email, int index) throws Exception {
 		
@@ -214,6 +264,44 @@ public class Controller {
 		
 		logged.rejeitarPost(usuario, index);
 		
+	}
+	
+	private static int compare(String str1, String str2){
+		 
+		if (Integer.parseInt(str1) > Integer.parseInt(str2)){
+			return 1;
+		}
+		else if(Integer.parseInt(str1) < Integer.parseInt(str2)){
+			return -1;
+		}else{
+			return 0;
+		}
+	}
+	
+	private static void hashtagsSort(ArrayList<String> list){
+		 
+		if(list.size() > 4){
+ 
+			for(int i = 3; i < list.size(); i += 2){
+ 
+				String keyValue = list.get(i);
+				String keyKey = list.get(i - 1);
+ 
+				int j = i - 2;
+ 
+				while(j >= 1 && (compare(list.get(j), keyValue) == 1 ||
+						(compare(list.get(j), keyValue) == 0 && list.get(j-1).compareToIgnoreCase(list.get(i-1)) > 0) )){
+					list.set(j+2, list.get(j));
+					list.set(j+1, list.get(j-1));
+					j -= 2;
+				}
+ 
+				list.set(j+1, keyKey);
+				list.set(j+2, keyValue);
+			}
+ 
+		}
+ 
 	}
 	
 	public int getPopsUsuario(String email) throws Exception {

@@ -77,6 +77,10 @@ public class Facade {
 		return controller.atualizaRanking();
 	}
 	
+	public String atualizaTrendingTopics() {
+		return controller.atualizaTrendingTopics();
+	}
+	
 	public void rejeitaAmizade(String email) throws Exception{
 		
 		controller.rejeitaAmizade(email);
