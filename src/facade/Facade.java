@@ -8,8 +8,8 @@ public class Facade {
 
 	
 	public static void main(String[] args) {
-	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt", "use_cases/usecase_4.txt",
-	    "use_cases/usecase_5.txt", "use_cases/usecase_6.txt", "use_cases/usecase_7.txt", "use_cases/usecase_8.txt", "use_cases/usecase_9.txt", "use_cases/usecase_10.txt"};
+	    args = new String[] {"facade.Facade", "testes/usecase_1.txt", "testes/usecase_2.txt", "testes/usecase_3.txt", "testes/usecase_4.txt",
+	    "testes/usecase_5.txt", "testes/usecase_6.txt", "testes/usecase_7.txt", "testes/usecase_8.txt", "testes/usecase_9.txt", "testes/usecase_10.txt"};
 	    EasyAccept.main(args);
 	}
 	
