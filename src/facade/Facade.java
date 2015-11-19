@@ -9,7 +9,7 @@ public class Facade {
 	
 	public static void main(String[] args) {
 	    args = new String[] {"facade.Facade", "use_cases/usecase_1.txt", "use_cases/usecase_2.txt", "use_cases/usecase_3.txt", "use_cases/usecase_4.txt",
-	    "use_cases/usecase_5.txt", "use_cases/usecase_6.txt", "use_cases/usecase_7.txt"};
+	    "use_cases/usecase_5.txt", "use_cases/usecase_6.txt", "use_cases/usecase_7.txt", "use_cases/usecase_8.txt", "use_cases/usecase_9.txt", "use_cases/usecase_10.txt"};
 	    EasyAccept.main(args);
 	}
 	
