@@ -3,7 +3,7 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
-public class Post {
+public class Post implements Comparable<Post>{
 	
 	private ArrayList<String> stringChest;
 	
@@ -144,6 +144,11 @@ public class Post {
 		return this.date.toLocalDate();
 	}
 	
+	public LocalDateTime getData(){
+		
+		return this.date;
+	}
+	
 	public String getHashtags(){
 		
 		return hashtagList.toString().replaceAll("\\[|\\]", "").replaceAll("\\s+", "");
@@ -189,5 +194,21 @@ public class Post {
 	public void addRejeicao(int valor){
 		this.qtdRejeicoes += 1;
 	}
+
+	@Override
+	public int compareTo(Post post){
+			
+		if(date.isBefore(post.getData())){
+			return 1;
+		}else if(date.isAfter(post.getData())){
+			return -1;
+		}else{
+			return 0;
+		}
+	}
 	
+	/*public String toString(){
+		
+		return message + hashtags + "(" + date.format(dateTimeFormatter) + ")";
+	} */
 }

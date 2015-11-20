@@ -487,4 +487,21 @@ public class Controller {
 		}
 	}
 
+	public String getPostFeedNoticiasRecentes(int indice) {
+		
+		return logged.getPostFeedNoticiasRecentes(indice);
+		
+	}
+
+	public void atualizaFeed() {
+		
+		logged.atualizaFeed();
+		
+	}
+
+	public String getPostFeedNoticiasMaisPopulares(int indice) {
+		
+		return logged.getPostFeedNoticiasMaisPopulares(indice);
+	}
+
 }

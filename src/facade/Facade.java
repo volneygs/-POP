@@ -49,6 +49,21 @@ public class Facade {
 		return controller.logout();
 	}
 	
+	public void atualizaFeed(){
+		
+		controller.atualizaFeed();
+	}
+	
+	public String getPostFeedNoticiasRecentes(int indice){
+		
+		return controller.getPostFeedNoticiasRecentes(indice);
+	}
+	
+	public String getPostFeedNoticiasMaisPopulares(int indice){
+		
+		return controller.getPostFeedNoticiasMaisPopulares(indice);
+	}
+	
 	public void adicionaPops(int valor){
 		controller.adicionaPop(valor);
 	}

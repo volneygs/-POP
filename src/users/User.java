@@ -1,10 +1,14 @@
 package users;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import factory.PostFactory;
-import java.time.*;
-import java.time.format.*;
+
+import comparator.PostComparator;
 
 public class User implements Comparable<User> {
 	
@@ -13,13 +17,14 @@ public class User implements Comparable<User> {
 	private String nome;
 	private String senha;
 	private LocalDate dataDeNascimento;
+	private PostComparator comparador = new PostComparator();
 	private String foto;
 	private UsuarioPadrao usuarioFama;
 	private List<Post> mural;
 	private List<User> amigos;
 	private List<String> solicitacoesDeAmizade;
 	private List<String> notificacoes;
-	private PostFactory createPost;
+	private List<Post> feedNoticias;
 	private String popularidade;
 	private int pop;
 	private int indiceNot;
@@ -36,7 +41,6 @@ public class User implements Comparable<User> {
 		this.mural = new ArrayList<Post>();
 		this.amigos = new ArrayList<User>();
 		this.notificacoes = new ArrayList<String>();
-		this.createPost = new PostFactory();
 		this.solicitacoesDeAmizade = new ArrayList<String>();
 		this.usuarioFama = new Normal();
 		this.popularidade = "Normal Pop";
@@ -193,6 +197,56 @@ public class User implements Comparable<User> {
 			mudaDataNascimento(newField);
 		}
 		
+	}
+	
+	public String getPostFeedNoticiasRecentes(int indice){
+		
+		Collections.sort(feedNoticias);
+		
+		Collections.reverse(feedNoticias);
+		
+		return feedNoticias.get(indice).getMessage();
+	}
+	
+	public String getPostFeedNoticiasMaisPopulares(int indice){
+		
+		Collections.sort(feedNoticias, comparador);
+		
+		return feedNoticias.get(indice).getMessage();
+	}
+	
+	public void atualizaFeed(){
+		
+		feedNoticias = new ArrayList<Post>();
+		List<Post> muralAmigo = new ArrayList<Post>();
+		
+		for (User user : amigos) {
+			
+			muralAmigo = user.getMural();
+			
+			Collections.sort(muralAmigo);
+			
+			if(user.getUsuarioFama() instanceof Normal){
+				
+				for (int i = 0; i < muralAmigo.size() && i < 2; i++) {
+					
+					feedNoticias.add(muralAmigo.get(i));
+				}
+				
+			}else if(user.getUsuarioFama() instanceof CelebridadePOP){
+				
+				for (int i = 0; i < muralAmigo.size() && i < 4; i++) {
+					
+					feedNoticias.add(muralAmigo.get(i));
+				}
+			}else if(user.getUsuarioFama() instanceof IconePOP){
+				
+				for (int i = 0; i < muralAmigo.size() && i < 6; i++) {
+					
+					feedNoticias.add(muralAmigo.get(i));
+				}
+			}
+		}
 	}
 
 	public void adicionaAmigo(User usuario) {
