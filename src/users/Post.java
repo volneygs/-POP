@@ -65,6 +65,10 @@ public class Post implements Comparable<Post>{
 		}
 	}
 	
+	/**
+	 * adiciona a hashtag "#epicwin caso não haja nenhuma ao post
+	 */
+	
 	public void addEpicWin(){
 		
 		if (this.hashtagList.contains("#epicwin") == false){
@@ -72,11 +76,23 @@ public class Post implements Comparable<Post>{
 		}
 	}
 	
+	/**
+	 * adiciona a hashtag "#epicfail caso não haja nenhuma ao post
+	 */
+	
 	public void addEpicFail(){
 		if (this.hashtagList.contains("#epicfail") == false){
 			this.hashtagList.add("#epicfail");
 		}
 	}
+	
+	/**
+	 * cria a mensagem do post
+	 * @param text
+	 * string que irá formar o post
+	 * @throws Exception
+	 * lança exceção caso o post tenha muitos caracteres
+	 */
 	
 	public void setText(StringBuilder text) throws Exception {
 		

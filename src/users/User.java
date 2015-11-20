@@ -16,9 +16,9 @@ public class User implements Comparable<User> {
 	private String email;
 	private String nome;
 	private String senha;
+	private String foto;
 	private LocalDate dataDeNascimento;
 	private PostComparator comparador = new PostComparator();
-	private String foto;
 	private UsuarioPadrao usuarioFama;
 	private List<Post> mural;
 	private List<User> amigos;
@@ -49,6 +49,14 @@ public class User implements Comparable<User> {
 		this.pop = 0;
 	}
 	
+	/**
+	 * Metodo serve para atualizar nome do usuario
+	 * @param novoNome
+	 * novo nome que será atualizado
+	 * @throws Exception
+	 * lança exceção caso nome seja invalido
+	 */
+	
 	public void mudaNome(String novoNome) throws Exception{
 		
 		if(novoNome.equals("") || novoNome.trim().equals("")){
@@ -57,6 +65,14 @@ public class User implements Comparable<User> {
 			this.nome = novoNome;
 		}
 	}
+	
+	/**
+	 * Metodo serve para atualizar email do usuario
+	 * @param novoEmail
+	 * novo email que será atualizado
+	 * @throws Exception
+	 * lança exceção caso email seja invalido
+	 */
 	
 	public void mudaEmail(String novoEmail) throws Exception{
 		
@@ -67,6 +83,16 @@ public class User implements Comparable<User> {
 		}
 	}
 	
+	/**
+	 * Metodo que serve para atualizar senha
+	 * @param novaSenha
+	 * senha que será atualizada
+	 * @param senhaAntiga
+	 * senha antiga para verificação
+	 * @throws Exception
+	 * lança exceção caso senha seja incorreta
+	 */
+	
 	public void mudaSenha(String novaSenha, String senhaAntiga) throws Exception{
 		if(autenticacao(senhaAntiga)){
 			senha = novaSenha;
@@ -74,6 +100,14 @@ public class User implements Comparable<User> {
 			throw new Exception("Erro na atualizacao de perfil. A senha fornecida esta incorreta.");
 		}
 	}
+	
+	/**
+	 * Metodo que serve para alterar a data de nascimento
+	 * @param novaDataNascimento
+	 * nova dava de nascimento
+	 * @throws Exception
+	 * lança exceção caso campo seja invalido
+	 */
 	
 	public void mudaDataNascimento(String novaDataNascimento) throws Exception{
 		
@@ -97,6 +131,14 @@ public class User implements Comparable<User> {
 		
 	}
 	
+	/**
+	 * Metodo que serve para autenticar senha
+	 * @param tentaSenha
+	 * senha será testada
+	 * @return
+	 * boolean informado se a senha confere ou não
+	 */
+	
 	public boolean autenticacao(String tentaSenha){
 		if(tentaSenha.equals(senha)){
 			return true;
@@ -104,6 +146,12 @@ public class User implements Comparable<User> {
 			return false;
 		}
 	}
+	
+	/**
+	 * Metodo que serve para adicionar certo valor de pops ao usuario
+	 * @param valor
+	 * valor que será adicionado
+	 */
 	
 	public void adicionaPop(int valor){
 		
@@ -125,15 +173,35 @@ public class User implements Comparable<User> {
 		}
 	}
 	
+	 /**
+	  * Metodo que serve para adicionar notificação a lista de notificação do usuario
+	  * @param notificacao
+	  * notificação que será adicionada.
+	  */
+	
 	public void adicionaNotificacao(String notificacao){
 		
 		qtdNotificacao += 1;
 		notificacoes.add(notificacao);
 	}
 	
+	/**
+	 * Metodo que retorna o número de notificações que o usuario ainda não leu
+	 * @return
+	 * int representando a quantidade de notificações
+	 */
+	
 	public int getNotificacoes(){
 		return notificacoes.size();
 	}
+	
+	/**
+	 * Metodo que retorna a proxima notificação que o usuario ainda não leu
+	 * @return
+	 * string representando a notificação que ainda não foi lida
+	 * @throws Exception
+	 * lança exceção se não houver mais notificações
+	 */
 	
 	public String getNextNotificacao() throws Exception{
 		
@@ -154,10 +222,23 @@ public class User implements Comparable<User> {
 		
 	}
 	
+	/**
+	 * metodo que serve para adicionar uma solicitação de amizade de terceiro a lista de solicitação de amizade do usuario
+	 * @param email
+	 */
+	
 	public void adicionaSoliticacaoAmizade(String email) {
 		
 		solicitacoesDeAmizade.add(email);
 	}
+	
+	/**
+	 * Metodo que serve para remover amigo da lista de amigos
+	 * @param user
+	 * usuario que será removido
+	 * @return
+	 * boolean informando se foi ou não removido
+	 */
 	
 	public boolean removeAmigo(User user){
 		if(this.amigos.contains(user)){
@@ -168,6 +249,14 @@ public class User implements Comparable<User> {
 		}
 	}
 	
+	/**
+	 * Metodo que serve para curtir post de amigo
+	 * @param usuario
+	 * usuario que contem o post
+	 * @param index
+	 * indice do post que recebera a curtida
+	 */
+	
 	public void curtirPost(User usuario, int index) {
 		
 		usuarioFama.curtirPost(usuario, nome, index);
@@ -175,12 +264,30 @@ public class User implements Comparable<User> {
 		
 	}
 	
+	/**
+	 * Metodo que serve para rejeitar post de amigo
+	 * @param usuario
+	 * usuario que contem o post
+	 * @param index
+	 * indice do post que receberá a rejeição
+	 */
+	
 	public void rejeitarPost(User usuario, int index) {
 		
 		usuarioFama.rejeitarPost(usuario, nome, index);
 		
 		
 	}
+	
+	/**
+	 * Metodo que serve para atualizar informações do usuario
+	 * @param field
+	 * o campo que será atualizado
+	 * @param newField
+	 * a nova informação que irá substituir a anterior
+	 * @throws Exception
+	 * lança exceção caso algum campo seja invalido
+	 */
 	
 	public void atualizaPerfil(String field, String newField) throws Exception{
 
@@ -199,6 +306,14 @@ public class User implements Comparable<User> {
 		
 	}
 	
+	/**
+	 * Metodo que serve para pegar certo post do feed de noticias ordenado pelos mais recentes
+	 * @param indice
+	 * indice do post
+	 * @return
+	 * string com informação do post
+	 */
+	
 	public String getPostFeedNoticiasRecentes(int indice){
 		
 		Collections.sort(feedNoticias);
@@ -208,12 +323,24 @@ public class User implements Comparable<User> {
 		return feedNoticias.get(indice).getMessage();
 	}
 	
+	/**
+	 * Metodo que serve para pegar certo post do feed de noticias ordenado pelos mais populares
+	 * @param indice
+	 * indice do post
+	 * @return
+	 * string com informação do post
+	 */
+	
 	public String getPostFeedNoticiasMaisPopulares(int indice){
 		
 		Collections.sort(feedNoticias, comparador);
 		
 		return feedNoticias.get(indice).getMessage();
 	}
+	
+	/**
+	 * atualiza o feed de noticias passando por todos os amigos e recolhendo os post mais recentes
+	 */
 	
 	public void atualizaFeed(){
 		
@@ -248,6 +375,12 @@ public class User implements Comparable<User> {
 			}
 		}
 	}
+	
+	/**
+	 * Metodo que serve para enviar solicitação de amizade para usuario
+	 * @param usuario
+	 * usuario que receberá a solicitação de amizade
+	 */
 
 	public void adicionaAmigo(User usuario) {
 		
@@ -258,6 +391,14 @@ public class User implements Comparable<User> {
 		usuario.adicionaSoliticacaoAmizade(this.email);
 		
 	}
+	
+	/**
+	 * Metodo que serve para rejeitar solicitação de amizade enviada
+	 * @param usuario
+	 * usuario que terá a solicitação negada
+	 * @throws Exception
+	 * lança exceção caso o usuario não tenha enviado a solicitação
+	 */
 
 	public void rejeitaAmizade(User usuario) throws Exception{
 		
@@ -325,6 +466,16 @@ public class User implements Comparable<User> {
 		
 		return amigos;
 	}
+	
+	/**
+	 * Metodo que serve para retornar informação especifica do usuario logado
+	 * @param field
+	 * campo que será buscado
+	 * @return
+	 * string contendo a informação solicitada
+	 * @throws Exception
+	 * lança exceção caso o campo seja invalido
+	 */
 
 	public String getInfoUsuario(String field) throws Exception{
 
@@ -344,6 +495,18 @@ public class User implements Comparable<User> {
 			throw new Exception("Vc precisa especificar um campo valido.");
 		}
 	}
+	
+	/**
+	 * Metodo que serve para retornar informação de algum usuario
+	 * @param field
+	 * campo solicitado
+	 * @param usuario
+	 * usuario que será buscado
+	 * @return
+	 * string contendo informação solicitada
+	 * @throws Exception
+	 * lança exceção caso campo seja invalido
+	 */
 
 	public String getInfoUsuario(String field, User usuario) throws Exception{
 	
