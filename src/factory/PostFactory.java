@@ -1,9 +1,11 @@
 package factory;
 
+import java.io.Serializable;
+
 import users.Post;
 import users.User;
 
-public class PostFactory {
+public class PostFactory implements Serializable {
 	
 	public PostFactory(){
 		

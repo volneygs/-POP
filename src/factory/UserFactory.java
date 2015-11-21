@@ -1,5 +1,6 @@
 package factory;
 
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +8,7 @@ import java.time.format.ResolverStyle;
 
 import users.User;
 
-public class UserFactory {
+public class UserFactory implements Serializable {
 	
 	User user;
 	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);

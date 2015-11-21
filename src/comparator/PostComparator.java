@@ -1,9 +1,10 @@
 package comparator;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import users.Post;
 
-public class PostComparator implements Comparator<Post>{
+public class PostComparator implements Serializable, Comparator<Post>{
 
 	@Override
 	public int compare(Post post1, Post post2) {

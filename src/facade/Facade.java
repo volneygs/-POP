@@ -24,10 +24,21 @@ public class Facade {
 	 * 
 	 */
 	
-	public String iniciaSistema(){
+	public void iniciaSistema(){
 		
-		return "Sistema iniciado";
+		controller.iniciaSistema();
 	}
+	
+	public String fechaSistema() throws Exception{
+		
+		return controller.fechaSistema();
+		
+	}
+	
+	public boolean baixaPosts() throws Exception{
+		
+		return controller.baixaPosts();
+	} 
 	
 	public User getLogged(){
 	
@@ -82,15 +93,15 @@ public class Facade {
 	 * Metodo serve para efetuar o login do usuario no sistema.
 	 * @param email
 	 * email do usuario
-	 * @param password
+	 * @param senha
 	 * senha do usuario
 	 * @throws Exception
 	 * lança exceção se usuario não estiver cadastrado
 	 */
 	
-	public void login(String email, String password) throws Exception{
+	public void login(String email, String senha) throws Exception{
 		
-		controller.login(email, password);
+		controller.login(email, senha);
 	}
 	
 	/**
@@ -509,9 +520,4 @@ public class Facade {
 	 * lança exceção caso haja algum usuario logado
 	 */
 	
-	public String fechaSistema() throws Exception{
-		
-		return controller.fechaSistema();
-		
-	}
 }

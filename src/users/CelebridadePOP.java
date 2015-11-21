@@ -1,9 +1,10 @@
 package users;
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
-public class CelebridadePOP implements UsuarioPadrao{
+public class CelebridadePOP implements Serializable, UsuarioPadrao{
 	
 	private int pop;
 	private String data;
@@ -18,7 +19,7 @@ public class CelebridadePOP implements UsuarioPadrao{
 	
 	public void curtirPost(User usuario, String nome, int index){
 		
-		usuario.getMural().get(index).addCurtida(1);
+		usuario.getMural().get(index).addCurtida();
 	
 		if (this.data.equals(usuario.getMural().get(index).getDateTime())) {
 			usuario.getMural().get(index).addPop(pop+10);
@@ -40,7 +41,7 @@ public class CelebridadePOP implements UsuarioPadrao{
 
 	public void rejeitarPost(User usuario, String nome, int index){
 		
-		usuario.getMural().get(index).addRejeicao(1);
+		usuario.getMural().get(index).addRejeicao();
 		
 		if (this.data.equals(usuario.getMural().get(index).getDateTime())) {
 			usuario.getMural().get(index).addPop(-pop-10);

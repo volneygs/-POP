@@ -1,7 +1,21 @@
 package controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import factory.PostFactory;
 import factory.UserFactory;
@@ -16,12 +30,129 @@ public class Controller {
 	private PostFactory postFactory;
 	private User logged;
 	
+	
 	public Controller(){
 		this.userFactory = new UserFactory();
 		this.postFactory = new PostFactory();
 		this.allUsers = new ArrayList<User>();
 		this.trendingTopics = new ArrayList<String>();
 		this.logged = null;
+	}
+	
+	public void iniciaSistema() {
+		
+		/* allUsers = new ArrayList<User>();
+		
+		try{
+			
+			ObjectInputStream read = new ObjectInputStream(new BufferedInputStream(new FileInputStream("todos_os_usuarios.dat")));
+			
+			
+			while(true){
+				
+				allUsers.add((User)read.readObject());
+			}
+			
+		}catch(Exception e){
+			
+
+		} */
+		
+	}
+	
+	/**
+	 * Metodo que serve para encerrar o sistema e salvar informações nos arquivos
+	 * @return
+	 * string informado que sistema foi fechado
+	 * @throws Exception
+	 * lança exceção caso haja algum usuario logado
+	 */
+	
+	public String fechaSistema() throws Exception{
+			
+		if(logged == null){
+			
+			File arquivoUsuarios = new File("todos_os_usuarios.dat");
+			
+			arquivoUsuarios.createNewFile();
+			
+			try{
+				
+				ObjectOutputStream write = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("todos_os_usuarios.dat")));
+				
+				for (User user : allUsers) {
+					
+					write.writeObject(user);
+				}
+				
+				write.close();
+				
+				return "sistema fechado";
+				
+			}catch(Exception e){
+				
+				throw new Exception("aconteceu algum erro.");
+			}
+			
+		}else{
+			throw new Exception("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
+		}
+	}
+	
+	
+	public boolean baixaPosts() throws Exception{
+		
+		if(logged.getMural().size() == 0){
+			throw new Exception("Erro ao baixar posts. O usuario nao possui posts.");
+		}
+		
+		// ACHO QUE VAI SER NECESSÁRIO MUDAR O NOME DO ARQUIVO
+		
+		String email = logged.getEmail().replace("@","[at]" ).replace(".", "");
+		String hashtags;
+		
+		DateTimeFormatter dateValidator = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		
+		String arquivoNome = "arquivos/posts_" + email + ".txt";
+		
+		try{
+			
+			File meuArquivo = new File(arquivoNome);
+			
+			PrintWriter meuWriter = new PrintWriter(new BufferedWriter(new FileWriter(meuArquivo, true)));
+			
+			int i = 1;
+
+			for (Post post : logged.getMural()) {
+				
+				hashtags = post.getHashtags().replace(",", " ");
+
+				meuWriter.println("Post #" + (i) + " - " + post.getData().format(dateValidator));
+				meuWriter.println("Conteudo:");
+				meuWriter.println(post.getOnlyText());
+				if(!(post.getOnlyFiles().equals(""))){
+					meuWriter.println(post.getOnlyFiles());
+				}
+				// ADICIONAR ARQUIVO DE IMAGEM E DE AUDIO
+				
+				if(!(hashtags.equals(""))){
+					meuWriter.println(hashtags);
+				}
+				meuWriter.println("+Pop: " + post.getPop());
+				meuWriter.println();
+				meuWriter.println();
+				
+				i++;
+			}
+				
+			meuWriter.close();
+			return true;
+			
+		}catch(IOException e){
+			// DETERMINAR COMO TRATAR
+			throw new Exception("O arquivo não foi encontrado!");
+		}
+		
 	}
 	
 	public User getLogged(){
@@ -128,9 +259,9 @@ public class Controller {
 	 * lança exceção caso algum parametro esteja em formato invalido.
 	 */
 	
-	public String registerUser (String name, String email, String senha, String dataDeNascimento, String foto) throws Exception{
+	public String registerUser (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 		
-		User usuario = userFactory.createUser(name, email, senha, dataDeNascimento, foto);
+		User usuario = userFactory.createUser(nome, email, senha, dataDeNascimento, foto);
 		this.allUsers.add(usuario);
 
 		return email;
@@ -166,7 +297,9 @@ public class Controller {
 	}
 	
 	/**
-	 * Metodo serve para efetuar o logout do usuario no sistema 
+	 * Metodo serve para efetuar o logout do usuario no sistema
+	 * @return
+	 * string informando se logout foi efeutado com exito 
 	 * @throws Exception
 	 * lança exceção se o usuario já estiver deslogado.
 	 */
@@ -391,7 +524,7 @@ public class Controller {
 	 * email do usuario para localização
 	 * @param index
 	 * indice do post que será adicionado a curtida
-	 * @throws Exceptionl
+	 * @throws Exception
 	 * lança exceção caso usuario não exista, não seja amigo ou indice esteja incorreto
 	 */
 	
@@ -458,6 +591,7 @@ public class Controller {
 		}
  
 	}
+
 	
 	/**
 	 * Metodo que retorna pops de um usuario
@@ -681,23 +815,6 @@ public class Controller {
 		}else{
 			throw new Exception("You need to specify a valid field.");
 			
-		}
-	}
-	
-	/**
-	 * Metodo que serve para encerrar o sistema e salvar informações nos arquivos
-	 * @return
-	 * string informado que sistema foi fechado
-	 * @throws Exception
-	 * lança exceção caso haja algum usuario logado
-	 */
-	
-	public String fechaSistema() throws Exception{
-		
-		if(logged == null){
-			return "system closed successeful.";
-		}else{
-			throw new Exception("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
 		}
 	}
 	

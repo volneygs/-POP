@@ -1,5 +1,6 @@
 package users;
 
+import java.io.Serializable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,9 +11,9 @@ import java.util.List;
 
 import comparator.PostComparator;
 
-public class User implements Comparable<User> {
+public class User implements Serializable, Comparable<User> {
 	
-	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+	private transient DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 	private String email;
 	private String nome;
 	private String senha;

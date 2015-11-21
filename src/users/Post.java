@@ -1,9 +1,10 @@
 package users;
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
-public class Post implements Comparable<Post>{
+public class Post implements Serializable, Comparable<Post>{
 	
 	private ArrayList<String> stringChest;
 	
@@ -178,6 +179,16 @@ public class Post implements Comparable<Post>{
 		} else { return this.text.toString().trim(); }
 	
 	}
+	
+	public String getOnlyText(){
+		
+		return this.text.toString();
+	}
+	
+	public String getOnlyFiles(){
+		
+		return this.files.trim();
+	}
 
 	public String getMessage(){
 		
@@ -203,11 +214,11 @@ public class Post implements Comparable<Post>{
 		this.pop = this.pop + valor;
 	}
 	
-	public void addCurtida(int valor){
+	public void addCurtida(){
 		this.qtdCurtidas += 1;
 	}
 	
-	public void addRejeicao(int valor){
+	public void addRejeicao(){
 		this.qtdRejeicoes += 1;
 	}
 
