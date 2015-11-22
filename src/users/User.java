@@ -18,7 +18,7 @@ public class User implements Serializable, Comparable<User> {
 	private String nome;
 	private String senha;
 	private String foto;
-	private transient LocalDate dataDeNascimento;
+	private LocalDate dataDeNascimento;
 	private PostComparator comparador = new PostComparator();
 	private UsuarioPadrao usuarioFama;
 	private List<Post> mural;
@@ -198,6 +198,10 @@ public class User implements Serializable, Comparable<User> {
 	
 	public int getNotificacoes(){
 		return notificacoes.size();
+	}
+	
+	public int getTotalPosts(){
+		return mural.size();
 	}
 	
 	/**
@@ -491,6 +495,7 @@ public class User implements Serializable, Comparable<User> {
 			throw new Exception("A senha dx usuarix eh protegida.");
 			
 		}else if (field.equals("Data de Nascimento")){
+			
 			return this.dataDeNascimento.toString();
 			
 		}else if (field.equals("Foto")){

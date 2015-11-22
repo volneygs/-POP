@@ -683,6 +683,10 @@ public class Controller implements Serializable {
 		return logged.getInfoUsuario(field);
 	}
 	
+	public int getTotalPosts(){
+		return logged.getTotalPosts();
+	}
+	
 	/**
 	 * Metodo que retorna informação de algum usuario da base exceto a senha
 	 * @param field

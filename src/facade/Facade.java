@@ -293,6 +293,11 @@ public class Facade {
 		return controller.getInfoUsuario(field);
 	}
 	
+	public int getTotalPosts(){
+	
+		return controller.getTotalPosts();
+	}
+	
 	/**
 	 * Metodo que retorna informação de algum usuario da base exceto a senha
 	 * @param field
