@@ -1,8 +1,10 @@
 package facade;
 
-import users.User;
-import easyaccept.EasyAccept;
 import controller.Controller;
+import easyaccept.EasyAccept;
+import inputOutput.FechaSistema;
+import inputOutput.IniciaSistema;
+import users.User;
 
 public class Facade {
 
@@ -13,25 +15,31 @@ public class Facade {
 	    EasyAccept.main(args);
 	}
 	
-	private Controller controller = new Controller();
+	private Controller controller;
+	private IniciaSistema iniciaSistema;
+	private FechaSistema fechaSistema;
 	
 	public Facade(){
 
+		controller = new Controller();
+		iniciaSistema = new IniciaSistema();
+		fechaSistema = new FechaSistema();
 	}
 	
 	/**
 	 * Metodo inicia o sistema importando as informações necessárias dos arquivos.
+	 * @throws Exception 
 	 * 
 	 */
 	
-	public void iniciaSistema(){
+	public void iniciaSistema() throws Exception{
 		
-		controller.iniciaSistema();
+		controller = iniciaSistema.leArquivo();
 	}
 	
-	public String fechaSistema() throws Exception{
+	public void fechaSistema() throws Exception{
 		
-		return controller.fechaSistema();
+		fechaSistema.escreveArquivo(controller.getLogged(), controller);
 		
 	}
 	

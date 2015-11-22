@@ -1,5 +1,7 @@
 package testes;
 
+import java.io.Serializable;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +9,7 @@ import org.junit.Test;
 import users.User;
 import facade.Facade;
 
-public class TestFacade {
+public class TestFacade implements Serializable {
 	
 	private Facade facade;
 	private User volney;

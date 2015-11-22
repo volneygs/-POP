@@ -8,9 +8,10 @@ public class CelebridadePOP implements Serializable, UsuarioPadrao{
 	
 	private int pop;
 	private String data;
-	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 	
 	public CelebridadePOP(){
+		
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		
 		this.pop = 25;
 		this.data = LocalDate.now().format(dateFormat);

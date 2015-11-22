@@ -1,12 +1,14 @@
 package testes;
 
+import java.io.Serializable;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import users.User;
 
-public class TestaUser {
+public class TestaUser implements Serializable{
 	
 	@Before
 	public void setUp() throws Exception{

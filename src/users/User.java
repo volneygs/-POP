@@ -13,12 +13,11 @@ import comparator.PostComparator;
 
 public class User implements Serializable, Comparable<User> {
 	
-	private transient DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 	private String email;
 	private String nome;
 	private String senha;
 	private String foto;
-	private LocalDate dataDeNascimento;
+	private transient LocalDate dataDeNascimento;
 	private PostComparator comparador = new PostComparator();
 	private UsuarioPadrao usuarioFama;
 	private List<Post> mural;
@@ -33,7 +32,9 @@ public class User implements Serializable, Comparable<User> {
 	
 
 	public User(String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
-			
+		
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+		
 		this.email = email;
 		this.nome = nome;
 		this.dataDeNascimento = LocalDate.parse(dataDeNascimento, dateFormat);
@@ -111,6 +112,8 @@ public class User implements Serializable, Comparable<User> {
 	 */
 	
 	public void mudaDataNascimento(String novaDataNascimento) throws Exception{
+		
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
 		
 		try { 
 			
@@ -527,6 +530,22 @@ public class User implements Serializable, Comparable<User> {
 			throw new Exception("Vc precisa especificar um campo valido.");
 		}
 		
+	}
+	
+	public boolean equals(Object obj){
+		
+		if(obj instanceof User){
+			User user = (User)obj;
+			
+			if(user.getEmail().equals(email)){
+				return true;
+			}else{
+				return false;
+			}
+			
+		}else{
+			return false;
+		}
 	}
 
 	@Override

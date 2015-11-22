@@ -1,64 +1,50 @@
 package controller;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
+import java.util.List;
 
 import factory.PostFactory;
 import factory.UserFactory;
+import inputOutput.FechaSistema;
+import inputOutput.IniciaSistema;
 import users.Post;
 import users.User;
 
-public class Controller {
+public class Controller implements Serializable {
 	
-	private ArrayList<User> allUsers;
-	private ArrayList<String> trendingTopics;
+	private List<User> allUsers;
+	private List<String> trendingTopics;
 	private UserFactory userFactory;
 	private PostFactory postFactory;
-	private User logged;
-	
+	private IniciaSistema iniciaSistema;
+	private FechaSistema fechaSistema;
+	private User logged;	
 	
 	public Controller(){
 		this.userFactory = new UserFactory();
 		this.postFactory = new PostFactory();
 		this.allUsers = new ArrayList<User>();
+		this.iniciaSistema = new IniciaSistema();
+		this.fechaSistema = new FechaSistema();
 		this.trendingTopics = new ArrayList<String>();
 		this.logged = null;
 	}
 	
-	public void iniciaSistema() {
+	/*public void iniciaSistema() throws Exception {
 		
-		/* allUsers = new ArrayList<User>();
-		
-		try{
-			
-			ObjectInputStream read = new ObjectInputStream(new BufferedInputStream(new FileInputStream("todos_os_usuarios.dat")));
-			
-			
-			while(true){
-				
-				allUsers.add((User)read.readObject());
-			}
-			
-		}catch(Exception e){
-			
-
-		} */
-		
-	}
+		 allUsers = iniciaSistema.leArquivo();
+	} */
 	
 	/**
 	 * Metodo que serve para encerrar o sistema e salvar informações nos arquivos
@@ -68,37 +54,10 @@ public class Controller {
 	 * lança exceção caso haja algum usuario logado
 	 */
 	
-	public String fechaSistema() throws Exception{
+/*	public void fechaSistema() throws Exception{
 			
-		if(logged == null){
-			
-			File arquivoUsuarios = new File("todos_os_usuarios.dat");
-			
-			arquivoUsuarios.createNewFile();
-			
-			try{
-				
-				ObjectOutputStream write = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("todos_os_usuarios.dat")));
-				
-				for (User user : allUsers) {
-					
-					write.writeObject(user);
-				}
-				
-				write.close();
-				
-				return "sistema fechado";
-				
-			}catch(Exception e){
-				
-				throw new Exception("aconteceu algum erro.");
-			}
-			
-		}else{
-			throw new Exception("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
-		}
-	}
-	
+		fechaSistema.escreveArquivo(logged, allUsers);
+	} */
 	
 	public boolean baixaPosts() throws Exception{
 		
@@ -238,7 +197,14 @@ public class Controller {
 		
 		String foto = "resources/default.jpg";
 		
-		return registerUser(nome, email, senha, dataDeNascimento, foto);
+		User usuario = userFactory.createUser(nome, email, senha, dataDeNascimento, foto);
+		if(!(allUsers.contains(usuario))){
+			this.allUsers.add(usuario);
+		}else{
+			throw new Exception("email já utilizado.");
+		}
+
+		return email;
 	}
 	
 	/**
@@ -262,12 +228,17 @@ public class Controller {
 	public String registerUser (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 		
 		User usuario = userFactory.createUser(nome, email, senha, dataDeNascimento, foto);
-		this.allUsers.add(usuario);
+		
+		if(!(allUsers.contains(usuario))){
+			this.allUsers.add(usuario);
+		}else{
+			throw new Exception("email já utilizado.");
+		}
 
 		return email;
 	}
 
-	public ArrayList<User> getAllUsers(){
+	public List<User> getAllUsers(){
 		
 		return this.allUsers;
 	}
@@ -566,7 +537,7 @@ public class Controller {
 		}
 	}
 	
-	private static void hashtagsSort(ArrayList<String> list){
+	private static void hashtagsSort(List<String> list){
 		 
 		if(list.size() > 4){
  

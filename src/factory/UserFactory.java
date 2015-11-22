@@ -10,8 +10,7 @@ import users.User;
 
 public class UserFactory implements Serializable {
 	
-	User user;
-	private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+	private User user;
 	
 	public UserFactory(){
 		
@@ -57,6 +56,8 @@ public class UserFactory implements Serializable {
 		
 	private void checkBirthdate(String birthdate) throws Exception {
 		
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/uuuu").withResolverStyle(ResolverStyle.STRICT);
+		
 		if(birthdate.equals("")){
 			throw new Exception("Erro no cadastro de Usuarios. Formato de data esta invalida.");
 			
@@ -79,7 +80,7 @@ public class UserFactory implements Serializable {
 				throw new Exception("Erro no cadastro de Usuarios. Data nao existe.");
 			
 			}
-		}
-	}
+		} 
+	} 
 	
 }

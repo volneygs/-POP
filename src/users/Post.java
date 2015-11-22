@@ -7,12 +7,9 @@ import java.util.*;
 public class Post implements Serializable, Comparable<Post>{
 	
 	private ArrayList<String> stringChest;
-	
 	private ArrayList<String> hashtagList;
 	private int pop;
 	private LocalDateTime date;
-	private DateTimeFormatter dateValidator = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 	private StringBuilder text;
 	private String files;
 	private String hashtags;
@@ -21,6 +18,8 @@ public class Post implements Serializable, Comparable<Post>{
 	private int qtdRejeicoes;
 	
 	public Post(String message, String date) throws Exception{
+		
+		DateTimeFormatter dateValidator = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		
 		this.pop = 0;
 		this.qtdCurtidas = 0;
@@ -153,6 +152,8 @@ public class Post implements Serializable, Comparable<Post>{
 	
 	public String getDateTime(){
 		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
+		
 		return this.date.format(dateTimeFormatter);
 		
 	}
@@ -191,6 +192,8 @@ public class Post implements Serializable, Comparable<Post>{
 	}
 
 	public String getMessage(){
+		
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss");
 		
 		return this.getText() + " " + getHashtags().replaceAll(",", " ") + " (" + this.date.format(dateTimeFormatter) + ")";
 	
