@@ -2,7 +2,8 @@ package comparator;
 
 import java.io.Serializable;
 import java.util.Comparator;
-import users.Post;
+
+import post.Post;
 
 public class PostComparator implements Serializable, Comparator<Post>{
 

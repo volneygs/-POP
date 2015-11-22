@@ -1,12 +1,9 @@
 package controller;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
@@ -14,19 +11,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
+import factory.HashtagFactory;
 import factory.PostFactory;
 import factory.UserFactory;
 import inputOutput.FechaSistema;
 import inputOutput.IniciaSistema;
-import users.Post;
+import post.Hashtag;
+import post.Post;
 import users.User;
 
 public class Controller implements Serializable {
 	
 	private List<User> allUsers;
-	private List<String> trendingTopics;
+	private List<Hashtag> trendingTopics;
 	private UserFactory userFactory;
 	private PostFactory postFactory;
+	private HashtagFactory hashtagFactory;
 	private IniciaSistema iniciaSistema;
 	private FechaSistema fechaSistema;
 	private User logged;	
@@ -34,30 +36,12 @@ public class Controller implements Serializable {
 	public Controller(){
 		this.userFactory = new UserFactory();
 		this.postFactory = new PostFactory();
+		this.hashtagFactory = new HashtagFactory();
 		this.allUsers = new ArrayList<User>();
 		this.iniciaSistema = new IniciaSistema();
 		this.fechaSistema = new FechaSistema();
-		this.trendingTopics = new ArrayList<String>();
 		this.logged = null;
 	}
-	
-	/*public void iniciaSistema() throws Exception {
-		
-		 allUsers = iniciaSistema.leArquivo();
-	} */
-	
-	/**
-	 * Metodo que serve para encerrar o sistema e salvar informações nos arquivos
-	 * @return
-	 * string informado que sistema foi fechado
-	 * @throws Exception
-	 * lança exceção caso haja algum usuario logado
-	 */
-	
-/*	public void fechaSistema() throws Exception{
-			
-		fechaSistema.escreveArquivo(logged, allUsers);
-	} */
 	
 	public boolean baixaPosts() throws Exception{
 		
@@ -68,7 +52,6 @@ public class Controller implements Serializable {
 		// ACHO QUE VAI SER NECESSÁRIO MUDAR O NOME DO ARQUIVO
 		
 		String email = logged.getEmail().replace("@","[at]" ).replace(".", "");
-		String hashtags;
 		
 		DateTimeFormatter dateValidator = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 		
@@ -78,28 +61,37 @@ public class Controller implements Serializable {
 			
 			File meuArquivo = new File(arquivoNome);
 			
-			PrintWriter meuWriter = new PrintWriter(new BufferedWriter(new FileWriter(meuArquivo, true)));
+			if(meuArquivo.exists()){
+				meuArquivo.delete();
+			}
+			
+			PrintWriter meuWriter = new PrintWriter(new BufferedWriter(new FileWriter(meuArquivo)));
 			
 			int i = 1;
-
+			
 			for (Post post : logged.getMural()) {
-				
-				hashtags = post.getHashtags().replace(",", " ");
 
 				meuWriter.println("Post #" + (i) + " - " + post.getData().format(dateValidator));
 				meuWriter.println("Conteudo:");
 				meuWriter.println(post.getOnlyText());
-				if(!(post.getOnlyFiles().equals(""))){
-					meuWriter.println(post.getOnlyFiles());
+				if(!(post.getFilesList().isEmpty())){
+					for (String string : post.getFilesList()) {
+						meuWriter.println(string);
+					}
 				}
 				// ADICIONAR ARQUIVO DE IMAGEM E DE AUDIO
-				
-				if(!(hashtags.equals(""))){
-					meuWriter.println(hashtags);
+				if(!(post.getHashtagList().isEmpty())){
+					meuWriter.println(post.getOnlyHashtag());
 				}
-				meuWriter.println("+Pop: " + post.getPop());
-				meuWriter.println();
-				meuWriter.println();
+				meuWriter.print("+Pop: " + post.getPop());
+				
+				if(!(i == logged.getMural().size())){
+					
+					meuWriter.println();
+					meuWriter.println();
+					meuWriter.println();
+				}
+				
 				
 				i++;
 			}
@@ -112,7 +104,7 @@ public class Controller implements Serializable {
 			throw new Exception("O arquivo não foi encontrado!");
 		}
 		
-	}
+	} 
 	
 	public User getLogged(){
 	
@@ -340,11 +332,6 @@ public class Controller implements Serializable {
 		
 	}
 	
-	public static String atualizador(String currentValue){
-		 
-		return Integer.toString(Integer.parseInt(currentValue) + 1);
-	 
-	}
 	
 	/**
 	 * Metodo que serve para rejeitar uma solicitação de amizade recebida.
@@ -412,29 +399,6 @@ public class Controller implements Serializable {
 		
 	}
 	
-	public void todasHashtags() {
-		
-		for (User user : allUsers) {
-			
-			for (int i = 0; i < user.getMural().size(); i++) {
-			
-				for (String hashtag : user.getMural().get(i).getHashtags().split(",")) {
-					int indice = trendingTopics.indexOf(hashtag); //indice da hashtag
-					
-					if(trendingTopics.contains(hashtag)==false){  //lista trending topics NAO CONTEM hashtag
-						trendingTopics.add(hashtag);				//adiciona na lista
-						trendingTopics.add("1");					//adiciona n1 apos hashtag adicionada
-					} else {    							// caso ja exista elemento igual na lista de trending topics
-						String atualizaValor = atualizador(trendingTopics.get(indice +1)); //incremento o valor do numero em +1
-						trendingTopics.set(indice +1, atualizaValor);					 //atualizo esse valor na lista de trending topics
-					}
-				}
-				
-			}
-			
-		}
-		
-	}
 	
 	/**
 	 * Metodo serve para adicionar pops a certo usuario.
@@ -471,22 +435,32 @@ public class Controller implements Serializable {
 	 * string com a informação das hashtags mais utilizadas entre todos os usuarios.
 	 */	
 	
-	public String atualizaTrendingTopics(){
+	public String atualizaTrendingTopics()throws Exception{
 		
-		if (this.trendingTopics.isEmpty()){
-			todasHashtags();
-			hashtagsSort(trendingTopics);
-		} else {
-			this.trendingTopics.clear();
-			todasHashtags();
-			hashtagsSort(trendingTopics);
+		trendingTopics = new ArrayList<Hashtag>();
+		
+		for (User user : allUsers) {
+			for (Post post : user.getMural()){
+				for (String string : post.getHashtagList()) {
+					
+					Hashtag hashtag = hashtagFactory.criaHashtag(string);
+					
+					if(trendingTopics.contains(hashtag)){
+						
+						Hashtag hash = buscaHashtag(hashtag.getHashtag());
+						
+						hash.adicionaOcorrencia();
+						
+					}else{
+						trendingTopics.add(hashtag);
+					}
+				}	
+			}
 		}
 		
-		hashtagsSort(trendingTopics);
+		Collections.sort(trendingTopics);
 		
-		Collections.reverse(trendingTopics);
-		
-		return "Trending Topics:  (1) " + trendingTopics.get(1) + ": " + trendingTopics.get(0) + "; " + "(2) " + trendingTopics.get(3) + ": " + trendingTopics.get(2) + "; " + "(3) " + trendingTopics.get(5) + ": " + trendingTopics.get(4) + ";";
+		return "Trending Topics:  (1) " + trendingTopics.get(0).getHashtag() + ": " + trendingTopics.get(0).getOcorrencias() + "; " + "(2) " + trendingTopics.get(1).getHashtag() + ": " + trendingTopics.get(1).getOcorrencias() + "; " + "(3) " + trendingTopics.get(2).getHashtag() + ": " + trendingTopics.get(2).getOcorrencias() + ";";
 	}
 	
 	/**
@@ -524,46 +498,7 @@ public class Controller implements Serializable {
 		logged.rejeitarPost(usuario, index);
 		
 	}
-	
-	private static int compare(String str1, String str2){
-		 
-		if (Integer.parseInt(str1) > Integer.parseInt(str2)){
-			return 1;
-		}
-		else if(Integer.parseInt(str1) < Integer.parseInt(str2)){
-			return -1;
-		}else{
-			return 0;
-		}
-	}
-	
-	private static void hashtagsSort(List<String> list){
-		 
-		if(list.size() > 4){
- 
-			for(int i = 3; i < list.size(); i += 2){
- 
-				String keyValue = list.get(i);
-				String keyKey = list.get(i - 1);
- 
-				int j = i - 2;
- 
-				while(j >= 1 && (compare(list.get(j), keyValue) == 1 ||
-						(compare(list.get(j), keyValue) == 0 && list.get(j-1).compareToIgnoreCase(list.get(i-1)) > 0) )){
-					list.set(j+2, list.get(j));
-					list.set(j+1, list.get(j-1));
-					j -= 2;
-				}
- 
-				list.set(j+1, keyKey);
-				list.set(j+2, keyValue);
-			}
- 
-		}
- 
-	}
-
-	
+		
 	/**
 	 * Metodo que retorna pops de um usuario
 	 * @param email
@@ -610,7 +545,7 @@ public class Controller implements Serializable {
 	
 	public String getPost(int index) {
 		
-			return logged.getMural().get(index).getMessage();
+			return logged.getMural().get(index).toString();
 	
 	}
 	
@@ -628,13 +563,16 @@ public class Controller implements Serializable {
 		
 		if (field.equals("Hashtags")) {
 		
-			return logged.getMural().get(index).getHashtags();
+			return logged.getMural().get(index).getOnlyHashtag().replace(" ", ",");
 			
 		} else if (field.equals("Data")) {
 			
 			return logged.getMural().get(index).getDateTime();
 			
-		} else { return logged.getMural().get(index).getText(); }
+		} else {
+			return logged.getMural().get(index).getMensagem();
+			
+		}
 		
 	}
 	
@@ -723,7 +661,10 @@ public class Controller implements Serializable {
 
 			throw new Exception("Item #" + index + " nao existe nesse post, ele possui apenas " + (logged.getMural().size() + 1) + " itens distintos.");
 			
-		} else {	return logged.getMural().get(postIndex).getChest(index);	}
+		} else {
+			
+			return logged.getMural().get(postIndex).getConteudoPost(index);
+		}
 		
 	}
 	
@@ -870,6 +811,17 @@ public class Controller implements Serializable {
 		}
 		
 		throw new Exception("Um usuarix com email " + email + " nao esta cadastradx.");
+	}
+	
+	private Hashtag buscaHashtag(String hash)throws Exception{
+		
+		for (Hashtag hashtag : trendingTopics) {
+			if(hash.equals(hashtag.getHashtag())){
+				return hashtag;
+			}
+		}
+		
+		throw new Exception("hashtag nao encontrada");
 	}
 	
 	/**

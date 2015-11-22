@@ -1,7 +1,10 @@
 package controller;
 
-import inputOutput.FechaSistema;
-import inputOutput.IniciaSistema;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 public class Teste {
 	
@@ -94,7 +97,7 @@ public class Teste {
 		}
 	 */
 		
-		Controller controller;
+		/*Controller controller;
 		
 		IniciaSistema iniciaSistema = new IniciaSistema();
 		FechaSistema fechaSistema = new FechaSistema();
@@ -110,8 +113,20 @@ public class Teste {
 		
 		controller.logout();
 		
-		fechaSistema.escreveArquivo(controller.getLogged(), controller);
-				
+		fechaSistema.escreveArquivo(controller.getLogged(), controller); */		
+		
+		
+		Controller controller = new Controller();
+		
+		controller.registerUser("volney", "vlney@email.com", "123456", "01/12/1993");
+		controller.login("vlney@email.com", "123456");
+		
+		controller.criaPost("adfjkldasfj #aaa #bbb", "01/12/2014 12:12:12");
+		controller.criaPost("adfjkldasfj #bbb #aaa", "01/12/2014 12:12:12");
+		controller.criaPost("adfjkldasfj #ccc #aaa", "01/12/2014 12:12:12");
+		
+		System.out.println(controller.atualizaTrendingTopics());
+		
 	}
 
 }

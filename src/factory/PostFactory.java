@@ -2,7 +2,7 @@ package factory;
 
 import java.io.Serializable;
 
-import users.Post;
+import post.Post;
 import users.User;
 
 public class PostFactory implements Serializable {

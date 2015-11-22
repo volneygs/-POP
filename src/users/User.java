@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import comparator.PostComparator;
+import post.Post;
 
 public class User implements Serializable, Comparable<User> {
 	
@@ -324,7 +325,7 @@ public class User implements Serializable, Comparable<User> {
 		
 		Collections.reverse(feedNoticias);
 		
-		return feedNoticias.get(indice).getMessage();
+		return feedNoticias.get(indice).toString();
 	}
 	
 	/**
@@ -339,7 +340,7 @@ public class User implements Serializable, Comparable<User> {
 		
 		Collections.sort(feedNoticias, comparador);
 		
-		return feedNoticias.get(indice).getMessage();
+		return feedNoticias.get(indice).toString();
 	}
 	
 	/**

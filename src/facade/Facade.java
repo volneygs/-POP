@@ -43,7 +43,7 @@ public class Facade {
 		
 	}
 	
-	public boolean baixaPosts() throws Exception{
+	 public boolean baixaPosts() throws Exception{
 		
 		return controller.baixaPosts();
 	} 
@@ -244,7 +244,7 @@ public class Facade {
 	 * string com a informação das hashtags mais utilizadas entre todos os usuarios.
 	 */
 	
-	public String atualizaTrendingTopics() {
+	public String atualizaTrendingTopics() throws Exception{
 		return controller.atualizaTrendingTopics();
 	}
 	
