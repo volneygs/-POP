@@ -29,8 +29,6 @@ public class Controller implements Serializable {
 	private UserFactory userFactory;
 	private PostFactory postFactory;
 	private HashtagFactory hashtagFactory;
-	private IniciaSistema iniciaSistema;
-	private FechaSistema fechaSistema;
 	private User logged;	
 	
 	public Controller(){
@@ -38,18 +36,22 @@ public class Controller implements Serializable {
 		this.postFactory = new PostFactory();
 		this.hashtagFactory = new HashtagFactory();
 		this.allUsers = new ArrayList<User>();
-		this.iniciaSistema = new IniciaSistema();
-		this.fechaSistema = new FechaSistema();
 		this.logged = null;
 	}
+	
+	/**
+	 * Método que serve para salvar posts do usuário em arquivos.
+	 * @return
+	 * boolean informando se o arquivo foi salvo corretamente
+	 * @throws Exception
+	 * lança exceção caso ocorra algum erro com o arquivo.
+	 */
 	
 	public boolean baixaPosts() throws Exception{
 		
 		if(logged.getMural().size() == 0){
 			throw new Exception("Erro ao baixar posts. O usuario nao possui posts.");
 		}
-		
-		// ACHO QUE VAI SER NECESSÁRIO MUDAR O NOME DO ARQUIVO
 		
 		String email = logged.getEmail().replace("@","[at]" ).replace(".", "");
 		
@@ -79,7 +81,7 @@ public class Controller implements Serializable {
 						meuWriter.println(string);
 					}
 				}
-				// ADICIONAR ARQUIVO DE IMAGEM E DE AUDIO
+				
 				if(!(post.getHashtagList().isEmpty())){
 					meuWriter.println(post.getOnlyHashtag());
 				}
@@ -100,7 +102,6 @@ public class Controller implements Serializable {
 			return true;
 			
 		}catch(IOException e){
-			// DETERMINAR COMO TRATAR
 			throw new Exception("O arquivo não foi encontrado!");
 		}
 		
@@ -185,7 +186,7 @@ public class Controller implements Serializable {
 	 * lança exceção caso algum parametro esteja em formato invalido.
 	 */
 
-	public String registerUser (String nome, String email, String senha, String dataDeNascimento) throws Exception{
+	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 		
 		String foto = "resources/default.jpg";
 		
@@ -217,7 +218,7 @@ public class Controller implements Serializable {
 	 * lança exceção caso algum parametro esteja em formato invalido.
 	 */
 	
-	public String registerUser (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
+	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 		
 		User usuario = userFactory.createUser(nome, email, senha, dataDeNascimento, foto);
 		
@@ -379,19 +380,19 @@ public class Controller implements Serializable {
 	
 	/**
 	 * Metodo serve para criar e coloca-lo no mural do usuario
-	 * @param message
+	 * @param mensagem
 	 * mensagem que será passada, podendo conter imagem, audio e hashtags
-	 * @param date
+	 * @param data
 	 * data do post
 	 * @throws Exception
 	 * lança exceção caso algum campo seja invalido ou usuario não esteja logado
 	 */
 	
-	public void criaPost(String message, String date) throws Exception{
+	public void criaPost(String mensagem, String data) throws Exception{
 		
 		if(logged != null){
 			
-			Post post = postFactory.createPost(message, date);
+			Post post = postFactory.createPost(mensagem, data);
 			
 			logged.getMural().add(post);
 			
@@ -467,17 +468,17 @@ public class Controller implements Serializable {
 	 * Metodo que serve para curtir post de algum amigo
 	 * @param email
 	 * email do usuario para localização
-	 * @param index
+	 * @param indice
 	 * indice do post que será adicionado a curtida
 	 * @throws Exception
 	 * lança exceção caso usuario não exista, não seja amigo ou indice esteja incorreto
 	 */
 	
-	public void curtirPost(String email, int index) throws Exception {
+	public void curtirPost(String email, int indice) throws Exception {
 		
 		User usuario = buscaUsuario(email);
 		
-		logged.curtirPost(usuario, index);
+		logged.curtirPost(usuario, indice);
 		
 	}
 	
@@ -485,17 +486,17 @@ public class Controller implements Serializable {
 	 * Metodo que serve para rejeitar post de algum amigo
 	 * @param email
 	 * email do usuario para localização
-	 * @param index
+	 * @param indice
 	 * indice do post que será adicionado a rejeição
 	 * @throws Exception
 	 * lança exceção caso usuario não exista, não seja amigo ou indice esteja incorreto
 	 */
 	
-	public void rejeitarPost(String email, int index) throws Exception {
+	public void rejeitarPost(String email, int indice) throws Exception {
 		
 		User usuario = buscaUsuario(email);
 		
-		logged.rejeitarPost(usuario, index);
+		logged.rejeitarPost(usuario, indice);
 		
 	}
 		
@@ -551,26 +552,26 @@ public class Controller implements Serializable {
 	
 	/**
 	 * Metodo que retorna a data ou as hashtags de dado post
-	 * @param field
+	 * @param campo
 	 * campo solicitado
-	 * @param index
+	 * @param indice
 	 * indice do post que será buscado
 	 * @return
 	 * string contendo as informações do campo solicitado
 	 */
 	
-	public String getPost(String field, int index) {
+	public String getPost(String campo, int indice) {
 		
-		if (field.equals("Hashtags")) {
+		if (campo.equals("Hashtags")) {
 		
-			return logged.getMural().get(index).getOnlyHashtag().replace(" ", ",");
+			return logged.getMural().get(indice).getOnlyHashtag().replace(" ", ",");
 			
-		} else if (field.equals("Data")) {
+		} else if (campo.equals("Data")) {
 			
-			return logged.getMural().get(index).getDateTime();
+			return logged.getMural().get(indice).getDateTime();
 			
 		} else {
-			return logged.getMural().get(index).getMensagem();
+			return logged.getMural().get(indice).getMensagem();
 			
 		}
 		
@@ -578,7 +579,7 @@ public class Controller implements Serializable {
 	
 	/**
 	 * Metodo que serve para saber a quantide de curtidas de certo post
-	 * @param postIndex
+	 * @param indicePost
 	 * indice do post que será buscado
 	 * @return
 	 * quantidade de curtidas do post
@@ -586,23 +587,23 @@ public class Controller implements Serializable {
 	 * lança exceção caso indice esteja incorreto
 	 */
 	
-	public int getCurtidasPost(int postIndex) throws Exception{
+	public int getCurtidasPost(int indicePost) throws Exception{
 		
-		if (postIndex < 0){
+		if (indicePost < 0){
 			
 			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
 		
-		} else if (postIndex > logged.getMural().size()){
+		} else if (indicePost > logged.getMural().size()){
 
-			throw new Exception("Post #" + postIndex + " nao existe. Usuarix possui apenas " + (logged.getMural().size()) + " post(s).");
+			throw new Exception("Post #" + indicePost + " nao existe. Usuarix possui apenas " + (logged.getMural().size()) + " post(s).");
 		
-		} else { return logged.getMural().get(postIndex).getQtdCurtidas(); } 
+		} else { return logged.getMural().get(indicePost).getQtdCurtidas(); } 
 	
 	}
 	
 	/**
 	 * Metodo que serve para saber a quantide de rejeições de certo post
-	 * @param postIndex
+	 * @param indicePost
 	 * indice do post que será buscado
 	 * @return
 	 * quantidade de rejeições do post
@@ -610,17 +611,17 @@ public class Controller implements Serializable {
 	 * lança exceção caso indice esteja incorreto
 	 */
 	
-	public int getRejeicoesPost(int postIndex) throws Exception{
+	public int getRejeicoesPost(int indicePost) throws Exception{
 		
-		if (postIndex < 0){
+		if (indicePost < 0){
 			
 			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
 		
-		} else if (postIndex > logged.getMural().size()){
+		} else if (indicePost > logged.getMural().size()){
 
-			throw new Exception("Post #" + postIndex + " nao existe. Usuarix possui apenas " + (logged.getMural().size()) + " post(s).");
+			throw new Exception("Post #" + indicePost + " nao existe. Usuarix possui apenas " + (logged.getMural().size()) + " post(s).");
 		
-		} else { return logged.getMural().get(postIndex).getQtdRejeicoes(); } 
+		} else { return logged.getMural().get(indicePost).getQtdRejeicoes(); } 
 
 		
 	}
@@ -635,15 +636,15 @@ public class Controller implements Serializable {
 	 * lança exceção caso indice seja invalido
 	 */
 	
-	public int getPopsPost(int postIndex) {
-		return logged.getMural().get(postIndex).getPop();
+	public int getPopsPost(int indicePost) {
+		return logged.getMural().get(indicePost).getPop();
 	}
 	
 	/**
 	 * Metodo que retorna Post com as informações solicitadas
-	 * @param index
+	 * @param indice
 	 * indice do post
-	 * @param postIndex
+	 * @param indicePost
 	 * informações que deve conter no post
 	 * @return
 	 * string com as informações solicitadas
@@ -651,26 +652,26 @@ public class Controller implements Serializable {
 	 * lança exceção caso os indices sejam invalidos
 	 */
 	
-	public String getConteudoPost(int index, int postIndex) throws Exception{
+	public String getConteudoPost(int indice, int indicePost) throws Exception{
 
-		if (index < 0){
+		if (indice < 0){
 			
 			throw new Exception("Requisicao invalida. O indice deve ser maior ou igual a zero.");
 		
-		} else if (index > logged.getMural().size()){
+		} else if (indice > logged.getMural().size()){
 
-			throw new Exception("Item #" + index + " nao existe nesse post, ele possui apenas " + (logged.getMural().size() + 1) + " itens distintos.");
+			throw new Exception("Item #" + indice + " nao existe nesse post, ele possui apenas " + (logged.getMural().size() + 1) + " itens distintos.");
 			
 		} else {
 			
-			return logged.getMural().get(postIndex).getConteudoPost(index);
+			return logged.getMural().get(indicePost).getConteudoPost(indice);
 		}
 		
 	}
 	
 	/**
 	 * Metodo que retorna informações completas do usuario logadocom exceção da senha
-	 * @param field
+	 * @param campo
 	 * campo que está sendo solicitado
 	 * @return
 	 * campo que foi solicitado
@@ -678,9 +679,9 @@ public class Controller implements Serializable {
 	 * lança exceção caso campo seja invalido
 	 */
 
-	public String getInfoUsuario(String field) throws Exception{
+	public String getInfoUsuario(String campo) throws Exception{
 		
-		return logged.getInfoUsuario(field);
+		return logged.getInfoUsuario(campo);
 	}
 	
 	public int getTotalPosts(){
@@ -689,7 +690,7 @@ public class Controller implements Serializable {
 	
 	/**
 	 * Metodo que retorna informação de algum usuario da base exceto a senha
-	 * @param field
+	 * @param campo
 	 * campo que está sendo solicitado
 	 * @param email
 	 * email do usuario dono da informação
@@ -699,11 +700,11 @@ public class Controller implements Serializable {
 	 * lança exceção caso campo seja invalido
 	 */
 	
-	public String getInfoUsuario(String field, String email) throws Exception{
+	public String getInfoUsuario(String campo, String email) throws Exception{
 		
 		User usuario = buscaUsuario(email);
 		
-		return usuario.getInfoUsuario(field);
+		return usuario.getInfoUsuario(campo);
 	}
 	
 	public String getPopularidade() {
@@ -727,28 +728,28 @@ public class Controller implements Serializable {
 		if(usuario.getEmail().equals(email)){
 			allUsers.remove(usuario);
 				
-			return "user successfully removed.";
+			return "usuario removido com exito";
 		}else{
-			throw new Exception("You need to specify a valid field.");
+			throw new Exception("você precisa passar um campo");
 			
 		}
 	}
 	
 	/**
 	 * Metodo que serve para atualizar informações do usuario
-	 * @param field
+	 * @param campo
 	 * informação do que será atualizado
-	 * @param newField
+	 * @param novoCampo
 	 * informação de como será atualizado
 	 * @throws Exception
 	 * lança exceção caso haja algum campo inválido
 	 */
 
-	public void atualizaPerfil(String field, String newField) throws Exception{
+	public void atualizaPerfil(String campo, String novoCampo) throws Exception{
 			
 		if(this.logged != null){
 			
-			logged.atualizaPerfil(field, newField);
+			logged.atualizaPerfil(campo, novoCampo);
 				
 		}else{
 			throw new Exception("Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop.");
@@ -757,7 +758,7 @@ public class Controller implements Serializable {
 	
 	/**
 	 * Metodo que serve para atualizar senha do usuario
-	 * @param field
+	 * @param campo
 	 * campo que será atualizado(senha)
 	 * @param novaSenha
 	 * nova senha que será salva
@@ -767,7 +768,7 @@ public class Controller implements Serializable {
 	 * lança exceção caso a senha antiga não seja correta
 	 */
 		
-	public void atualizaPerfil(String field, String novaSenha, String senhaAntiga) throws Exception{
+	public void atualizaPerfil(String campo, String novaSenha, String senhaAntiga) throws Exception{
 			
 		if(this.logged != null){
 				
@@ -816,6 +817,16 @@ public class Controller implements Serializable {
 		
 		throw new Exception("Um usuarix com email " + email + " nao esta cadastradx.");
 	}
+	
+	/**
+	 * Metodo serve para buscar hashtag na lista de hashtags(trendingTopics)
+	 * @param hash
+	 * hashtag que será buscada
+	 * @return
+	 * retorna a tupla que representa a hashtag;
+	 * @throws Exception
+	 * lança exceção caso a hashtag não exista;
+	 */
 	
 	private Hashtag buscaHashtag(String hash)throws Exception{
 		

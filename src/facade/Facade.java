@@ -29,7 +29,7 @@ public class Facade {
 	/**
 	 * Metodo inicia o sistema importando as informações necessárias dos arquivos.
 	 * @throws Exception 
-	 * 
+	 * lança exceção caso algum erro ocorro com os arquivos.
 	 */
 	
 	public void iniciaSistema() throws Exception{
@@ -37,11 +37,25 @@ public class Facade {
 		controller = iniciaSistema.leArquivo();
 	}
 	
+	/**
+	 * Método que fecha sistema, salvando informações no arquivo.
+	 * @throws Exception
+	 * lança exceção caso ocorra algum erro com os arquivos.
+	 */
+	
 	public void fechaSistema() throws Exception{
 		
 		fechaSistema.escreveArquivo(controller.getLogged(), controller);
 		
 	}
+	
+	/**
+	 * Método que serve para salvar posts do usuário em arquivos.
+	 * @return
+	 * boolean informando se o arquivo foi salvo corretamente
+	 * @throws Exception
+	 * lança exceção caso ocorra algum erro com o arquivo.
+	 */
 	
 	 public boolean baixaPosts() throws Exception{
 		
@@ -71,7 +85,7 @@ public class Facade {
 
 	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento) throws Exception{
 	
-		return controller.registerUser(nome, email, senha, dataDeNascimento);
+		return controller.cadastraUsuario(nome, email, senha, dataDeNascimento);
 	}
 	
 	/**
@@ -94,7 +108,7 @@ public class Facade {
 	
 	public String cadastraUsuario (String nome, String email, String senha, String dataDeNascimento, String foto) throws Exception{
 		
-		return controller.registerUser(nome, email, senha, dataDeNascimento, foto);
+		return controller.cadastraUsuario(nome, email, senha, dataDeNascimento, foto);
 	}
 	
 	/**
@@ -170,22 +184,22 @@ public class Facade {
 	
 	/**
 	 * Metodo que serve para atualizar informações do usuario
-	 * @param field
+	 * @param campo
 	 * informação do que será atualizado
-	 * @param newField
+	 * @param novoValor
 	 * informação de como será atualizado
 	 * @throws Exception
 	 * lança exceção caso haja algum campo inválido
 	 */
 	
-	public void atualizaPerfil(String field, String newField) throws Exception{
+	public void atualizaPerfil(String campo, String novoValor) throws Exception{
 		
-		controller.atualizaPerfil(field, newField);
+		controller.atualizaPerfil(campo, novoValor);
 	}
 	
 	/**
 	 * Metodo que serve para atualizar senha do usuario
-	 * @param field
+	 * @param campo
 	 * campo que será atualizado(senha)
 	 * @param novaSenha
 	 * nova senha que será salva
@@ -195,9 +209,9 @@ public class Facade {
 	 * lança exceção caso a senha antiga não seja correta
 	 */
 	
-	public void atualizaPerfil(String field, String novaSenha, String senhaAntiga) throws Exception{
+	public void atualizaPerfil(String campo, String novaSenha, String senhaAntiga) throws Exception{
 		
-		controller.atualizaPerfil(field, novaSenha, senhaAntiga);
+		controller.atualizaPerfil(campo, novaSenha, senhaAntiga);
 	}
 	
 	/**
@@ -279,8 +293,8 @@ public class Facade {
 	}
 	
 	/**
-	 * Metodo que retorna informações completas do usuario logadocom exceção da senha
-	 * @param field
+	 * Metodo que retorna informações completas do usuario logado com exceção da senha
+	 * @param campo
 	 * campo que está sendo solicitado
 	 * @return
 	 * campo que foi solicitado
@@ -288,9 +302,9 @@ public class Facade {
 	 * lança exceção caso campo seja invalido
 	 */
 	
-	public String getInfoUsuario(String field) throws Exception{
+	public String getInfoUsuario(String campo) throws Exception{
 		
-		return controller.getInfoUsuario(field);
+		return controller.getInfoUsuario(campo);
 	}
 	
 	public int getTotalPosts(){
@@ -300,9 +314,9 @@ public class Facade {
 	
 	/**
 	 * Metodo que retorna informação de algum usuario da base exceto a senha
-	 * @param field
+	 * @param campo
 	 * campo que está sendo solicitado
-	 * @param id
+	 * @param email
 	 * email do usuario dono da informação
 	 * @return
 	 * campo solicitado
@@ -310,9 +324,9 @@ public class Facade {
 	 * lança exceção caso campo seja invalido
 	 */
 	
-	public String getInfoUsuario(String field, String id) throws Exception{
+	public String getInfoUsuario(String campo, String email) throws Exception{
 		
-		return controller.getInfoUsuario(field, id);
+		return controller.getInfoUsuario(campo, email);
 	}
 	
 	/**
@@ -371,50 +385,50 @@ public class Facade {
 	
 	/**
 	 * Metodo serve para criar e coloca-lo no mural do usuario
-	 * @param message
+	 * @param mensagem
 	 * mensagem que será passada, podendo conter imagem, audio e hashtags
-	 * @param date
+	 * @param data
 	 * data do post
 	 * @throws Exception
 	 * lança exceção caso algum campo seja invalido ou usuario não esteja logado
 	 */
 	
-	public void criaPost(String message, String date) throws Exception{
+	public void criaPost(String mensagem, String data) throws Exception{
 		
-		controller.criaPost(message, date);
+		controller.criaPost(mensagem, data);
 	}
 	
 	/**
 	 * Metodo que serve para curtir post de algum amigo
 	 * @param email
 	 * email do usuario para localização
-	 * @param index
+	 * @param indice
 	 * indice do post que será adicionado a curtida
 	 * @throws Exceptionl
 	 * lança exceção caso usuario não exista, não seja amigo ou indice esteja incorreto
 	 */
 	
-	public void curtirPost(String email, int index) throws Exception{
-		controller.curtirPost(email, index);
+	public void curtirPost(String email, int indice) throws Exception{
+		controller.curtirPost(email, indice);
 	}
 	
 	/**
 	 * Metodo que serve para rejeitar post de algum amigo
 	 * @param email
 	 * email do usuario para localização
-	 * @param index
+	 * @param indice
 	 * indice do post que será adicionado a rejeição
 	 * @throws Exception
 	 * lança exceção caso usuario não exista, não seja amigo ou indice esteja incorreto
 	 */
 	
-	public void rejeitarPost(String email, int index) throws Exception{
-		controller.rejeitarPost(email, index);
+	public void rejeitarPost(String email, int indice) throws Exception{
+		controller.rejeitarPost(email, indice);
 	}
 	
 	/**
-	 * Metodo que serve para saber a quantide de curtidas de certo post
-	 * @param postIndex
+	 * Metodo que serve para saber a quantidade de curtidas de certo post
+	 * @param indicePost
 	 * indice do post que será buscado
 	 * @return
 	 * quantidade de curtidas do post
@@ -422,8 +436,8 @@ public class Facade {
 	 * lança exceção caso indice esteja incorreto
 	 */
 	
-	public int qtdCurtidasDePost(int postIndex) throws Exception{
-		return controller.getCurtidasPost(postIndex);
+	public int qtdCurtidasDePost(int indicePost) throws Exception{
+		return controller.getCurtidasPost(indicePost);
 	}
 	
 	/**
@@ -436,45 +450,45 @@ public class Facade {
 	 * lança exceção caso indice esteja incorreto
 	 */
 
-	public int qtdRejeicoesDePost(int postIndex) throws Exception{
-		return controller.getRejeicoesPost(postIndex);
+	public int qtdRejeicoesDePost(int indicePost) throws Exception{
+		return controller.getRejeicoesPost(indicePost);
 	}
 	
 	/**
 	 * Metodo que retorna post
-	 * @param index
+	 * @param indice
 	 * indice do post que será buscado
 	 * @return
 	 * string contendo informações do post
 	 */
 	
-	public String getPost(int index) {
+	public String getPost(int indice) {
 		
-		return controller.getPost(index);
+		return controller.getPost(indice);
 		
 	}
 	
 	/**
-	 * Metodo que retorna a data ou as hashtags de dado post
-	 * @param field
+	 * Metodo que retorna a data, arquivos ou as hashtags de dado post
+	 * @param campo
 	 * campo solicitado
-	 * @param index
+	 * @param indice
 	 * indice do post que será buscado
 	 * @return
 	 * string contendo as informações do campo solicitado
 	 */
 	
-	public String getPost(String field, int index) {
+	public String getPost(String campo, int indice) {
 		
-		return controller.getPost(field, index);
+		return controller.getPost(campo, indice);
 		
 	}
 	
 	/**
 	 * Metodo que retorna Post com as informações solicitadas
-	 * @param index
+	 * @param indice
 	 * indice do post
-	 * @param postIndex
+	 * @param indicePost
 	 * informações que deve conter no post
 	 * @return
 	 * string com as informações solicitadas
@@ -482,14 +496,14 @@ public class Facade {
 	 * lança exceção caso os indices sejam invalidos
 	 */
 	
-	public String getConteudoPost(int index, int postIndex) throws Exception{
+	public String getConteudoPost(int indice, int indicePost) throws Exception{
 		
-		return controller.getConteudoPost(index, postIndex);
+		return controller.getConteudoPost(indice, indicePost);
 	}
 	
 	/**
 	 * Metodo retorna pops de dado post
-	 * @param postIndex
+	 * @param indicePost
 	 * indice do post
 	 * @return
 	 * int com a quantidade de pops do post
@@ -497,8 +511,8 @@ public class Facade {
 	 * lança exceção caso indice seja invalido
 	 */
 	
-	public int getPopsPost(int postIndex) throws Exception{
-		return controller.getPopsPost(postIndex);
+	public int getPopsPost(int indicePost) throws Exception{
+		return controller.getPopsPost(indicePost);
 	}
 	
 	/**
@@ -523,14 +537,5 @@ public class Facade {
 	
 	public int getPopsUsuario(){
 		return controller.getPopsUsuario();
-	}
-	
-	/**
-	 * Metodo que serve para encerrar o sistema e salvar informações nos arquivos
-	 * @return
-	 * string informado que sistema foi fechado
-	 * @throws Exception
-	 * lança exceção caso haja algum usuario logado
-	 */
-	
+	}	
 }

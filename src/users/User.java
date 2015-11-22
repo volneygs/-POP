@@ -262,13 +262,13 @@ public class User implements Serializable, Comparable<User> {
 	 * Metodo que serve para curtir post de amigo
 	 * @param usuario
 	 * usuario que contem o post
-	 * @param index
+	 * @param indice
 	 * indice do post que recebera a curtida
 	 */
 	
-	public void curtirPost(User usuario, int index) {
+	public void curtirPost(User usuario, int indice) {
 		
-		usuarioFama.curtirPost(usuario, nome, index);
+		usuarioFama.curtirPost(usuario, nome, indice);
 		
 		
 	}
@@ -277,40 +277,40 @@ public class User implements Serializable, Comparable<User> {
 	 * Metodo que serve para rejeitar post de amigo
 	 * @param usuario
 	 * usuario que contem o post
-	 * @param index
+	 * @param indice
 	 * indice do post que receberá a rejeição
 	 */
 	
-	public void rejeitarPost(User usuario, int index) {
+	public void rejeitarPost(User usuario, int indice) {
 		
-		usuarioFama.rejeitarPost(usuario, nome, index);
+		usuarioFama.rejeitarPost(usuario, nome, indice);
 		
 		
 	}
 	
 	/**
 	 * Metodo que serve para atualizar informações do usuario
-	 * @param field
+	 * @param campo
 	 * o campo que será atualizado
-	 * @param newField
+	 * @param novoCampo
 	 * a nova informação que irá substituir a anterior
 	 * @throws Exception
 	 * lança exceção caso algum campo seja invalido
 	 */
 	
-	public void atualizaPerfil(String field, String newField) throws Exception{
+	public void atualizaPerfil(String campo, String novoCampo) throws Exception{
 
-		if(field.equals("Nome")){
-			mudaNome(newField);
+		if(campo.equals("Nome")){
+			mudaNome(novoCampo);
 			
-		}else if(field.equals("Foto")){
-			this.foto = newField;
+		}else if(campo.equals("Foto")){
+			this.foto = novoCampo;
 			
-		}else if(field.equals("E-mail")){
-			mudaEmail(newField);
+		}else if(campo.equals("E-mail")){
+			mudaEmail(novoCampo);
 			
-		}else if(field.equals("Data de Nascimento")){
-			mudaDataNascimento(newField);
+		}else if(campo.equals("Data de Nascimento")){
+			mudaDataNascimento(novoCampo);
 		}
 		
 	}
@@ -478,7 +478,7 @@ public class User implements Serializable, Comparable<User> {
 	
 	/**
 	 * Metodo que serve para retornar informação especifica do usuario logado
-	 * @param field
+	 * @param campo
 	 * campo que será buscado
 	 * @return
 	 * string contendo a informação solicitada
@@ -486,19 +486,19 @@ public class User implements Serializable, Comparable<User> {
 	 * lança exceção caso o campo seja invalido
 	 */
 
-	public String getInfoUsuario(String field) throws Exception{
+	public String getInfoUsuario(String campo) throws Exception{
 
-		if(field.equals("Nome")){
+		if(campo.equals("Nome")){
 			return this.nome;
 
-		}else if (field.equals("Senha")){
+		}else if (campo.equals("Senha")){
 			throw new Exception("A senha dx usuarix eh protegida.");
 			
-		}else if (field.equals("Data de Nascimento")){
+		}else if (campo.equals("Data de Nascimento")){
 			
 			return this.dataDeNascimento.toString();
 			
-		}else if (field.equals("Foto")){
+		}else if (campo.equals("Foto")){
 			return this.foto;
 			
 		}else{
@@ -508,7 +508,7 @@ public class User implements Serializable, Comparable<User> {
 	
 	/**
 	 * Metodo que serve para retornar informação de algum usuario
-	 * @param field
+	 * @param campo
 	 * campo solicitado
 	 * @param usuario
 	 * usuario que será buscado
@@ -518,18 +518,18 @@ public class User implements Serializable, Comparable<User> {
 	 * lança exceção caso campo seja invalido
 	 */
 
-	public String getInfoUsuario(String field, User usuario) throws Exception{
+	public String getInfoUsuario(String campo, User usuario) throws Exception{
 	
-		if(field.equals("Nome")){
+		if(campo.equals("Nome")){
 			return usuario.getName();
 
-		}else if (field.equals("Senha")){
+		}else if (campo.equals("Senha")){
 			throw new Exception("A senha dx usuarix eh protegida.");
 					
-		}else if (field.equals("Data de Nascimento")){
+		}else if (campo.equals("Data de Nascimento")){
 			return usuario.getBirthdate().toString();
 					
-		}else if (field.equals("Foto")){
+		}else if (campo.equals("Foto")){
 			return usuario.getImage();
 			
 		}else{
